@@ -2,15 +2,71 @@
   {
     "id": 1,
     "prompt": {
-      "en": "What is the capital of France?",
-      "fr": "Quelle est la capitale de la France?"
+      "en": "What are your strengths and weaknesses?",
+      "fr": "Quels sont vos points forts et vos points faibles ?"
     }
   },
   {
     "id": 2,
     "prompt": {
-      "en": "What is the capital of England?",
-      "fr": "Quelle est la capitale de l'Angleterre'?"
+      "en": "Can you tell me about a time when you overcame a difficult challenge?",
+      "fr": "Pouvez-vous me parler d'une situation où vous avez surmonté un défi difficile ?"
+    }
+  },
+    {
+    "id": 3,
+    "prompt": {
+      "en": "Why are you interested in this position?",
+      "fr": "Pourquoi êtes-vous intéressé(e) par ce poste ?"
+    }
+  },
+    {
+    "id": 4,
+    "prompt": {
+      "en": "Where do you see yourself in five years?",
+      "fr": "Où vous voyez-vous dans cinq ans ?"
+    }
+  },
+    {
+    "id": 5,
+    "prompt": {
+      "en": "What are your salary expectations?",
+      "fr": "Quelles sont vos prétentions salariales ?"
+    }
+  },
+    {
+    "id": 6,
+    "prompt": {
+      "en": "Can you describe a situation where you demonstrated leadership skills?",
+      "fr": "Pouvez-vous décrire une situation où vous avez démontré des compétences en leadership ?"
+    }
+  },
+    {
+    "id": 7,
+    "prompt": {
+      "en": "How do you handle conflicts with coworkers?",
+      "fr": "Comment gérez-vous les conflits avec vos collègues de travail ?"
+    }
+  },
+    {
+    "id": 8,
+    "prompt": {
+      "en": "What motivates you?",
+      "fr": "Qu'est-ce qui vous motive ?"
+    }
+  },
+    {
+    "id": 9,
+    "prompt": {
+      "en": "What are your long-term career goals?",
+      "fr": "Quels sont vos objectifs de carrière à long terme ?"
+    }
+  },
+    {
+    "id": 10,
+    "prompt": {
+      "en": "What do you know about our company?",
+      "fr": "Que savez-vous de notre entreprise ?"
     }
   }
 ]
