@@ -31,7 +31,8 @@
   z-index: -1;
 }
 
-.flag {
+.flagLink {
+  text-decoration: none;
   margin-left: 0.5rem;
   cursor: pointer;
   font-size: 20px;

@@ -7,7 +7,7 @@ import { Poppins } from "next/font/google";
 import classNames from "classnames";
 import { useEffect } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { languages } from "@/app/[lang]/constants";
 import { t } from "@/app/[lang]/utils/translation";
 
@@ -27,17 +27,12 @@ export const Header = ({ lang }: HeaderProps) => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const router = useRouter();
   const pathname = usePathname();
 
-  const changeLanguage = (lang: ValidLanguageType) => {
+  const getLocalizedPath = (lang: ValidLanguageType) => {
     const languageRegExp = new RegExp(`^\\/(${languages.join("|")})\\b`);
-
-    // Remove existing language prefix from the path
     const pathWithoutLanguage = pathname.replace(languageRegExp, "");
-
-    // Redirect to the new language version of the page
-    router.push(`/${lang}${pathWithoutLanguage}`);
+    return `/${lang}${pathWithoutLanguage}`;
   };
 
   return (
@@ -46,12 +41,12 @@ export const Header = ({ lang }: HeaderProps) => {
         {t("app_name", lang)}
       </Link>
       <div>
-        <span className={styles.flag} onClick={() => changeLanguage("en")}>
+        <Link href={getLocalizedPath("en")} className={styles.flagLink}>
           🇺🇸
-        </span>
-        <span className={styles.flag} onClick={() => changeLanguage("fr")}>
+        </Link>
+        <Link href={getLocalizedPath("fr")} className={styles.flagLink}>
           🇫🇷
-        </span>
+        </Link>
       </div>
     </WidthContainer>
   );
