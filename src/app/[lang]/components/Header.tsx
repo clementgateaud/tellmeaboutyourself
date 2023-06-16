@@ -7,7 +7,7 @@ import { Poppins } from "next/font/google";
 import classNames from "classnames";
 import { useEffect } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { languages } from "@/app/[lang]/constants";
 import { t } from "@/app/[lang]/utils/translation";
 
@@ -37,7 +37,10 @@ export const Header = ({ lang }: HeaderProps) => {
 
   return (
     <WidthContainer className={styles.main}>
-      <Link href="/" className={classNames(styles.logoLink, font.className)}>
+      <Link
+        href={`/${lang}`}
+        className={classNames(styles.logoLink, font.className)}
+      >
         {t("app_name", lang)}
       </Link>
       <div>
