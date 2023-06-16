@@ -6,7 +6,7 @@ import refreshIcon from "@/app/[lang]/assets/refreshIcon.svg";
 import classnames from "classnames";
 import { Poppins } from "next/font/google";
 import styles from "@/app/[lang]/components/Question.module.css";
-import type { QuestionType, ValidLanguageType } from "@/app/[lang]/types";
+import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
 
 const font = Poppins({
@@ -16,15 +16,13 @@ const font = Poppins({
 });
 
 type QuestionPromptProps = {
-  questions: QuestionType[];
+  questions: LocalQuestionType[];
   lang: ValidLanguageType;
 };
 
 export const Question = ({ questions }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
-
-  const foo = "bar";
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {

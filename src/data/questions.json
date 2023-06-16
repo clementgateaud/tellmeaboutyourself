@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "prompt": {
+      "en": "What is the capital of France?",
+      "fr": "Quelle est la capitale de la France?"
+    }
+  },
+  {
+    "id": 2,
+    "prompt": {
+      "en": "What is the capital of England?",
+      "fr": "Quelle est la capitale de l'Angleterre'?"
+    }
+  }
+]
+

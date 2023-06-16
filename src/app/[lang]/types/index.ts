@@ -4,16 +4,13 @@ export type ValidLanguageType = (typeof languages)[number];
 
 export type RawQuestionType = {
   id: number;
-  attributes: {
-    prompt: string;
-    createdAt: Date;
-    updatedAt: Date;
-    publishedAt: Date;
-    locale: ValidLanguageType;
+  prompt: {
+    en: string;
+    fr: string;
   };
 };
 
-export type QuestionType = {
-  prompt: string;
+export type LocalQuestionType = {
   id: number;
+  prompt: string;
 };

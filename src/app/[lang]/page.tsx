@@ -1,40 +1,23 @@
-import { use } from "react";
 import { Header } from "@/app/[lang]/components/Header";
 import { Question } from "@/app/[lang]/components/Question";
 import { shuffleArray } from "@/app/[lang]/utils";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-import type { ValidLanguageType } from "@/app/[lang]/types";
+import rawQuestions from "@/data/questions.json";
+import type {
+  ValidLanguageType,
+  RawQuestionType,
+  LocalQuestionType,
+} from "@/app/[lang]/types";
 
-type RawQuestion = {
-  id: number;
-  attributes: {
-    prompt: string;
-    createdAt: Date;
-    updatedAt: Date;
-    publishedAt: Date;
-    locale: ValidLanguageType;
-  };
-};
-
-type Question = {
-  prompt: string;
-  id: number;
-};
-
-const getQuestions = async (lang: ValidLanguageType): Promise<Question[]> => {
-  const response = await fetch(
-    `http://localhost:1337/api/questions?locale=${lang}`
-  );
-  const data = await response.json();
-  const rawQuestions = data.data;
-  const questions: Question[] = rawQuestions.map((question: RawQuestion) => {
-    return {
-      prompt: question.attributes.prompt,
-      id: question.id,
-    };
-  });
-  return shuffleArray(questions);
+const getLocalQuestions = (
+  rawQuestions: RawQuestionType[],
+  lang: ValidLanguageType
+): LocalQuestionType[] => {
+  return rawQuestions.map(({ id, prompt }) => ({
+    id,
+    prompt: prompt[lang],
+  }));
 };
 
 const Page = ({
@@ -44,11 +27,11 @@ const Page = ({
     lang: ValidLanguageType;
   };
 }) => {
-  const questions = use(getQuestions(lang));
+  const localQuestions = shuffleArray(getLocalQuestions(rawQuestions, lang));
   return (
     <>
       <Header lang={isLanguageValid(lang) ? lang : defaultLanguage} />
-      <Question questions={questions} lang={lang} />
+      <Question questions={localQuestions} lang={lang} />
     </>
   );
 };
