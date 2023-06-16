@@ -1,0 +1,20 @@
+:root {
+  --header-height: 7rem;
+  --dark-color: rgb(0, 0, 0);
+  --accent-color: rgb(75, 101, 255);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--main-font-color);
+}

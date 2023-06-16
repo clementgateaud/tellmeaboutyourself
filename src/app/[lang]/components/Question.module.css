@@ -1,0 +1,78 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20vh;
+}
+
+.prompt {
+  text-align: center;
+  text-wrap: balance;
+  background: linear-gradient(to right, var(--accent-color), rgb(150, 75, 255));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 1rem;
+}
+
+.questionChanging .prompt {
+  animation: promptAnimation 0.5s ease-in-out;
+  transform-origin: center center;
+}
+
+.questionChanging .newQuestionIcon {
+  animation: refreshButtonAnimation 0.5s linear;
+  transform-origin: center center;
+}
+
+.main::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75, 101, 255, 0.3), transparent);
+  filter: blur(50px);
+  transform: translate(-50%, -50%);
+  top: 60%;
+  left: 75%;
+}
+
+.newQuestionButton {
+  background-color: transparent;
+  margin-bottom: 2rem;
+  width: 60px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  box-shadow: rgba(75, 101, 255, 0.3) 0px 8px 24px;
+}
+
+@keyframes promptAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes refreshButtonAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
