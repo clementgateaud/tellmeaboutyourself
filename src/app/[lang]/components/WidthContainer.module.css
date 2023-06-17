@@ -1,10 +1,10 @@
 .main {
-  max-width: 800px;
-  margin: auto;
   padding: 0 1rem;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
-@media screen and (min-width: calc(800px + 2rem)) {
+@media screen and (min-width: calc(900px + 2rem)) {
   .main {
     padding: 0;
   }

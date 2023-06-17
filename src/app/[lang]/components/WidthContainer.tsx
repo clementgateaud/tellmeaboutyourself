@@ -1,6 +1,6 @@
-import type { FunctionComponent, ReactNode } from "react";
-import styles from "./WidthContainer.module.css";
+import type { ReactNode } from "react";
 import classNames from "classnames";
+import styles from "./WidthContainer.module.css";
 
 type WidthContainerProps = {
   children: ReactNode;

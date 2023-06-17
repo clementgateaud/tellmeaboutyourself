@@ -7,13 +7,11 @@ import { Poppins } from "next/font/google";
 import classNames from "classnames";
 import { useEffect } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
-import { usePathname } from "next/navigation";
-import { languages } from "@/app/[lang]/constants";
-import { t } from "@/app/[lang]/utils/translation";
+import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 
 const font = Poppins({
-  weight: "700",
-  style: "italic",
+  weight: "500",
+  style: "normal",
   subsets: ["latin"],
 });
 
@@ -27,29 +25,23 @@ export const Header = ({ lang }: HeaderProps) => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const pathname = usePathname();
-
-  const getLocalizedPath = (lang: ValidLanguageType) => {
-    const languageRegExp = new RegExp(`^\\/(${languages.join("|")})\\b`);
-    const pathWithoutLanguage = pathname.replace(languageRegExp, "");
-    return `/${lang}${pathWithoutLanguage}`;
-  };
-
   return (
     <WidthContainer className={styles.main}>
       <Link
         href={`/${lang}`}
         className={classNames(styles.logoLink, font.className)}
       >
-        {t("app_name", lang)}
+        <div className={styles.tellMeAbout}>
+          <p>
+            <span className={styles.tell}>Tell </span>
+            <span className={styles.me}>me</span>
+          </p>
+          <p className={styles.about}>about</p>
+        </div>
+        <p className={styles.yourself}>yourself</p>
       </Link>
       <div>
-        <Link href={getLocalizedPath("en")} className={styles.flagLink}>
-          🇺🇸
-        </Link>
-        <Link href={getLocalizedPath("fr")} className={styles.flagLink}>
-          🇫🇷
-        </Link>
+        <LanguageSelector lang={lang} />
       </div>
     </WidthContainer>
   );

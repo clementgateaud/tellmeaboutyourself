@@ -1,0 +1,78 @@
+.main {
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.main--primary.main--dark {
+  background-color: var(--dark-color);
+}
+
+.main--primary.main--accent {
+  background-color: var(--accent-color);
+}
+
+.main--ghost.main--dark {
+  color: var(--dark-color);
+  background-color: white;
+  border: solid 1px var(--dark-color);
+}
+
+.main--ghost.main--accent {
+  color: var(--accent-color);
+  background-color: white;
+  border: solid 1px var(--accent-color);
+}
+
+.main--minor {
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 8 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.main--minor .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.leftIcon {
+  margin-right: 8px;
+}
+
+.main--minor .leftIcon {
+  margin-right: 6px;
+}
+
+.rightIcon {
+  margin-left: 8px;
+}
+
+.main--minor .rightIcon {
+  margin-left: 6px;
+}
+
+.main--primary {
+  color: white;
+}
+
+.main--ghost {
+  color: var(--dark);
+}
+
+.main--primary .icon {
+  color: white;
+}
+
+.main--ghost .icon {
+  color: var(--dark);
+}

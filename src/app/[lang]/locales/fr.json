@@ -1,3 +1,5 @@
 {
-  "app_name": "Tell me about yourself"
+  "language_en": "English",
+  "language_fr": "Français",
+  "change_question_button": "Autre question"
 }

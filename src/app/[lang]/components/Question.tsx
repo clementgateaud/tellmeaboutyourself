@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import refreshIcon from "@/app/[lang]/assets/refreshIcon.svg";
 import classnames from "classnames";
 import { Poppins } from "next/font/google";
 import styles from "@/app/[lang]/components/Question.module.css";
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { Button } from "@/app/[lang]/components/Button";
+import { t } from "@/app/[lang]/utils/translation";
 
 const font = Poppins({
-  weight: "900",
-  style: "italic",
+  weight: "800",
+  style: "normal",
   subsets: ["latin"],
 });
 
@@ -20,7 +21,7 @@ type QuestionPromptProps = {
   lang: ValidLanguageType;
 };
 
-export const Question = ({ questions }: QuestionPromptProps) => {
+export const Question = ({ questions, lang }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
 
@@ -52,19 +53,19 @@ export const Question = ({ questions }: QuestionPromptProps) => {
         [styles.questionChanging]: questionChanging,
       })}
     >
-      <button className={styles.newQuestionButton}>
-        <Image
-          src={refreshIcon}
-          alt="next question"
-          onClick={handleQuestionChange}
-          className={styles.newQuestionIcon}
-          width={35}
-          height={35}
-        />
-      </button>
       <h1 className={classnames(font.className, styles.prompt)}>
         {question.prompt}
       </h1>
+      <Button
+        variant="ghost"
+        color="accent"
+        icon={<ArrowPathIcon />}
+        iconPosition="right"
+        onClick={handleQuestionChange}
+        className={styles.changeQuestionButton}
+      >
+        {t("change_question_button", lang)}
+      </Button>
     </WidthContainer>
   );
 };

@@ -6,12 +6,14 @@
 }
 
 .prompt {
+  padding: 1rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
   text-align: center;
   text-wrap: balance;
-  background: linear-gradient(to right, var(--accent-color), rgb(150, 75, 255));
+  background: linear-gradient(to right, rgb(75, 101, 255), rgb(150, 75, 255));
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding: 1rem;
 }
 
 .questionChanging .prompt {
@@ -19,35 +21,23 @@
   transform-origin: center center;
 }
 
-.questionChanging .newQuestionIcon {
-  animation: refreshButtonAnimation 0.5s linear;
-  transform-origin: center center;
-}
-
-.main::after {
+.changeQuestionButton::after {
   content: "";
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 150%;
+  height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(75, 101, 255, 0.3), transparent);
+  background: radial-gradient(circle, var(--accent-color), transparent);
   filter: blur(50px);
   transform: translate(-50%, -50%);
-  top: 60%;
-  left: 75%;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
 }
 
-.newQuestionButton {
-  background-color: transparent;
-  margin-bottom: 2rem;
-  width: 60px;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: none;
-  box-shadow: rgba(75, 101, 255, 0.3) 0px 8px 24px;
+.changeQuestionButton {
+  margin-top: 6rem;
+  position: relative;
 }
 
 @keyframes promptAnimation {
@@ -62,17 +52,5 @@
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes refreshButtonAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
