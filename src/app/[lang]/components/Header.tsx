@@ -10,7 +10,7 @@ import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 
 const font = Poppins({
-  weight: "500",
+  weight: "600",
   style: "normal",
   subsets: ["latin"],
 });
