@@ -1,5 +1,5 @@
 import { Header } from "@/app/[lang]/components/Header";
-import { Question } from "@/app/[lang]/components/Question";
+import { QuestionsPage } from "@/app/[lang]/pages/QuestionsPage";
 import { shuffleArray } from "@/app/[lang]/utils";
 import { isLanguageValid, getLocalQuestions } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
@@ -29,7 +29,7 @@ const Page = async ({
   return (
     <>
       <Header lang={isLanguageValid(lang) ? lang : defaultLanguage} />
-      <Question questions={shuffleArray(localQuestions)} lang={lang} />
+      <QuestionsPage questions={shuffleArray(localQuestions)} lang={lang} />
     </>
   );
 };

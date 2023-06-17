@@ -3,12 +3,12 @@
 import { useState } from "react";
 import classnames from "classnames";
 import { Poppins } from "next/font/google";
-import styles from "@/app/[lang]/components/Question.module.css";
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/app/[lang]/components/Button";
 import { t } from "@/app/[lang]/utils/translation";
+import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
 
 const font = Poppins({
   weight: "800",
@@ -21,7 +21,7 @@ type QuestionPromptProps = {
   lang: ValidLanguageType;
 };
 
-export const Question = ({ questions, lang }: QuestionPromptProps) => {
+export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
 
