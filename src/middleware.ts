@@ -13,10 +13,10 @@ export function middleware(req: NextRequest) {
     return req.nextUrl.pathname.split("/")[1] || null;
   };
 
-  const getI18nextCookieValue = () => {
-    const i18nextCookie = req.cookies.get("i18next");
-    if (i18nextCookie) {
-      return i18nextCookie.value;
+  const getLanguageCookieValue = () => {
+    const languageCookie = req.cookies.get("language");
+    if (languageCookie) {
+      return languageCookie.value;
     }
     return null;
   };
@@ -30,7 +30,7 @@ export function middleware(req: NextRequest) {
   };
 
   const urlLanguage = getURLLanguage();
-  const i18nextCookieValue = getI18nextCookieValue();
+  const languageCookieValue = getLanguageCookieValue();
   const acceptLanguageHeader = getAcceptLanguageHeader();
 
   // if this is a next.js path, do not localize
@@ -39,8 +39,8 @@ export function middleware(req: NextRequest) {
 
   if (isLanguageValid(urlLanguage)) {
     return NextResponse.next();
-  } else if (isLanguageValid(i18nextCookieValue)) {
-    return NextResponse.redirect(new URL(`/${i18nextCookieValue}`, req.url));
+  } else if (isLanguageValid(languageCookieValue)) {
+    return NextResponse.redirect(new URL(`/${languageCookieValue}`, req.url));
   } else if (isLanguageValid(acceptLanguageHeader)) {
     return NextResponse.redirect(new URL(`/${acceptLanguageHeader}`, req.url));
   } else {

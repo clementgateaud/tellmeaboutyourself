@@ -7,7 +7,7 @@ import { Poppins } from "next/font/google";
 import classNames from "classnames";
 import { useEffect } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { languages } from "@/app/[lang]/constants";
 import { t } from "@/app/[lang]/utils/translation";
 
@@ -23,7 +23,7 @@ type HeaderProps = {
 
 export const Header = ({ lang }: HeaderProps) => {
   useEffect(() => {
-    document.cookie = `i18next=${lang}`;
+    document.cookie = `language=${lang}`;
     document.documentElement.lang = lang;
   }, [lang]);
 
