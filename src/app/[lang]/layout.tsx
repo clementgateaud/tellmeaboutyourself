@@ -9,6 +9,9 @@ const font = Poppins({
 export const metadata = {
   title: "Tell me about yourself",
   description: "Get ready for your next interview",
+  icons: {
+    icon: "/next.svg",
+  },
 };
 
 export default function RootLayout({

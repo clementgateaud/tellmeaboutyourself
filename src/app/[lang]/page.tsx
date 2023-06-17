@@ -1,37 +1,35 @@
 import { Header } from "@/app/[lang]/components/Header";
 import { Question } from "@/app/[lang]/components/Question";
 import { shuffleArray } from "@/app/[lang]/utils";
-import { isLanguageValid } from "@/app/[lang]/utils";
+import { isLanguageValid, getLocalQuestions } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-import rawQuestions from "@/data/questions.json";
-import type {
-  ValidLanguageType,
-  RawQuestionType,
-  LocalQuestionType,
-} from "@/app/[lang]/types";
+import supabase from "@/supabase";
+import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
 
-const getLocalQuestions = (
-  rawQuestions: RawQuestionType[],
-  lang: ValidLanguageType
-): LocalQuestionType[] => {
-  return rawQuestions.map(({ id, prompt }) => ({
-    id,
-    prompt: prompt[lang],
-  }));
+const getSupabaseQuestions = async (): Promise<RawQuestionType[]> => {
+  const { data: rawQuestions, error } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("isPublished", true);
+  if (error) {
+    throw error;
+  }
+  return rawQuestions as RawQuestionType[];
 };
 
-const Page = ({
+const Page = async ({
   params: { lang },
 }: {
   params: {
     lang: ValidLanguageType;
   };
 }) => {
-  const localQuestions = shuffleArray(getLocalQuestions(rawQuestions, lang));
+  const rawQuestions = await getSupabaseQuestions();
+  const localQuestions = getLocalQuestions(rawQuestions, lang);
   return (
     <>
       <Header lang={isLanguageValid(lang) ? lang : defaultLanguage} />
-      <Question questions={localQuestions} lang={lang} />
+      <Question questions={shuffleArray(localQuestions)} lang={lang} />
     </>
   );
 };
