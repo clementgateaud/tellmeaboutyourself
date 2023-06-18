@@ -13,17 +13,14 @@
   line-height: 14px;
   font-size: 16px;
   padding: 0 0.25rem;
-  transition: color 1s ease-in-out;
 }
 
 .tellMeAbout {
   color: var(--dark-color);
-  transition: color 1s ease-in-out;
 }
 
 .yourself {
   color: var(--accent-color);
-  transition: color 1s ease-in-out;
 }
 
 .tell,
@@ -34,9 +31,6 @@
 
 .tell:hover,
 .me:hover,
-.about:hover,
-.tell:active,
-.me:active,
-.about:active {
+.about:hover {
   color: var(--accent-color);
 }

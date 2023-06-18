@@ -8,6 +8,22 @@
   transition: all 0.2s ease-in-out;
 }
 
+.main--dark {
+  border: solid 1px var(--dark-color);
+}
+
+.main--accent {
+  border: solid 1px var(--accent-color);
+}
+
+.main--primary {
+  color: white;
+}
+
+.main--ghost {
+  color: var(--dark);
+}
+
 .main--primary.main--dark {
   background-color: var(--dark-color);
 }
@@ -19,13 +35,11 @@
 .main--ghost.main--dark {
   color: var(--dark-color);
   background-color: white;
-  border: solid 1px var(--dark-color);
 }
 
 .main--ghost.main--accent {
   color: var(--accent-color);
   background-color: white;
-  border: solid 1px var(--accent-color);
 }
 
 .main--minor {
@@ -37,7 +51,6 @@
 .icon {
   width: 20px;
   height: 20px;
-  color: white;
 }
 
 .main--minor .icon {
@@ -59,20 +72,4 @@
 
 .main--minor .rightIcon {
   margin-left: 6px;
-}
-
-.main--primary {
-  color: white;
-}
-
-.main--ghost {
-  color: var(--dark);
-}
-
-.main--primary .icon {
-  color: white;
-}
-
-.main--ghost .icon {
-  color: var(--dark);
 }
