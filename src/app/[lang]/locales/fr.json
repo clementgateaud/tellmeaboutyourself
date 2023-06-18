@@ -1,5 +1,14 @@
 {
   "language_en": "English",
   "language_fr": "Français",
-  "change_question_button": "Autre question"
+  "change_question_button": "Autre question",
+  "password": "mot de passe",
+  "email": "email",
+  "log_in": "Se connecter",
+  "sign_up": "S'inscrire",
+  "sign_in": "Se connecter",
+  "sign_out": "Se déconnecter",
+  "no_account_yet": "Pas encore de compte ? S'inscrire",
+  "already_have_account": "Déjà un compte ? Se connecter",
+  "received_validation_email": "Vous venez de recevoir un email de validation !"
 }

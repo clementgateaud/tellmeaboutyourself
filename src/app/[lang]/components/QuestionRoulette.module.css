@@ -6,6 +6,7 @@
 }
 
 .prompt {
+  font-weight: 800;
   padding: 1rem;
   font-size: 2rem;
   line-height: 2.5rem;

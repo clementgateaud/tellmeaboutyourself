@@ -1,0 +1,9 @@
+.main {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--dark-color);
+}
+
+.main:hover {
+  color: var(--accent-color);
+}

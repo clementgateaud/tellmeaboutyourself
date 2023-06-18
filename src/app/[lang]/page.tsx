@@ -1,12 +1,14 @@
-import { Header } from "@/app/[lang]/components/Header";
-import { QuestionsPage } from "@/app/[lang]/pages/QuestionsPage";
 import { shuffleArray } from "@/app/[lang]/utils";
-import { isLanguageValid, getLocalQuestions } from "@/app/[lang]/utils";
-import { defaultLanguage } from "@/app/[lang]/constants";
-import supabase from "@/supabase";
+import { getLocalQuestions } from "@/app/[lang]/utils";
 import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
+import { LogInSignUp } from "@/app/[lang]/components/auth/LogInSignUp";
+import styles from "./page.module.css";
 
 const getSupabaseQuestions = async (): Promise<RawQuestionType[]> => {
+  const supabase = createServerComponentClient({ cookies });
   const { data: rawQuestions, error } = await supabase
     .from("questions")
     .select("*")
@@ -27,10 +29,9 @@ const Page = async ({
   const rawQuestions = await getSupabaseQuestions();
   const localQuestions = getLocalQuestions(rawQuestions, lang);
   return (
-    <>
-      <Header lang={isLanguageValid(lang) ? lang : defaultLanguage} />
-      <QuestionsPage questions={shuffleArray(localQuestions)} lang={lang} />
-    </>
+    <div className={styles.main}>
+      <QuestionRoulette questions={shuffleArray(localQuestions)} lang={lang} />
+    </div>
   );
 };
 

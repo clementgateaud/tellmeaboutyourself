@@ -1,0 +1,39 @@
+.logInButton {
+  display: flex;
+  justify-content: center;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  font-weight: 500;
+  color: var(--grey-color);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.logInButton:hover {
+  color: black;
+}
+
+.logInForm,
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal {
+  width: 300px;
+}
+
+.logInLink,
+.signUpLink {
+  margin-top: 1.5rem;
+}
+
+.logInTitle,
+.signUpTitle {
+  margin-bottom: 1.5rem;
+  color: var(--accent-color);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}

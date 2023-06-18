@@ -34,3 +34,12 @@
 .about:hover {
   color: var(--accent-color);
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar > *:not(:last-child) {
+  margin-right: 3rem;
+}

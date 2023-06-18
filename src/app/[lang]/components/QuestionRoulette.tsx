@@ -6,15 +6,9 @@ import { Poppins } from "next/font/google";
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { Button } from "@/app/[lang]/components/Button";
+import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
-
-const font = Poppins({
-  weight: "800",
-  style: "normal",
-  subsets: ["latin"],
-});
 
 type QuestionPromptProps = {
   questions: LocalQuestionType[];
@@ -53,12 +47,9 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
         [styles.questionChanging]: questionChanging,
       })}
     >
-      <h1 className={classnames(font.className, styles.prompt)}>
-        {question.prompt}
-      </h1>
+      <h1 className={classnames(styles.prompt)}>{question.prompt}</h1>
       <Button
         variant="ghost"
-        color="accent"
         icon={<ArrowPathIcon />}
         iconPosition="right"
         onClick={handleQuestionChange}

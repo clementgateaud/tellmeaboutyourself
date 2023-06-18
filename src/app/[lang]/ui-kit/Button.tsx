@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
+import type { ReactNode, ButtonHTMLAttributes } from "react";
 import classnames from "classnames";
 import styles from "./Button.module.css";
 
-type ButtonProps = {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   variant?: "primary" | "ghost";
   color?: "dark" | "accent";
@@ -22,6 +22,7 @@ export const Button = ({
   icon,
   iconPosition = "left",
   className,
+  ...restProps
 }: ButtonProps) => {
   return (
     <button
@@ -33,6 +34,7 @@ export const Button = ({
         [styles["main--minor"]]: minor,
       })}
       onClick={onClick}
+      {...restProps}
     >
       {icon && iconPosition === "left" && (
         <span className={classnames(styles.icon, styles.leftIcon)}>{icon}</span>

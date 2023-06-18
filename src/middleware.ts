@@ -2,13 +2,20 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { defaultLanguage } from "@/app/[lang]/constants";
 import { isLanguageValid } from "@/app/[lang]/utils";
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import type { Database } from "../database.types";
 
 export const config = {
   // do not localize Next.js paths
   matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)"],
 };
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+  //auth
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient<Database>({ req, res });
+  await supabase.auth.getSession();
+  //
   const getURLLanguage = () => {
     return req.nextUrl.pathname.split("/")[1] || null;
   };
