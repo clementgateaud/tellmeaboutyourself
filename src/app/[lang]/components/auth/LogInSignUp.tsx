@@ -3,6 +3,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useEffect } from "react";
 import type { Session } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
@@ -10,34 +11,42 @@ import { Input } from "@/app/[lang]/ui-kit/Input";
 import { Link } from "@/app/[lang]/ui-kit/Link";
 import { t } from "@/app/[lang]/utils/translation";
 import type { ValidLanguageType } from "@/app/[lang]/types";
-import { Database } from "../../../../../database.types";
+import { Database } from "@/database.types";
 
 type LogInSignUpProps = {
   lang: ValidLanguageType;
+  session: Session | null;
 };
 
-export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
+export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  const [session, setSession] = useState<Session | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
   const [isSignUpPending, setIsSignUpPending] = useState(false);
 
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
 
-  const fetchSession = async () => {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    setSession(session);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setIsSignUp(false);
+    setIsLogIn(true);
+    setIsSignUpPending(false);
+    setSignInEmail("");
+    setSignInPassword("");
+    setSignUpEmail("");
+    setSignUpPassword("");
   };
 
   useEffect(() => {
-    fetchSession();
+    console.log(session);
+    if (session) {
+      handleCloseModal();
+    }
   }, [session]);
 
   const handleSignUp = async () => {
@@ -46,6 +55,7 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
       password: signUpPassword,
     });
     setIsSignUpPending(true);
+    router.refresh();
   };
 
   const handleSignIn = async () => {
@@ -53,20 +63,12 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
       email: signInEmail,
       password: signInPassword,
     });
-    setSignInEmail("");
-    setSignInPassword("");
-    handleCloseModal();
+    router.refresh();
   };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsSignUp(false);
-    setIsLogIn(true);
-    setIsSignUpPending(false);
+    router.refresh();
   };
 
   return (

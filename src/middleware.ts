@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { defaultLanguage } from "@/app/[lang]/constants";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "../database.types";
+import type { Database } from "@/database.types";
 
 export const config = {
   // do not localize Next.js paths

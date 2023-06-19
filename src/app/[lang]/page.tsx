@@ -4,8 +4,8 @@ import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
-import { LogInSignUp } from "@/app/[lang]/components/auth/LogInSignUp";
 import styles from "./page.module.css";
+import { HeaderLayout } from "@/app/[lang]/layouts/HeaderLayout";
 
 const getSupabaseQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient({ cookies });
@@ -28,10 +28,16 @@ const Page = async ({
 }) => {
   const rawQuestions = await getSupabaseQuestions();
   const localQuestions = getLocalQuestions(rawQuestions, lang);
+
   return (
-    <div className={styles.main}>
-      <QuestionRoulette questions={shuffleArray(localQuestions)} lang={lang} />
-    </div>
+    <HeaderLayout lang={lang}>
+      <div className={styles.main}>
+        <QuestionRoulette
+          questions={shuffleArray(localQuestions)}
+          lang={lang}
+        />
+      </div>
+    </HeaderLayout>
   );
 };
 
