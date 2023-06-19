@@ -2,15 +2,15 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useEffect } from "react";
-import type { User } from "@supabase/supabase-js";
+import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/app/[lang]/ui-kit/Button";
-import { useRouter } from "next/navigation";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { Input } from "@/app/[lang]/ui-kit/Input";
 import { Link } from "@/app/[lang]/ui-kit/Link";
 import { t } from "@/app/[lang]/utils/translation";
 import type { ValidLanguageType } from "@/app/[lang]/types";
+import { Database } from "../../../../../database.types";
 
 type LogInSignUpProps = {
   lang: ValidLanguageType;
@@ -21,24 +21,24 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
   const [signInPassword, setSignInPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
   const [isSignUpPending, setIsSignUpPending] = useState(false);
 
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
 
-  const fetchUser = async () => {
+  const fetchSession = async () => {
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setUser(user);
+      data: { session },
+    } = await supabase.auth.getSession();
+    setSession(session);
   };
 
   useEffect(() => {
-    fetchUser();
-  }, [user]);
+    fetchSession();
+  }, [session]);
 
   const handleSignUp = async () => {
     await supabase.auth.signUp({
@@ -71,12 +71,12 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
 
   return (
     <div>
-      {user && (
+      {session && (
         <button className={styles.logInButton} onClick={handleSignOut}>
           {t("sign_out", lang)}
         </button>
       )}
-      {!user && (
+      {!session && (
         <button
           className={styles.logInButton}
           onClick={() => setIsModalOpen(true)}
@@ -85,7 +85,7 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
         </button>
       )}
 
-      {!user && (
+      {!session && (
         <Modal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
