@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useEffect } from "react";
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/app/[lang]/ui-kit/Button";
+import { useRouter } from "next/navigation";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { Input } from "@/app/[lang]/ui-kit/Input";
@@ -32,9 +33,6 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
     setUser(user);
   };
 
@@ -43,31 +41,25 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
   }, [user]);
 
   const handleSignUp = async () => {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: signUpEmail,
-        password: signUpPassword,
-      });
-    } catch (error) {
-      console.error("Sign up error:", error);
-    }
+    await supabase.auth.signUp({
+      email: signUpEmail,
+      password: signUpPassword,
+    });
     setIsSignUpPending(true);
-    fetchUser();
   };
 
   const handleSignIn = async () => {
-    try {
-      await supabase.auth.signInWithPassword({
-        email: signInEmail,
-        password: signInPassword,
-      });
-    } catch (error) {
-      console.error("Sign in error:", error);
-    }
-    handleCloseModal();
+    await supabase.auth.signInWithPassword({
+      email: signInEmail,
+      password: signInPassword,
+    });
     setSignInEmail("");
     setSignInPassword("");
-    fetchUser();
+    handleCloseModal();
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
   };
 
   const handleCloseModal = () => {
@@ -80,10 +72,7 @@ export const LogInSignUp = ({ lang }: LogInSignUpProps) => {
   return (
     <div>
       {user && (
-        <button
-          className={styles.logInButton}
-          onClick={() => supabase.auth.signOut()}
-        >
+        <button className={styles.logInButton} onClick={handleSignOut}>
           {t("sign_out", lang)}
         </button>
       )}
