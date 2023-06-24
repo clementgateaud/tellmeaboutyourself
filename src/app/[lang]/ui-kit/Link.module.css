@@ -1,9 +1,11 @@
-.main {
+.main,
+.main:active {
   font-size: 14px;
   line-height: 20px;
   color: var(--dark-color);
 }
 
-.main:hover {
+.main:hover,
+.main:focus {
   color: var(--accent-color);
 }
