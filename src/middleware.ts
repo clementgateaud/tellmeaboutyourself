@@ -15,11 +15,10 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient<Database>({ req, res });
   await supabase.auth.getSession();
-  //
+
   const getURLLanguage = () => {
     return req.nextUrl.pathname.split("/")[1] || null;
   };
-
   const getLanguageCookieValue = () => {
     const languageCookie = req.cookies.get("language");
     if (languageCookie) {
@@ -27,7 +26,6 @@ export async function middleware(req: NextRequest) {
     }
     return null;
   };
-
   const getAcceptLanguageHeader = () => {
     const acceptLanguageHeader = req.headers.get("Accept-Language");
     if (acceptLanguageHeader) {
@@ -35,15 +33,12 @@ export async function middleware(req: NextRequest) {
     }
     return null;
   };
-
   const urlLanguage = getURLLanguage();
   const languageCookieValue = getLanguageCookieValue();
   const acceptLanguageHeader = getAcceptLanguageHeader();
-
   // if this is a next.js path, do not localize
   if (!new RegExp(config.matcher[0]).test(req.nextUrl.pathname))
     return NextResponse.next();
-
   if (isLanguageValid(urlLanguage)) {
     return NextResponse.next();
   } else if (isLanguageValid(languageCookieValue)) {

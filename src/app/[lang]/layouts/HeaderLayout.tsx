@@ -1,7 +1,4 @@
-import "@/app/[lang]/globals.css";
 import { Header } from "@/app/[lang]/components/Header";
-import { isLanguageValid } from "@/app/[lang]/utils";
-import { defaultLanguage } from "@/app/[lang]/constants";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/database.types";
@@ -14,7 +11,9 @@ type HeaderLayoutProps = {
 };
 
 export const HeaderLayout = async ({ children, lang }: HeaderLayoutProps) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = createServerComponentClient<Database>({
+    cookies,
+  });
 
   const {
     data: { session },
@@ -22,10 +21,7 @@ export const HeaderLayout = async ({ children, lang }: HeaderLayoutProps) => {
 
   return (
     <>
-      <Header
-        lang={isLanguageValid(lang) ? lang : defaultLanguage}
-        session={session}
-      />
+      <Header lang={lang} session={session} />
       {children}
     </>
   );

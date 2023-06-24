@@ -6,6 +6,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
 import styles from "./page.module.css";
 import { HeaderLayout } from "@/app/[lang]/layouts/HeaderLayout";
+import { isLanguageValid } from "@/app/[lang]/utils";
+import { defaultLanguage } from "@/app/[lang]/constants";
 
 const getSupabaseQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient({ cookies });
@@ -30,7 +32,7 @@ const Page = async ({
   const localQuestions = getLocalQuestions(rawQuestions, lang);
 
   return (
-    <HeaderLayout lang={lang}>
+    <HeaderLayout lang={isLanguageValid(lang) ? lang : defaultLanguage}>
       <div className={styles.main}>
         <QuestionRoulette
           questions={shuffleArray(localQuestions)}

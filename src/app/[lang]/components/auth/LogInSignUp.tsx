@@ -3,7 +3,6 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useEffect } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
@@ -19,6 +18,8 @@ type LogInSignUpProps = {
 };
 
 export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
+  const supabase = createClientComponentClient<Database>();
+
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
@@ -27,9 +28,6 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
   const [isSignUpPending, setIsSignUpPending] = useState(false);
-
-  const supabase = createClientComponentClient<Database>();
-  const router = useRouter();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -43,7 +41,7 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   };
 
   useEffect(() => {
-    console.log(session);
+    console.log("Session changed: ", session);
     if (session) {
       handleCloseModal();
     }
@@ -53,9 +51,11 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     await supabase.auth.signUp({
       email: signUpEmail,
       password: signUpPassword,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
     });
     setIsSignUpPending(true);
-    router.refresh();
   };
 
   const handleSignIn = async () => {
@@ -63,12 +63,14 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
       email: signInEmail,
       password: signInPassword,
     });
-    router.refresh();
+    console.log("handleSignIn");
+    location.reload();
   };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    router.refresh();
+    console.log("handleSignOut");
+    location.reload();
   };
 
   return (
