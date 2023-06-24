@@ -8,6 +8,10 @@
   transition: all 0.2s ease-in-out;
 }
 
+.main:hover {
+  cursor: pointer;
+}
+
 .main--dark {
   border: solid 1px var(--dark-color);
 }

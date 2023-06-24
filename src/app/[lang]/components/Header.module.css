@@ -42,5 +42,11 @@
 }
 
 .navbar > *:not(:last-child) {
-  margin-right: 3rem;
+  margin-right: 1.5rem;
+}
+
+@media screen and (min-width: 600px) {
+  .navbar > *:not(:last-child) {
+    margin-right: 3rem;
+  }
 }

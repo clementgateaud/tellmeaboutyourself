@@ -53,3 +53,7 @@
   margin-top: 1rem;
   align-self: flex-end;
 }
+
+.separator {
+  margin: 2rem 0;
+}

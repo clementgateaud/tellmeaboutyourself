@@ -71,6 +71,12 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     }
   };
 
+  const handleSignInWithGoogle = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.refresh();
@@ -101,6 +107,10 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
           {isLogIn && (
             <form className={styles.logInForm} onSubmit={handleSignIn}>
               <p className={styles.logInTitle}>{t("log_in", lang)}</p>
+              <Button color="accent" onClick={handleSignInWithGoogle}>
+                Log in with Google
+              </Button>
+              <hr className={styles.separator} />
               <Input
                 id="email"
                 type="email"
@@ -148,6 +158,10 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
           {isSignUp && !isSignUpPending && (
             <form className={styles.signUpForm} onSubmit={handleSignUp}>
               <p className={styles.signUpTitle}>{t("sign_up", lang)}</p>
+              <Button color="accent" onClick={handleSignInWithGoogle}>
+                Sign up with Google
+              </Button>
+              <hr className={styles.separator} />
               <Input
                 id="email"
                 type="email"
