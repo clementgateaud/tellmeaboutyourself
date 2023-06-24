@@ -78,7 +78,7 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
         queryParams: {
           access_type: "offline",
           prompt: "consent",
-          hd: "tellmeaboutyourself.com",
+          hd: "tellmeaboutyourself.co",
         },
       },
     });
