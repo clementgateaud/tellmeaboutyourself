@@ -50,6 +50,7 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
       <h1 className={classnames(styles.prompt)}>{question.prompt}</h1>
       <Button
         variant="ghost"
+        color="accent"
         icon={<ArrowPathIcon />}
         iconPosition="right"
         onClick={handleQuestionChange}
