@@ -10,5 +10,7 @@
   "sign_out": "Sign out",
   "no_account_yet": "No account yet? Sign up",
   "already_have_account": "Already have an account? Sign in",
-  "received_validation_email": "You've just received a validation email!"
+  "received_validation_email": "You've just received a validation email!",
+  "invalid_credentials": "Invalid email or password",
+  "ok": "Ok"
 }

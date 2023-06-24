@@ -1,16 +1,18 @@
 "use client";
 
+import type { ValidLanguageType } from "@/app/[lang]/types";
+import type { Session } from "@supabase/supabase-js";
+import type { FormEvent } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useEffect } from "react";
-import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { Input } from "@/app/[lang]/ui-kit/Input";
 import { Link } from "@/app/[lang]/ui-kit/Link";
 import { t } from "@/app/[lang]/utils/translation";
-import type { ValidLanguageType } from "@/app/[lang]/types";
 import { Database } from "@/database.types";
+import { useRouter } from "next/navigation";
 
 type LogInSignUpProps = {
   lang: ValidLanguageType;
@@ -19,6 +21,7 @@ type LogInSignUpProps = {
 
 export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
 
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
@@ -28,6 +31,7 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
   const [isSignUpPending, setIsSignUpPending] = useState(false);
+  const [isLogInError, setIsLogInError] = useState(false);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -40,14 +44,8 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     setSignUpPassword("");
   };
 
-  useEffect(() => {
-    console.log("Session changed: ", session);
-    if (session) {
-      handleCloseModal();
-    }
-  }, [session]);
-
-  const handleSignUp = async () => {
+  const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     await supabase.auth.signUp({
       email: signUpEmail,
       password: signUpPassword,
@@ -58,19 +56,24 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     setIsSignUpPending(true);
   };
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
+  const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { error } = await supabase.auth.signInWithPassword({
       email: signInEmail,
       password: signInPassword,
     });
-    console.log("handleSignIn");
-    location.reload();
+    if (error) {
+      setIsLogInError(true);
+    } else {
+      setIsLogInError(false);
+      handleCloseModal();
+      router.refresh();
+    }
   };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    console.log("handleSignOut");
-    location.reload();
+    router.refresh();
   };
 
   return (
@@ -114,6 +117,11 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
                 onChange={(e) => setSignInPassword(e.target.value)}
                 required
               />
+              {isLogInError && (
+                <p className={styles.logInError}>
+                  {t("invalid_credentials", lang)}
+                </p>
+              )}
               <Button type="submit">{t("log_in", lang)}</Button>
               <Link
                 onClick={() => {
@@ -127,7 +135,15 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
             </form>
           )}
           {isSignUp && isSignUpPending && (
-            <p>{t("received_validation_email", lang)}</p>
+            <div className={styles.signUpPending}>
+              <p>{t("received_validation_email", lang)}</p>
+              <Button
+                onClick={handleCloseModal}
+                className={styles.signUpPendingButton}
+              >
+                {t("ok", lang)}
+              </Button>
+            </div>
           )}
           {isSignUp && !isSignUpPending && (
             <form className={styles.signUpForm} onSubmit={handleSignUp}>

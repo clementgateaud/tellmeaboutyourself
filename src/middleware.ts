@@ -11,7 +11,7 @@ export const config = {
 };
 
 export async function middleware(req: NextRequest) {
-  //auth
+  // ensure the user's auth session remains active. Since the user's session is tracked in a cookie, we need to read this cookie and update it if necessary
   const res = NextResponse.next();
   const supabase = createMiddlewareClient<Database>({ req, res });
   await supabase.auth.getSession();

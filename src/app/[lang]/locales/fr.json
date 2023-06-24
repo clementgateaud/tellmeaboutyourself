@@ -10,5 +10,7 @@
   "sign_out": "Se déconnecter",
   "no_account_yet": "Pas encore de compte ? S'inscrire",
   "already_have_account": "Déjà un compte ? Se connecter",
-  "received_validation_email": "Vous venez de recevoir un email de validation !"
+  "received_validation_email": "Vous venez de recevoir un email de validation !",
+  "invalid_credentials": "Email ou mot de passe incorrect",
+  "ok": "Ok"
 }
