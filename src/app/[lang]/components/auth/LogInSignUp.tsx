@@ -74,6 +74,13 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const handleSignInWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+          hd: "tellmeaboutyourself.com",
+        },
+      },
     });
   };
 
