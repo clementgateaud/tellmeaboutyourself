@@ -82,6 +82,14 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     console.log("error", error);
   };
 
+  const handleSignInWithGithub = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+    console.log("data", data);
+    console.log("error", error);
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.refresh();
@@ -126,6 +134,9 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
                 }
               >
                 Log in with Google
+              </Button>
+              <Button color="accent" onClick={handleSignInWithGithub}>
+                Log in with GitHub
               </Button>
               <hr className={styles.separator} />
               <Input
