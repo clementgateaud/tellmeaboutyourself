@@ -6,10 +6,9 @@
   "email": "email",
   "log_in": "Log in",
   "sign_up": "Sign up",
-  "sign_in": "Sign in",
   "sign_out": "Sign out",
   "no_account_yet": "No account yet? Sign up",
-  "already_have_account": "Already have an account? Sign in",
+  "already_have_account": "Already have an account? Log in",
   "received_validation_email": "You've just received a validation email!",
   "invalid_credentials": "Invalid email or password",
   "ok": "Ok"

@@ -56,4 +56,15 @@
 
 .separator {
   margin: 2rem 0;
+  border: solid 0.5px var(--grey-color);
+  border-radius: 1rem;
+}
+
+.googleIcon {
+  height: 100%;
+  width: 100%;
+  border: solid 2px white;
+  background: white;
+  border-radius: 4px;
+  box-sizing: border-box;
 }

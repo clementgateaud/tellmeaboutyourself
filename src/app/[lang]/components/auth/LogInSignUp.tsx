@@ -4,7 +4,7 @@ import type { ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
 import type { FormEvent } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
@@ -13,6 +13,8 @@ import { Link } from "@/app/[lang]/ui-kit/Link";
 import { t } from "@/app/[lang]/utils/translation";
 import { Database } from "@/database.types";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import GoogleIcon from "@/assets/google.svg";
 
 type LogInSignUpProps = {
   lang: ValidLanguageType;
@@ -42,6 +44,7 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
     setSignInPassword("");
     setSignUpEmail("");
     setSignUpPassword("");
+    setIsLogInError(false);
   };
 
   const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
@@ -72,7 +75,7 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   };
 
   const handleSignInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         queryParams: {
@@ -81,6 +84,8 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
         },
       },
     });
+    console.log("data", data);
+    console.log("error", error);
   };
 
   const handleSignOut = async () => {
@@ -113,7 +118,19 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
           {isLogIn && (
             <form className={styles.logInForm} onSubmit={handleSignIn}>
               <p className={styles.logInTitle}>{t("log_in", lang)}</p>
-              <Button color="accent" onClick={handleSignInWithGoogle}>
+              <Button
+                color="accent"
+                onClick={handleSignInWithGoogle}
+                icon={
+                  <Image
+                    className={styles.googleIcon}
+                    src={GoogleIcon}
+                    alt="Google Icon"
+                    width="20"
+                    height="20"
+                  />
+                }
+              >
                 Log in with Google
               </Button>
               <hr className={styles.separator} />
@@ -164,7 +181,19 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
           {isSignUp && !isSignUpPending && (
             <form className={styles.signUpForm} onSubmit={handleSignUp}>
               <p className={styles.signUpTitle}>{t("sign_up", lang)}</p>
-              <Button color="accent" onClick={handleSignInWithGoogle}>
+              <Button
+                color="accent"
+                onClick={handleSignInWithGoogle}
+                icon={
+                  <Image
+                    className={styles.googleIcon}
+                    src={GoogleIcon}
+                    alt="Google Icon"
+                    width="20"
+                    height="20"
+                  />
+                }
+              >
                 Sign up with Google
               </Button>
               <hr className={styles.separator} />
