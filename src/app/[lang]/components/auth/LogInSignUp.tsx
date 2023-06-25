@@ -77,6 +77,9 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const handleSignInWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
     });
     console.log("data", data);
     console.log("error", error);
@@ -85,6 +88,9 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const handleSignInWithGithub = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
     });
     console.log("data", data);
     console.log("error", error);
