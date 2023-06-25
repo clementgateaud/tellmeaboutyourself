@@ -4,7 +4,7 @@ import type { ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
 import type { FormEvent } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./LogInSignUp.module.css";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
@@ -24,6 +24,10 @@ type LogInSignUpProps = {
 export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("session", session);
+  }, [session]);
 
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
