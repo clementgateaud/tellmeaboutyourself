@@ -68,3 +68,7 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.logInWithGithubButton {
+  margin-top: 0.5rem;
+}

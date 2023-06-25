@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("token");
+  const code = requestUrl.searchParams.get("code");
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });

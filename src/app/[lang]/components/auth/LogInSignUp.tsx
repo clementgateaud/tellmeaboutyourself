@@ -141,7 +141,11 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
               >
                 Log in with Google
               </Button>
-              <Button color="accent" onClick={handleSignInWithGithub}>
+              <Button
+                color="accent"
+                onClick={handleSignInWithGithub}
+                className={styles.logInWithGithubButton}
+              >
                 Log in with GitHub
               </Button>
               <hr className={styles.separator} />
@@ -206,6 +210,13 @@ export const LogInSignUp = ({ lang, session }: LogInSignUpProps) => {
                 }
               >
                 Sign up with Google
+              </Button>
+              <Button
+                color="accent"
+                onClick={handleSignInWithGithub}
+                className={styles.logInWithGithubButton}
+              >
+                Sign up with GitHub
               </Button>
               <hr className={styles.separator} />
               <Input
