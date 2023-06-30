@@ -2,14 +2,6 @@
   "language_en": "English",
   "language_fr": "Français",
   "change_question_button": "Autre question",
-  "password": "mot de passe",
-  "email": "email",
   "log_in": "Se connecter",
-  "sign_up": "S'inscrire",
-  "sign_out": "Se déconnecter",
-  "no_account_yet": "Pas encore de compte ? S'inscrire",
-  "already_have_account": "Déjà un compte ? Se connecter",
-  "received_validation_email": "Vous venez de recevoir un email de validation !",
-  "invalid_credentials": "Email ou mot de passe incorrect",
-  "ok": "Ok"
+  "log_in_with": "Se connecter avec"
 }

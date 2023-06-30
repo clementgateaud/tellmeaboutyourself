@@ -1,9 +1,9 @@
 :root {
   --header-height: 5rem;
-  --dark-color: rgb(0, 0, 0);
+  --dark-color: #000000;
   --grey-color: #666666;
   --light-grey-color: #c4c4c4;
-  --accent-color: rgb(102, 75, 255);
+  --accent-color: #664bff;
 }
 
 * {
