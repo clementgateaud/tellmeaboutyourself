@@ -7,7 +7,8 @@ import { Header } from "@/app/[lang]/components/Header";
 import { redirect } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
+import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
+import styles from "./page.module.css";
 
 const getQuestion = async (id: string): Promise<RawQuestionType> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -58,7 +59,7 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <WidthContainer>
+      <WidthContainer className={styles.pageContainer}>
         <h1>{localQuestion.prompt}</h1>
       </WidthContainer>
     </>

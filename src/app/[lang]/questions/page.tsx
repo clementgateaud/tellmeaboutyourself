@@ -6,8 +6,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
-import { Link } from "@/app/[lang]/ui-kit/Link";
+import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
+import Link from "next/link";
+import styles from "./page.module.css";
 
 const getQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -50,12 +51,17 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <WidthContainer>
-        {localQuestions.map((question) => (
-          <div>
-            <Link href={`./questions/${question.id}`}>{question.prompt}</Link>
-          </div>
-        ))}
+      <WidthContainer className={styles.pageContainer}>
+        <div className={styles.questions}>
+          {localQuestions.map((question) => (
+            <Link
+              href={`./questions/${question.id}`}
+              className={styles.questionLink}
+            >
+              <div className={styles.questionContainer}>{question.prompt}</div>
+            </Link>
+          ))}
+        </div>
       </WidthContainer>
     </>
   );

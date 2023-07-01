@@ -2,7 +2,7 @@
 
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
+import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";

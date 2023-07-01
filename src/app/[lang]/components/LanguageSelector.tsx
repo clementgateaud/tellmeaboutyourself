@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { languages } from "@/app/[lang]/constants";
 import styles from "./LanguageSelector.module.css";
-import { LanguageIcon } from "@heroicons/react/24/solid";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { t } from "@/app/[lang]/utils/translation";
 
 export const LanguageSelector = () => {
@@ -60,7 +60,7 @@ export const LanguageSelector = () => {
           className={styles.menuButton}
           onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         >
-          <LanguageIcon className={styles.languageIcon} aria-hidden="true" />
+          <GlobeAltIcon className={styles.languageIcon} aria-hidden="true" />
         </button>
 
         {isDropdownOpen && (

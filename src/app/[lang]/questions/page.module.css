@@ -1,0 +1,20 @@
+.pageContainer {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.questionLink {
+  text-decoration: none;
+}
+
+.questionContainer {
+  padding: 16px 24px;
+  background-color: var(--very-light-grey-color);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  color: var(--dark-color);
+}
+
+.questionContainer:hover {
+  color: var(--accent-color);
+}

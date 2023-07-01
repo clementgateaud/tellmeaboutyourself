@@ -4,7 +4,7 @@ import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
 import { useState } from "react";
 import classnames from "classnames";
-import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
+import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";

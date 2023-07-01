@@ -24,12 +24,6 @@
   color: var(--accent-color);
 }
 
-.tell,
-.me,
-.about {
-  transition: color 1s ease-in-out;
-}
-
 .tell:hover,
 .me:hover,
 .about:hover {
@@ -51,14 +45,14 @@
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: var(--grey-color);
+  color: var(--dark-color);
   border: none;
   background: none;
   cursor: pointer;
 }
 
 .navbarLink:hover {
-  color: black;
+  color: var(--accent-color);
 }
 
 @media screen and (min-width: 600px) {
