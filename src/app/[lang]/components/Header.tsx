@@ -69,7 +69,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
-        <LanguageSelector lang={lang} />
+        <LanguageSelector />
       </div>
     </WidthContainer>
   );

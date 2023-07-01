@@ -24,8 +24,6 @@ export const QuestionRoulette = ({
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
 
-  console.log(session);
-
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
     setQuestionChanging(true);

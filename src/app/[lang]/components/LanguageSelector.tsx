@@ -9,11 +9,7 @@ import styles from "./LanguageSelector.module.css";
 import { LanguageIcon } from "@heroicons/react/24/solid";
 import { t } from "@/app/[lang]/utils/translation";
 
-type LanguageSelectorProps = {
-  lang: ValidLanguageType;
-};
-
-export const LanguageSelector = ({ lang }: LanguageSelectorProps) => {
+export const LanguageSelector = () => {
   const pathname = usePathname();
   const getLocalizedPath = (lang: ValidLanguageType) => {
     const languageRegExp = new RegExp(`^\\/(${languages.join("|")})\\b`);
@@ -65,7 +61,6 @@ export const LanguageSelector = ({ lang }: LanguageSelectorProps) => {
           onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         >
           <LanguageIcon className={styles.languageIcon} aria-hidden="true" />
-          {t(`language_${lang}`, lang)}
         </button>
 
         {isDropdownOpen && (
