@@ -1,25 +1,26 @@
 import type { Database } from "@/database.types";
 import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
-import { shuffleArray } from "@/app/[lang]/utils";
-import { getLocalQuestions } from "@/app/[lang]/utils";
+import { getLocalQuestion } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
-import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
+import { redirect } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
+import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
 
-const getQuestions = async (): Promise<RawQuestionType[]> => {
+const getQuestion = async (id: string): Promise<RawQuestionType> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestions, error } = await supabase
+  const { data: rawQuestion, error } = await supabase
     .from("questions")
-    .select("*")
-    .eq("isPublished", true);
+    .select()
+    .eq("id", id)
+    .eq("isPublished", true)
+    .maybeSingle();
   if (error) {
     throw error;
   }
-  return rawQuestions as RawQuestionType[];
+  return rawQuestion as RawQuestionType;
 };
 
 const getUserSession = async () => {
@@ -35,14 +36,20 @@ const getUserSession = async () => {
 };
 
 const Page = async ({
-  params: { lang },
+  params: { lang, questionId },
 }: {
   params: {
     lang: ValidLanguageType;
+    questionId: string;
   };
 }) => {
-  const rawQuestions = await getQuestions();
-  const localQuestions = getLocalQuestions(rawQuestions, lang);
+  const rawQuestion = await getQuestion(questionId);
+
+  if (!rawQuestion) {
+    redirect("./");
+  }
+
+  const localQuestion = getLocalQuestion(rawQuestion, lang);
   const session = await getUserSession();
 
   return (
@@ -51,13 +58,9 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <div className={styles.main}>
-        <QuestionRoulette
-          questions={shuffleArray(localQuestions)}
-          lang={lang}
-          session={session}
-        />
-      </div>
+      <WidthContainer>
+        <h1>{localQuestion.prompt}</h1>
+      </WidthContainer>
     </>
   );
 };

@@ -1,9 +1,9 @@
 "use client";
 
+import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
+import type { Session } from "@supabase/supabase-js";
 import { useState } from "react";
 import classnames from "classnames";
-import { Poppins } from "next/font/google";
-import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/app/[lang]/ui-kit/Button";
@@ -13,11 +13,18 @@ import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
 type QuestionPromptProps = {
   questions: LocalQuestionType[];
   lang: ValidLanguageType;
+  session: Session | null;
 };
 
-export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
+export const QuestionRoulette = ({
+  questions,
+  lang,
+  session,
+}: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
+
+  console.log(session);
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
@@ -58,6 +65,12 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
       >
         {t("change_question_button", lang)}
       </Button>
+      {/* {session && (
+        <>
+          <p>{session.user.email}</p>
+          <p>{session.user.id}</p>
+        </>
+      )} */}
     </WidthContainer>
   );
 };

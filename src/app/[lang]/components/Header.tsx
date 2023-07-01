@@ -47,15 +47,17 @@ export const Header = ({ lang, session }: HeaderProps) => {
         <p className={styles.yourself}>yourself</p>
       </Link>
       <div className={styles.navbar}>
-        <LanguageSelector lang={lang} />
+        <Link href={`/${lang}/questions`} className={styles.navbarLink}>
+          {t("questions", lang)}
+        </Link>
         {session && (
-          <button className={styles.logInButton} onClick={handleSignOut}>
+          <button className={styles.navbarLink} onClick={handleSignOut}>
             {t("sign_out", lang)}
           </button>
         )}
         {!session && (
           <button
-            className={styles.logInButton}
+            className={styles.navbarLink}
             onClick={() => setIsModalOpen(true)}
           >
             {t("log_in", lang)}
@@ -67,6 +69,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
+        <LanguageSelector lang={lang} />
       </div>
     </WidthContainer>
   );

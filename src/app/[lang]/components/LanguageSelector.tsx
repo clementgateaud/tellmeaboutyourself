@@ -1,12 +1,12 @@
-import Link from "next/link";
+"use client";
+
 import type { ValidLanguageType } from "@/app/[lang]/types";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { languages } from "@/app/[lang]/constants";
 import styles from "./LanguageSelector.module.css";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { LanguageIcon } from "@heroicons/react/24/solid";
-import classnames from "classnames";
 import { t } from "@/app/[lang]/utils/translation";
 
 type LanguageSelectorProps = {
@@ -20,6 +20,8 @@ export const LanguageSelector = ({ lang }: LanguageSelectorProps) => {
     const pathWithoutLanguage = pathname.replace(languageRegExp, "");
     return `/${lang}${pathWithoutLanguage}`;
   };
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const LANGUAGES: {
     value: ValidLanguageType;
@@ -38,42 +40,49 @@ export const LanguageSelector = ({ lang }: LanguageSelectorProps) => {
     },
   ];
 
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !(dropdownRef.current as Node).contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
-    <div className={styles.main}>
-      <Menu as="div" className={styles.menu}>
-        <div>
-          <Menu.Button className={styles.menuButton}>
-            <LanguageIcon className={styles.languageIcon} aria-hidden="true" />
-            {t(`language_${lang}`, lang)}
-          </Menu.Button>
-        </div>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
+    <div className={styles.main} ref={dropdownRef}>
+      <div className={styles.menu}>
+        <button
+          className={styles.menuButton}
+          onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         >
-          <Menu.Items className={styles.menuItems}>
+          <LanguageIcon className={styles.languageIcon} aria-hidden="true" />
+          {t(`language_${lang}`, lang)}
+        </button>
+
+        {isDropdownOpen && (
+          <div className={styles.menuItems}>
             {LANGUAGES.map((language) => (
-              <Menu.Item key={language.value}>
-                {({ active }) => (
-                  <Link
-                    href={language.href}
-                    className={classnames(styles.menuItem, {
-                      [styles["menuItem--active"]]: active,
-                    })}
-                  >
-                    {language.label}
-                  </Link>
-                )}
-              </Menu.Item>
+              <Link
+                key={language.value}
+                href={language.href}
+                className={styles.menuItem}
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                {language.label}
+              </Link>
             ))}
-          </Menu.Items>
-        </Transition>
-      </Menu>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

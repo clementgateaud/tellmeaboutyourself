@@ -65,29 +65,30 @@ export const AuthModal = ({
     },
   ];
 
+  if (session) {
+    return null;
+  }
+
   return (
-    <div>
-      {!session && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          className={styles.modal}
-        >
-          <>
-            <p className={styles.logInTitle}>{t("log_in_with", lang)}</p>
-            <div className={styles.authProviders}>
-              {AUTH_PROVIDERS.map((provider) => (
-                <button
-                  className={styles.authProviderButton}
-                  onClick={() => handleSignIn(provider.id)}
-                >
-                  <Image src={provider.icon} alt={provider.label} />
-                </button>
-              ))}
-            </div>
-          </>
-        </Modal>
-      )}
-    </div>
+    <Modal
+      isOpen={isModalOpen}
+      onClose={handleCloseModal}
+      className={styles.modal}
+    >
+      <>
+        <p className={styles.logInTitle}>{t("log_in_with", lang)}</p>
+        <div className={styles.authProviders}>
+          {AUTH_PROVIDERS.map((provider) => (
+            <button
+              className={styles.authProviderButton}
+              onClick={() => handleSignIn(provider.id)}
+              key={provider.id}
+            >
+              <Image src={provider.icon} alt={provider.label} />
+            </button>
+          ))}
+        </div>
+      </>
+    </Modal>
   );
 };

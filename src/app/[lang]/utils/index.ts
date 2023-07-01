@@ -30,3 +30,15 @@ export const getLocalQuestions = (
     tips: tips[lang],
   }));
 };
+
+export const getLocalQuestion = (
+  rawQuestion: RawQuestionType,
+  lang: ValidLanguageType
+): LocalQuestionType => {
+  const { prompt, tips, ...rest } = rawQuestion;
+  return {
+    ...rest,
+    prompt: prompt[lang],
+    tips: tips[lang],
+  };
+};

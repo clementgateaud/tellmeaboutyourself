@@ -1,14 +1,13 @@
 import type { Database } from "@/database.types";
 import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
-import { shuffleArray } from "@/app/[lang]/utils";
 import { getLocalQuestions } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
-import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
+import { WidthContainer } from "@/app/[lang]/components/WidthContainer";
+import { Link } from "@/app/[lang]/ui-kit/Link";
 
 const getQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -51,13 +50,13 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <div className={styles.main}>
-        <QuestionRoulette
-          questions={shuffleArray(localQuestions)}
-          lang={lang}
-          session={session}
-        />
-      </div>
+      <WidthContainer>
+        {localQuestions.map((question) => (
+          <div>
+            <Link href={`./questions/${question.id}`}>{question.prompt}</Link>
+          </div>
+        ))}
+      </WidthContainer>
     </>
   );
 };
