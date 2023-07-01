@@ -7,6 +7,7 @@ import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
 import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
+import { QuestionsListing } from "@/app/[lang]/components/QuestionsListing";
 import Link from "next/link";
 import styles from "./page.module.css";
 
@@ -51,18 +52,7 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <WidthContainer className={styles.pageContainer}>
-        <div className={styles.questions}>
-          {localQuestions.map((question) => (
-            <Link
-              href={`./questions/${question.id}`}
-              className={styles.questionLink}
-            >
-              <div className={styles.questionContainer}>{question.prompt}</div>
-            </Link>
-          ))}
-        </div>
-      </WidthContainer>
+      <QuestionsListing questions={localQuestions} />
     </>
   );
 };
