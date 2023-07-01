@@ -3,15 +3,19 @@
   padding-bottom: 24px;
 }
 
-.titleContainer {
-  display: flex;
-  align-items: center;
+.leftIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  flex-shrink: 0;
 }
 
-.leftIcon {
-  width: 24px;
-  height: 24px;
-  margin-right: 12px;
+.backNav {
+  display: flex;
+  align-items: center;
+  color: var(--accent-color);
   cursor: pointer;
-  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 24px;
 }
