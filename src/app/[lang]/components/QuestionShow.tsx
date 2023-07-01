@@ -20,11 +20,8 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
   const router = useRouter();
   return (
     <WidthContainer className={styles.pageContainer}>
-      <p className={styles.backNav}>
-        <ArrowLeftIcon
-          className={styles.leftIcon}
-          onClick={() => router.back()}
-        />
+      <p className={styles.backNav} onClick={() => router.back()}>
+        <ArrowLeftIcon className={styles.leftIcon} />
         {t("questions", lang)}
       </p>
       <h1>{question.prompt}</h1>
