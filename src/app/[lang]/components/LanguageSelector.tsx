@@ -60,7 +60,7 @@ export const LanguageSelector = () => {
           className={styles.menuButton}
           onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         >
-          <GlobeAltIcon className={styles.languageIcon} aria-hidden="true" />
+          <GlobeAltIcon aria-hidden="true" />
         </button>
 
         {isDropdownOpen && (

@@ -30,3 +30,8 @@
 .authProviderButton:not(:last-child) {
   margin-right: 32px;
 }
+
+.signOutButton {
+  margin-top: 24px;
+  align-self: right;
+}

@@ -11,6 +11,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { t } from "@/app/[lang]/utils/translation";
 import { Database } from "@/database.types";
 import { useRouter } from "next/navigation";
+import { UserIcon } from "@heroicons/react/24/outline";
+import { UserIcon as UserIconSolid } from "@heroicons/react/24/solid";
 import type { Session } from "@supabase/supabase-js";
 
 type HeaderProps = {
@@ -27,12 +29,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
     <WidthContainer className={styles.main}>
@@ -50,24 +47,21 @@ export const Header = ({ lang, session }: HeaderProps) => {
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>
           {t("questions", lang)}
         </Link>
-        {session && (
-          <button className={styles.navbarLink} onClick={handleSignOut}>
-            {t("sign_out", lang)}
-          </button>
-        )}
-        {!session && (
-          <button
-            className={styles.navbarLink}
-            onClick={() => setIsModalOpen(true)}
-          >
-            {t("log_in", lang)}
-          </button>
-        )}
+        <button
+          className={styles.navBarButton}
+          onClick={() => setIsAuthModalOpen(true)}
+        >
+          {session ? (
+            <UserIconSolid aria-hidden="true" />
+          ) : (
+            <UserIcon aria-hidden="true" />
+          )}
+        </button>
         <AuthModal
           lang={lang}
           session={session}
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isAuthModalOpen}
+          setIsModalOpen={setIsAuthModalOpen}
         />
         <LanguageSelector />
       </div>

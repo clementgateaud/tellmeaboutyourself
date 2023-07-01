@@ -10,6 +10,8 @@ import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
 import LinkedInIcon from "@/assets/linkedin.svg";
 import GitHubIcon from "@/assets/github.svg";
+import { useRouter } from "next/navigation";
+import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./AccountAuth.module.css";
 
 type AuthModalProps = {
@@ -26,6 +28,7 @@ export const AuthModal = ({
   setIsModalOpen,
 }: AuthModalProps) => {
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -41,6 +44,12 @@ export const AuthModal = ({
     if (error) {
       console.log(error);
     }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    handleCloseModal();
+    router.refresh();
   };
 
   const AUTH_PROVIDERS: {
@@ -65,30 +74,38 @@ export const AuthModal = ({
     },
   ];
 
-  if (session) {
-    return null;
-  }
-
   return (
     <Modal
       isOpen={isModalOpen}
       onClose={handleCloseModal}
       className={styles.modal}
     >
-      <>
-        <p className={styles.logInTitle}>{t("log_in_with", lang)}</p>
-        <div className={styles.authProviders}>
-          {AUTH_PROVIDERS.map((provider) => (
-            <button
-              className={styles.authProviderButton}
-              onClick={() => handleSignIn(provider.id)}
-              key={provider.id}
-            >
-              <Image src={provider.icon} alt={provider.label} />
-            </button>
-          ))}
-        </div>
-      </>
+      {!session && (
+        <>
+          <p className={styles.logInTitle}>{t("log_in_with", lang)}</p>
+          <div className={styles.authProviders}>
+            {AUTH_PROVIDERS.map((provider) => (
+              <button
+                className={styles.authProviderButton}
+                onClick={() => handleSignIn(provider.id)}
+                key={provider.id}
+              >
+                <Image src={provider.icon} alt={provider.label} />
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+      {session && (
+        <>
+          <p className={styles.loggedInTitle}>
+            {t("logged_in_as", lang)} {session.user.email}
+          </p>
+          <Button className={styles.signOutButton} onClick={handleSignOut}>
+            {t("sign_out", lang)}
+          </Button>
+        </>
+      )}
     </Modal>
   );
 };
