@@ -13,4 +13,5 @@
   height: 24px;
   margin-right: 12px;
   cursor: pointer;
+  flex-shrink: 0;
 }
