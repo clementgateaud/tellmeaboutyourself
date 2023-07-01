@@ -7,10 +7,7 @@ import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { t } from "@/app/[lang]/utils/translation";
-import { Database } from "@/database.types";
-import { useRouter } from "next/navigation";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { UserIcon as UserIconSolid } from "@heroicons/react/24/solid";
 import type { Session } from "@supabase/supabase-js";
@@ -21,9 +18,6 @@ type HeaderProps = {
 };
 
 export const Header = ({ lang, session }: HeaderProps) => {
-  const supabase = createClientComponentClient<Database>();
-  const router = useRouter();
-
   useEffect(() => {
     document.cookie = `language=${lang}`;
     document.documentElement.lang = lang;
@@ -51,11 +45,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}
         >
-          {session ? (
-            <UserIconSolid aria-hidden="true" />
-          ) : (
-            <UserIcon aria-hidden="true" />
-          )}
+          {session ? <UserIconSolid /> : <UserIcon />}
         </button>
         <AuthModal
           lang={lang}
