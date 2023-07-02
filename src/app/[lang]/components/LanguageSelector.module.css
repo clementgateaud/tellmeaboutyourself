@@ -16,10 +16,6 @@
   height: 1.25rem;
 }
 
-.menuButton:hover {
-  color: var(--accent-color);
-}
-
 .menuItems {
   position: absolute;
   right: 0;
@@ -42,12 +38,18 @@
   text-decoration: none;
 }
 
-.menuItem:hover {
-  background-color: rgb(242, 242, 242);
-  color: var(--accent-color);
-}
-
 .navBarIcon {
   width: 1.25rem;
   height: 1.25rem;
+}
+
+@media (hover: hover) {
+  .menuButton:hover {
+    color: var(--accent-color);
+  }
+
+  .menuItem:hover {
+    background-color: rgb(242, 242, 242);
+    color: var(--accent-color);
+  }
 }

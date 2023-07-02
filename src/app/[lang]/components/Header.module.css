@@ -24,12 +24,6 @@
   color: var(--accent-color);
 }
 
-.tell:hover,
-.me:hover,
-.about:hover {
-  color: var(--accent-color);
-}
-
 .navbar {
   display: flex;
   align-items: center;
@@ -51,20 +45,12 @@
   cursor: pointer;
 }
 
-.navbarLink:hover {
-  color: var(--accent-color);
-}
-
 .navBarButton {
   display: flex;
   color: var(--dark-color);
   border: none;
   background: none;
   cursor: pointer;
-}
-
-.navBarButton:hover {
-  color: var(--accent-color);
 }
 
 .navBarIcon {
@@ -75,5 +61,21 @@
 @media screen and (min-width: 600px) {
   .navbar > *:not(:last-child) {
     margin-right: 3rem;
+  }
+}
+
+@media (hover: hover) {
+  .tell:hover,
+  .me:hover,
+  .about:hover {
+    color: var(--accent-color);
+  }
+
+  .navbarLink:hover {
+    color: var(--accent-color);
+  }
+
+  .navBarButton:hover {
+    color: var(--accent-color);
   }
 }

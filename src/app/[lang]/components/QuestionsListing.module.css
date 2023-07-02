@@ -19,10 +19,6 @@
   line-height: 18px;
 }
 
-.questionContainer:hover {
-  color: var(--accent-color);
-}
-
 .tags {
   display: flex;
   align-items: center;
@@ -39,4 +35,10 @@
 .tagAll,
 .tag:not(:last-child) {
   margin-right: 8px;
+}
+
+@media (hover: hover) {
+  .questionContainer:hover {
+    color: var(--accent-color);
+  }
 }

@@ -6,6 +6,8 @@
   color: var(--dark-color);
 }
 
-.main:hover {
-  color: var(--accent-color);
+@media (hover: hover) {
+  .main:hover {
+    color: var(--accent-color);
+  }
 }
