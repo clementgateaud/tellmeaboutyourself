@@ -15,20 +15,52 @@
   background: linear-gradient(to right, rgb(75, 101, 255), rgb(151, 77, 255));
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
 }
 
-.questionChanging .prompt {
+.prompt--changing {
   animation: promptAnimation 0.5s ease-in-out;
   transform-origin: center center;
 }
 
-.timerContainer {
-  display: flex;
-  align-items: center;
+.timerBar {
+  width: 100%;
+  height: 8px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 400px;
 }
 
-.countDown {
-  margin-right: 4px;
+.timerBarFill {
+  background-color: var(--accent-color);
+  height: 100%;
+}
+
+.playPauseIcon,
+.restartIcon,
+.nextIcon {
+  height: 16px;
+  width: 16px;
+  color: var(--grey-color);
+  cursor: pointer;
+}
+
+.restartIcon {
+  margin: 0 6px;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.timerActions {
+  margin-top: 8px;
+  display: flex;
 }
 
 @keyframes promptAnimation {

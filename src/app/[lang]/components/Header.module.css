@@ -28,22 +28,19 @@
 }
 
 .navbar > *:not(:last-child) {
-  margin-right: 1.5rem;
+  margin-right: 1rem;
 }
 
 .navbarLink {
   text-decoration: none;
   display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: 14px;
-  line-height: 20px;
   color: var(--dark-color);
-  border: none;
-  background: none;
-  cursor: pointer;
 }
 
 .navBarButton {
+  text-decoration: none;
   display: flex;
   color: var(--dark-color);
   border: none;
@@ -58,7 +55,7 @@
 
 @media screen and (min-width: 600px) {
   .navbar > *:not(:last-child) {
-    margin-right: 3rem;
+    margin-right: 2rem;
   }
 }
 

@@ -14,6 +14,8 @@ export type RawQuestionType = {
     en: string;
     fr: string;
   };
+  duration: number;
+  tag: string;
 };
 
 export type LocalQuestionType = Omit<RawQuestionType, "prompt" | "tips"> & {

@@ -12,6 +12,7 @@ export interface Database {
       questions: {
         Row: {
           created_at: string | null
+          duration: number | null
           id: number
           isPublished: boolean
           prompt: Json | null
@@ -20,6 +21,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string | null
+          duration?: number | null
           id?: number
           isPublished?: boolean
           prompt?: Json | null
@@ -28,6 +30,7 @@ export interface Database {
         }
         Update: {
           created_at?: string | null
+          duration?: number | null
           id?: number
           isPublished?: boolean
           prompt?: Json | null

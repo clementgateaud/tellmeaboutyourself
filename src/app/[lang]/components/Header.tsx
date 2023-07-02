@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
-import { t } from "@/app/[lang]/utils/translation";
+import { FaList } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 
 type HeaderProps = {
@@ -38,8 +38,9 @@ export const Header = ({ lang, session }: HeaderProps) => {
       </Link>
       <div className={styles.navbar}>
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>
-          {t("questions", lang)}
+          <FaList className={styles.navbarIcon} />
         </Link>
+
         <button
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}

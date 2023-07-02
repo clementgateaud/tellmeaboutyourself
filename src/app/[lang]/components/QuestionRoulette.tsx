@@ -1,11 +1,13 @@
 "use client";
 
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
-import { MdPlayCircleFilled, MdPauseCircleFilled } from "react-icons/md";
+import { MdPlayArrow, MdPause } from "react-icons/md";
+import { IoMdRefresh } from "react-icons/io";
+import { HiArrowRight } from "react-icons/hi";
 
 type QuestionPromptProps = {
   questions: LocalQuestionType[];
@@ -15,12 +17,14 @@ type QuestionPromptProps = {
 export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
-  const [countdown, setCountdown] = useState(30);
+  console.log(question.duration);
+  const [countdown, setCountdown] = useState(question.duration * 1000);
   const [isPaused, setIsPaused] = useState(false);
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
     setQuestionChanging(true);
+    setIsPaused(true);
     // wait for the animation to be halfway done before changing the question
     setTimeout(() => {
       const currentIndex = questions.indexOf(question);
@@ -33,6 +37,7 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
     // wait for the animation to be done before removing the class
     setTimeout(() => {
       setQuestionChanging(false);
+      setIsPaused(false);
     }, 500);
   };
 
@@ -41,11 +46,15 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   };
 
   useEffect(() => {
+    setCountdown(question.duration * 1000);
+  }, [question]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (!isPaused) {
-        setCountdown((prevCountdown) => prevCountdown - 1);
+        setCountdown((prevCountdown) => prevCountdown - 50);
       }
-    }, 1000);
+    }, 50);
 
     return () => {
       clearInterval(interval);
@@ -53,9 +62,8 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   }, [isPaused]);
 
   useEffect(() => {
-    if (countdown === 0) {
+    if (countdown <= 0) {
       handleQuestionChange();
-      setCountdown(30);
     }
   }, [countdown]);
 
@@ -64,19 +72,46 @@ export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   }
 
   return (
-    <Container
-      className={classnames(styles.main, {
-        [styles.questionChanging]: questionChanging,
-      })}
-    >
-      <h1 className={classnames(styles.prompt)}>{question.prompt}</h1>
-      <div className={styles.timerContainer}>
-        <p className={styles.countDown}>{countdown}</p>
-        {isPaused ? (
-          <MdPlayCircleFilled onClick={togglePause} />
-        ) : (
-          <MdPauseCircleFilled onClick={togglePause} />
-        )}
+    <Container className={styles.main}>
+      <h1
+        className={classnames(styles.prompt, {
+          [styles["prompt--changing"]]: questionChanging,
+        })}
+      >
+        {question.prompt}
+      </h1>
+      <div className={styles.timer}>
+        <div className={styles.timerBar}>
+          <div
+            className={styles.timerBarFill}
+            style={{
+              width: `${100 - (countdown / (question.duration * 1000)) * 100}%`,
+            }}
+          />
+        </div>
+        <div className={styles.timerActions}>
+          {isPaused ? (
+            <MdPlayArrow
+              onClick={togglePause}
+              className={styles.playPauseIcon}
+            />
+          ) : (
+            <MdPause onClick={togglePause} className={styles.playPauseIcon} />
+          )}
+          <IoMdRefresh
+            className={styles.restartIcon}
+            onClick={() => {
+              setCountdown(question.duration * 1000);
+              setIsPaused(false);
+            }}
+          />
+          <HiArrowRight
+            className={styles.nextIcon}
+            onClick={() => {
+              handleQuestionChange();
+            }}
+          />
+        </div>
       </div>
     </Container>
   );
