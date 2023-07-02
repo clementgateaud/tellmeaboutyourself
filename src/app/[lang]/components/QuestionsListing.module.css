@@ -8,6 +8,8 @@
 }
 
 .questionContainer {
+  display: flex;
+  align-items: center;
   padding: 16px 24px;
   box-shadow: rgba(102, 75, 255, 0.2) 0px 0px 6px;
   border-radius: 6px;
@@ -36,5 +38,5 @@
 
 .tagAll,
 .tag:not(:last-child) {
-  margin-right: 12px;
+  margin-right: 8px;
 }
