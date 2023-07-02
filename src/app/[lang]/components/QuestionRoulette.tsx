@@ -1,30 +1,22 @@
 "use client";
 
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
-import type { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
-import { Button } from "@/app/[lang]/ui-kit/Button";
-import { t } from "@/app/[lang]/utils/translation";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
+import { MdPlayCircleFilled, MdPauseCircleFilled } from "react-icons/md";
 
 type QuestionPromptProps = {
   questions: LocalQuestionType[];
   lang: ValidLanguageType;
-  session: Session | null;
 };
 
-export const QuestionRoulette = ({
-  questions,
-  lang,
-  session,
-}: QuestionPromptProps) => {
+export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
-
-  const router = useRouter();
+  const [countdown, setCountdown] = useState(30);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
@@ -44,15 +36,28 @@ export const QuestionRoulette = ({
     }, 500);
   };
 
+  const togglePause = () => {
+    setIsPaused((prevPaused) => !prevPaused);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
-      handleQuestionChange();
-    }, 5000);
+      if (!isPaused) {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }
+    }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [question]);
+  }, [isPaused]);
+
+  useEffect(() => {
+    if (countdown === 0) {
+      handleQuestionChange();
+      setCountdown(30);
+    }
+  }, [countdown]);
 
   if (!question) {
     return null;
@@ -65,22 +70,14 @@ export const QuestionRoulette = ({
       })}
     >
       <h1 className={classnames(styles.prompt)}>{question.prompt}</h1>
-      <Button
-        variant="ghost"
-        color="accent"
-        onClick={() => {
-          router.push(`/${lang}/questions`);
-        }}
-        className={styles.ctaButton}
-      >
-        {t("see_all_questions", lang)}
-      </Button>
-      {/* {session && (
-        <>
-          <p>{session.user.email}</p>
-          <p>{session.user.id}</p>
-        </>
-      )} */}
+      <div className={styles.timerContainer}>
+        <p className={styles.countDown}>{countdown}</p>
+        {isPaused ? (
+          <MdPlayCircleFilled onClick={togglePause} />
+        ) : (
+          <MdPauseCircleFilled onClick={togglePause} />
+        )}
+      </div>
     </Container>
   );
 };

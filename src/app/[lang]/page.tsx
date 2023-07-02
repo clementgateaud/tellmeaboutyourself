@@ -1,26 +1,12 @@
-import type { Database } from "@/database.types";
-import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
-import { shuffleArray } from "@/app/[lang]/utils";
-import { getLocalQuestions } from "@/app/[lang]/utils";
+import type { ValidLanguageType } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
 import styles from "./page.module.css";
+import { redirect } from "next/navigation";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-
-const getQuestions = async (): Promise<RawQuestionType[]> => {
-  const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestions, error } = await supabase
-    .from("questions")
-    .select("*")
-    .eq("isPublished", true);
-  if (error) {
-    throw error;
-  }
-  return rawQuestions as RawQuestionType[];
-};
+import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 
 const getUserSession = async () => {
   const supabase = createServerComponentClient({ cookies });
@@ -41,9 +27,9 @@ const Page = async ({
     lang: ValidLanguageType;
   };
 }) => {
-  const rawQuestions = await getQuestions();
-  const localQuestions = getLocalQuestions(rawQuestions, lang);
   const session = await getUserSession();
+
+  redirect(`./${lang}/questions`);
 
   return (
     <>
@@ -51,13 +37,9 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <div className={styles.main}>
-        <QuestionRoulette
-          questions={shuffleArray(localQuestions)}
-          lang={lang}
-          session={session}
-        />
-      </div>
+      <Container>
+        <p>Home</p>
+      </Container>
     </>
   );
 };

@@ -5,9 +5,7 @@
   justify-content: space-between;
 }
 
-.logoLink,
-.logoLink:hover,
-.logoLink:focus {
+.logoLink {
   position: relative;
   text-decoration: none;
   line-height: 14px;
@@ -68,14 +66,6 @@
   .tell:hover,
   .me:hover,
   .about:hover {
-    color: var(--accent-color);
-  }
-
-  .navbarLink:hover {
-    color: var(--accent-color);
-  }
-
-  .navBarButton:hover {
     color: var(--accent-color);
   }
 }

@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Tag } from "@/app/[lang]/ui-kit/Tag";
 import { t } from "@/app/[lang]/utils/translation";
+import { Button } from "@/app/[lang]/ui-kit/Button";
+import { BiSolidTimer } from "react-icons/bi";
 import styles from "./QuestionsListing.module.css";
 
 type QuestionsListingProps = {
@@ -59,6 +61,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
   ];
   return (
     <Container className={styles.main}>
+      <h1 className={styles.listingTitle}>{t("listing_title", lang)}</h1>
       <div className={styles.tags}>
         <Tag
           label={t("tag_all", lang)}
@@ -92,6 +95,16 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
             <div className={styles.questionContainer}>{question.prompt}</div>
           </Link>
         ))}
+      </div>
+      <div className={styles.trainingModeContainer}>
+        <Button
+          color="accent"
+          icon={<BiSolidTimer />}
+          iconPosition="right"
+          onClick={() => router.push("./questions/training")}
+        >
+          {t("training_mode", lang)}
+        </Button>
       </div>
     </Container>
   );

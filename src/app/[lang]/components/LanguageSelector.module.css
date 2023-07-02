@@ -44,12 +44,7 @@
 }
 
 @media (hover: hover) {
-  .menuButton:hover {
-    color: var(--accent-color);
-  }
-
   .menuItem:hover {
     background-color: rgb(242, 242, 242);
-    color: var(--accent-color);
   }
 }

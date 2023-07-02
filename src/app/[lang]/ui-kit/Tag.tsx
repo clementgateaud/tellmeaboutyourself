@@ -7,6 +7,7 @@ type TagProps = {
   active?: boolean;
   onClick?: () => void;
   className?: string;
+  color?: "dark" | "accent";
 };
 
 export const Tag: FunctionComponent<TagProps> = ({
@@ -14,6 +15,7 @@ export const Tag: FunctionComponent<TagProps> = ({
   onClick,
   active = false,
   className,
+  color = "dark",
   ...restProps
 }) => {
   return (
@@ -21,6 +23,8 @@ export const Tag: FunctionComponent<TagProps> = ({
       onClick={onClick}
       className={classNamesMaker(className, styles.main, {
         [styles["main--active"]]: active,
+        [styles["main--dark"]]: color === "dark",
+        [styles["main--accent"]]: color === "accent",
       })}
       {...restProps}
     >

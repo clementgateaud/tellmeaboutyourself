@@ -14,5 +14,7 @@
   "tag_salary": "Salary",
   "tag_profile": "Profile",
   "tag_project": "Project",
-  "see_all_questions": "See more questions"
+  "see_all_questions": "See more questions",
+  "listing_title": "What you might be asked",
+  "training_mode": "Training mode"
 }
