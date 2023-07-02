@@ -90,7 +90,7 @@ export const AuthModal = ({
                 onClick={() => handleSignIn(provider.id)}
                 key={provider.id}
               >
-                <Image src={provider.icon} alt={provider.label} />
+                <Image src={provider.icon} alt={provider.label} priority />
               </button>
             ))}
           </div>
