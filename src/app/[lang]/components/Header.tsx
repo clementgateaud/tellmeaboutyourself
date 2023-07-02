@@ -1,5 +1,6 @@
 "use client";
 
+import type { Session } from "@supabase/supabase-js";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
@@ -8,9 +9,7 @@ import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { t } from "@/app/[lang]/utils/translation";
-import { UserIcon } from "@heroicons/react/24/outline";
-import { UserIcon as UserIconSolid } from "@heroicons/react/24/solid";
-import type { Session } from "@supabase/supabase-js";
+import { BiUser, BiSolidUser } from "react-icons/bi";
 
 type HeaderProps = {
   lang: ValidLanguageType;
@@ -45,7 +44,11 @@ export const Header = ({ lang, session }: HeaderProps) => {
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}
         >
-          {session ? <UserIconSolid /> : <UserIcon />}
+          {session ? (
+            <BiSolidUser className={styles.navBarIcon} />
+          ) : (
+            <BiUser className={styles.navBarIcon} />
+          )}
         </button>
         <AuthModal
           lang={lang}

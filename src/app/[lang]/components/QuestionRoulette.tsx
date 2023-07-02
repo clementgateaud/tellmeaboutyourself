@@ -5,7 +5,7 @@ import type { Session } from "@supabase/supabase-js";
 import { useState } from "react";
 import classnames from "classnames";
 import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { HiOutlineRefresh } from "react-icons/hi";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
@@ -56,7 +56,7 @@ export const QuestionRoulette = ({
       <Button
         variant="ghost"
         color="accent"
-        icon={<ArrowPathIcon />}
+        icon={<HiOutlineRefresh />}
         iconPosition="right"
         onClick={handleQuestionChange}
         className={styles.changeQuestionButton}
