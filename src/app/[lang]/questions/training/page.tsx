@@ -52,10 +52,7 @@ const Page = async ({
         session={session}
       />
       <div className={styles.main}>
-        <QuestionRoulette
-          questions={shuffleArray(localQuestions)}
-          lang={lang}
-        />
+        <QuestionRoulette questions={shuffleArray(localQuestions)} />
       </div>
     </>
   );

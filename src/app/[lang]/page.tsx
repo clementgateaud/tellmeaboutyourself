@@ -1,7 +1,6 @@
 import type { ValidLanguageType } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import styles from "./page.module.css";
 import { redirect } from "next/navigation";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";

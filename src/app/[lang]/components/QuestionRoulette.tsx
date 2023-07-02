@@ -1,6 +1,6 @@
 "use client";
 
-import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
+import type { LocalQuestionType } from "@/app/[lang]/types";
 import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
@@ -11,10 +11,9 @@ import { HiArrowRight } from "react-icons/hi";
 
 type QuestionPromptProps = {
   questions: LocalQuestionType[];
-  lang: ValidLanguageType;
 };
 
-export const QuestionRoulette = ({ questions, lang }: QuestionPromptProps) => {
+export const QuestionRoulette = ({ questions }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
   console.log(question.duration);
