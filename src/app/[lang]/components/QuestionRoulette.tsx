@@ -2,10 +2,10 @@
 
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
-import { HiOutlineRefresh } from "react-icons/hi";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
@@ -23,6 +23,8 @@ export const QuestionRoulette = ({
 }: QuestionPromptProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
+
+  const router = useRouter();
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
@@ -42,6 +44,16 @@ export const QuestionRoulette = ({
     }, 500);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleQuestionChange();
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [question]);
+
   if (!question) {
     return null;
   }
@@ -56,12 +68,12 @@ export const QuestionRoulette = ({
       <Button
         variant="ghost"
         color="accent"
-        icon={<HiOutlineRefresh />}
-        iconPosition="right"
-        onClick={handleQuestionChange}
-        className={styles.changeQuestionButton}
+        onClick={() => {
+          router.push(`/${lang}/questions`);
+        }}
+        className={styles.ctaButton}
       >
-        {t("change_question_button", lang)}
+        {t("see_all_questions", lang)}
       </Button>
       {/* {session && (
         <>
