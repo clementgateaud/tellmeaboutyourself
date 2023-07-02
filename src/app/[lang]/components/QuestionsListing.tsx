@@ -87,6 +87,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
           <Link
             href={`./questions/${question.id}`}
             className={styles.questionLink}
+            key={question.id}
           >
             <div className={styles.questionContainer}>{question.prompt}</div>
           </Link>

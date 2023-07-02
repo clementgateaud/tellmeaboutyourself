@@ -9,11 +9,12 @@
 
 .questionContainer {
   padding: 16px 24px;
-  /* background-color: #e3defd; */
   box-shadow: rgba(102, 75, 255, 0.2) 0px 0px 6px;
   border-radius: 6px;
   margin-bottom: 16px;
   color: var(--dark-color);
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .questionContainer:hover {

@@ -98,9 +98,7 @@ export const AuthModal = ({
       )}
       {session && (
         <>
-          <p className={styles.loggedInTitle}>
-            {t("logged_in_as", lang)} {session.user.email}
-          </p>
+          {t("logged_in_as", lang)} {session.user.email}
           <Button className={styles.signOutButton} onClick={handleSignOut}>
             {t("sign_out", lang)}
           </Button>
