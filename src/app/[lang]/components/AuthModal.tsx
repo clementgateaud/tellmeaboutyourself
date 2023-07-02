@@ -55,22 +55,22 @@ export const AuthModal = ({
   const AUTH_PROVIDERS: {
     id: Provider;
     label: string;
-    icon: StaticImageData;
+    iconSrc: string;
   }[] = [
     {
       id: "google",
       label: "Google",
-      icon: GoogleIcon,
+      iconSrc: "/assets/google.svg",
     },
     {
       id: "linkedin",
       label: "LinkedIn",
-      icon: LinkedInIcon,
+      iconSrc: "/assets/linkedin.svg",
     },
     {
       id: "github",
       label: "GitHub",
-      icon: GitHubIcon,
+      iconSrc: "/assets/github.svg",
     },
   ];
 
@@ -90,7 +90,13 @@ export const AuthModal = ({
                 onClick={() => handleSignIn(provider.id)}
                 key={provider.id}
               >
-                <Image src={provider.icon} alt={provider.label} priority />
+                <Image
+                  src={provider.iconSrc}
+                  alt={provider.label}
+                  width="40"
+                  height="40"
+                  priority
+                />
               </button>
             ))}
           </div>

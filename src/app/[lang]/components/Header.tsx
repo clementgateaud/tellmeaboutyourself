@@ -9,7 +9,7 @@ import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { t } from "@/app/[lang]/utils/translation";
-import { MdManageAccounts, MdOutlineManageAccounts } from "react-icons/md";
+import { AiOutlineUser } from "react-icons/ai";
 
 type HeaderProps = {
   lang: ValidLanguageType;
@@ -44,11 +44,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}
         >
-          {session ? (
-            <MdManageAccounts className={styles.navBarIcon} />
-          ) : (
-            <MdOutlineManageAccounts className={styles.navBarIcon} />
-          )}
+          <AiOutlineUser className={styles.navBarIcon} />
         </button>
         <AuthModal
           lang={lang}
