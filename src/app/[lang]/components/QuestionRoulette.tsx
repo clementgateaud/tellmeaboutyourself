@@ -1,7 +1,7 @@
 "use client";
 
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import styles from "@/app/[lang]/components/QuestionRoulette.module.css";

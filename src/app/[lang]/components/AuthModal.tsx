@@ -1,15 +1,11 @@
 import type { ValidLanguageType } from "@/app/[lang]/types";
 import type { Provider, Session } from "@supabase/supabase-js";
 import type { Dispatch, SetStateAction } from "react";
-import type { StaticImageData } from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { t } from "@/app/[lang]/utils/translation";
 import { Database } from "@/database.types";
 import Image from "next/image";
-import GoogleIcon from "@/assets/google.svg";
-import LinkedInIcon from "@/assets/linkedin.svg";
-import GitHubIcon from "@/assets/github.svg";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./AccountAuth.module.css";

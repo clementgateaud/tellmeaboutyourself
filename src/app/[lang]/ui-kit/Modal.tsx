@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { MdClose } from "react-icons/md";
 import classNamesMaker from "classnames";
-import Image from "next/image";
 import styles from "./Modal.module.css";
 
 type ModalProps = {

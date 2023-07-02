@@ -58,7 +58,7 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <QuestionShow question={localQuestion} lang={lang} />
+      <QuestionShow question={localQuestion} />
     </>
   );
 };
