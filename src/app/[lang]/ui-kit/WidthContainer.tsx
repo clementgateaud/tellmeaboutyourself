@@ -1,15 +1,12 @@
 import type { ReactNode } from "react";
 import classNames from "classnames";
-import styles from "./WidthContainer.module.css";
+import styles from "./Container.module.css";
 
-type WidthContainerProps = {
+type ContainerProps = {
   children: ReactNode;
   className?: string;
 };
 
-export const WidthContainer = ({
-  children,
-  className,
-}: WidthContainerProps) => {
+export const Container = ({ children, className }: ContainerProps) => {
   return <div className={classNames(styles.main, className)}>{children}</div>;
 };

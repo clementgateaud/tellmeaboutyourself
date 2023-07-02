@@ -6,17 +6,19 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { defaultLanguage } from "@/app/[lang]/constants";
-import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
 import { QuestionsListing } from "@/app/[lang]/components/QuestionsListing";
-import Link from "next/link";
-import styles from "./page.module.css";
 
-const getQuestions = async (): Promise<RawQuestionType[]> => {
+const getQuestions = async (tags?: string): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestions, error } = await supabase
-    .from("questions")
-    .select("*")
-    .eq("isPublished", true);
+  const tagsArray = tags?.split(",").filter((tag) => tag !== "");
+  const { data: rawQuestions, error } =
+    tagsArray && tagsArray.length > 0
+      ? await supabase
+          .from("questions")
+          .select("*")
+          .eq("isPublished", true)
+          .in("tag", tagsArray)
+      : await supabase.from("questions").select("*").eq("isPublished", true);
   if (error) {
     throw error;
   }
@@ -37,12 +39,16 @@ const getUserSession = async () => {
 
 const Page = async ({
   params: { lang },
+  searchParams: { tags },
 }: {
   params: {
     lang: ValidLanguageType;
   };
+  searchParams: {
+    tags?: string;
+  };
 }) => {
-  const rawQuestions = await getQuestions();
+  const rawQuestions = await getQuestions(tags);
   const localQuestions = getLocalQuestions(rawQuestions, lang);
   const session = await getUserSession();
 
@@ -52,7 +58,10 @@ const Page = async ({
         lang={isLanguageValid(lang) ? lang : defaultLanguage}
         session={session}
       />
-      <QuestionsListing questions={localQuestions} />
+      <QuestionsListing
+        questions={localQuestions}
+        lang={isLanguageValid(lang) ? lang : defaultLanguage}
+      />
     </>
   );
 };

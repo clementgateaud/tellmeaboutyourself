@@ -3,13 +3,13 @@
 import type { Session } from "@supabase/supabase-js";
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
+import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { t } from "@/app/[lang]/utils/translation";
-import { BiUser, BiSolidUser } from "react-icons/bi";
+import { HiOutlineUser, HiUser } from "react-icons/hi";
 
 type HeaderProps = {
   lang: ValidLanguageType;
@@ -25,7 +25,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <WidthContainer className={styles.main}>
+    <Container className={styles.main}>
       <Link href={`/${lang}`} className={styles.logoLink}>
         <div className={styles.tellMeAbout}>
           <p>
@@ -45,9 +45,9 @@ export const Header = ({ lang, session }: HeaderProps) => {
           onClick={() => setIsAuthModalOpen(true)}
         >
           {session ? (
-            <BiSolidUser className={styles.navBarIcon} />
+            <HiUser className={styles.navBarIcon} />
           ) : (
-            <BiUser className={styles.navBarIcon} />
+            <HiOutlineUser className={styles.navBarIcon} />
           )}
         </button>
         <AuthModal
@@ -58,6 +58,6 @@ export const Header = ({ lang, session }: HeaderProps) => {
         />
         <LanguageSelector />
       </div>
-    </WidthContainer>
+    </Container>
   );
 };

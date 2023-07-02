@@ -19,3 +19,21 @@
 .questionContainer:hover {
   color: var(--accent-color);
 }
+
+.tags {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.tagAll,
+.tag {
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.tagAll,
+.tag:not(:last-child) {
+  margin-right: 12px;
+}

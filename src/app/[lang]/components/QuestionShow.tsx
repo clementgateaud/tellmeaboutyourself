@@ -2,8 +2,7 @@
 
 import type { FunctionComponent } from "react";
 import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
-import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
-import { BsArrowLeft } from "react-icons/bs";
+import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { t } from "@/app/[lang]/utils/translation";
 import styles from "./QuestionShow.module.css";
 import { useRouter } from "next/navigation";
@@ -19,12 +18,8 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <WidthContainer className={styles.pageContainer}>
-      <p className={styles.backNav} onClick={() => router.back()}>
-        <BsArrowLeft className={styles.leftIcon} />
-        {t("questions", lang)}
-      </p>
+    <Container className={styles.pageContainer}>
       <h1>{question.prompt}</h1>
-    </WidthContainer>
+    </Container>
   );
 };

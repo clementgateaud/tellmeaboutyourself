@@ -4,7 +4,7 @@ import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
 import { useState } from "react";
 import classnames from "classnames";
-import { WidthContainer } from "@/app/[lang]/ui-kit/WidthContainer";
+import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";
@@ -47,7 +47,7 @@ export const QuestionRoulette = ({
   }
 
   return (
-    <WidthContainer
+    <Container
       className={classnames(styles.main, {
         [styles.questionChanging]: questionChanging,
       })}
@@ -69,6 +69,6 @@ export const QuestionRoulette = ({
           <p>{session.user.id}</p>
         </>
       )} */}
-    </WidthContainer>
+    </Container>
   );
 };

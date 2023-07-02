@@ -6,5 +6,12 @@
   "log_in_with": "Se connecter avec",
   "logged_in_as": "Connecté en tant que",
   "sign_out": "Se déconnecter",
-  "questions": "Questions"
+  "questions": "Questions",
+  "back": "Retour",
+  "tag_all": "Tout",
+  "tag_experience": "Expérience",
+  "tag_motivation": "Motivation",
+  "tag_salary": "Salaire",
+  "tag_profile": "Profile",
+  "tag_project": "Projet"
 }

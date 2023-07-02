@@ -2,20 +2,3 @@
   padding-top: 24px;
   padding-bottom: 24px;
 }
-
-.leftIcon {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  flex-shrink: 0;
-}
-
-.backNav {
-  display: flex;
-  align-items: center;
-  color: var(--accent-color);
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 18px;
-  margin-bottom: 24px;
-}
