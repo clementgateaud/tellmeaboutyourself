@@ -1,7 +1,12 @@
 "use client";
 
 import type { FunctionComponent } from "react";
-import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
+import type {
+  LocalQuestionType,
+  QuestionTagType,
+  ValidLanguageType,
+} from "@/app/[lang]/types";
+import { useState } from "react";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -24,20 +29,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const currentTags = searchParams
-    .get("tags")
-    ?.split(",")
-    .filter((tag) => tag !== "");
-
-  const getNewTagsQueryParams = (tag: string) => {
-    if (currentTags?.includes(tag)) {
-      return currentTags.filter((currentTag) => currentTag !== tag).join(",");
-    } else {
-      return currentTags ? [...currentTags, tag].join(",") : tag;
-    }
-  };
-
-  const TAGS = [
+  const TAGS: { value: QuestionTagType; label: string }[] = [
     {
       value: "motivation",
       label: t("tag_motivation", lang),
@@ -59,6 +51,20 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
       label: t("tag_project", lang),
     },
   ];
+
+  const initialTag = searchParams.get("tag") as QuestionTagType | null;
+
+  const initialFilteredQuestions = initialTag
+    ? questions.filter((question) => question.tag === initialTag)
+    : questions;
+
+  const [filteredQuestions, setFilteredQuestions] = useState(
+    initialFilteredQuestions
+  );
+  const [activeTag, setActiveTag] = useState<QuestionTagType | "all">(
+    initialTag || "all"
+  );
+
   return (
     <Container className={styles.main}>
       <h1 className={styles.listingTitle}>{t("listing_title", lang)}</h1>
@@ -66,27 +72,31 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
         <Tag
           label={t("tag_all", lang)}
           className={styles.tagAll}
+          active={activeTag === "all"}
           onClick={() => {
-            router.push(`./questions`);
+            setActiveTag("all");
+            setFilteredQuestions(questions);
+            router.push(`./questions`, { shallow: true });
           }}
-          active={!currentTags?.length}
         />
         {TAGS.map((tag) => (
           <Tag
             key={tag.value}
             label={tag.label}
-            active={currentTags?.includes(tag.value)}
+            active={activeTag === tag.value}
             onClick={() => {
-              router.push(
-                `./questions?tags=${getNewTagsQueryParams(tag.value)}`
+              setActiveTag(tag.value);
+              setFilteredQuestions(
+                questions.filter((question) => question.tag === tag.value)
               );
+              router.push(`./questions?tag=${tag.value}`, { shallow: true });
             }}
             className={styles.tag}
           />
         ))}
       </div>
       <div className={styles.questions}>
-        {questions.map((question) => (
+        {filteredQuestions.map((question) => (
           <Link
             href={`./questions/${question.id}`}
             className={styles.questionLink}

@@ -2,6 +2,13 @@ import { languages } from "@/app/[lang]/constants";
 
 export type ValidLanguageType = (typeof languages)[number];
 
+export type QuestionTagType =
+  | "motivation"
+  | "salary"
+  | "profile"
+  | "experience"
+  | "project";
+
 export type RawQuestionType = {
   id: number;
   created_at: string;
