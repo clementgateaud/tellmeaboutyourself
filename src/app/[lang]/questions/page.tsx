@@ -1,9 +1,5 @@
 import type { Database } from "@/database.types";
-import type {
-  ValidLanguageType,
-  RawQuestionType,
-  QuestionTagType,
-} from "@/app/[lang]/types";
+import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
 import { getLocalQuestions } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -38,13 +34,9 @@ const getUserSession = async () => {
 
 const Page = async ({
   params: { lang },
-  searchParams: { tag },
 }: {
   params: {
     lang: ValidLanguageType;
-  };
-  searchParams: {
-    tag?: QuestionTagType;
   };
 }) => {
   const rawQuestions = await getQuestions();
