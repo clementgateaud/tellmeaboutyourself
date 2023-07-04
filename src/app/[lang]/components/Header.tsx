@@ -10,6 +10,7 @@ import { ValidLanguageType } from "@/app/[lang]/types";
 import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { FaList } from "react-icons/fa";
+import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 
 type HeaderProps = {
@@ -47,10 +48,15 @@ export const Header = ({ lang, session }: HeaderProps) => {
         </div>
       </Link>
       <div className={styles.navbar}>
+        <Link
+          href={`/${lang}/questions/training`}
+          className={styles.navbarLink}
+        >
+          <BiSolidTimer className={styles.trainingIcon} />
+        </Link>
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>
           <FaList className={styles.listIcon} />
         </Link>
-
         <button
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}

@@ -56,6 +56,11 @@
   height: 1.25rem;
 }
 
+.trainingIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 @media screen and (min-width: 600px) {
   .navbar > *:not(:last-child) {
     margin-right: 2rem;
@@ -68,7 +73,8 @@
   }
 
   .accountIcon:hover,
-  .listIcon:hover {
+  .listIcon:hover,
+  .trainingIcon:hover {
     color: var(--accent-color);
   }
 }
