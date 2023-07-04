@@ -26,7 +26,6 @@ export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
     setQuestionChanging(true);
-    setIsPaused(true);
     // wait for the animation to be halfway done before changing the question
     setTimeout(() => {
       const currentIndex = questions.indexOf(question);
