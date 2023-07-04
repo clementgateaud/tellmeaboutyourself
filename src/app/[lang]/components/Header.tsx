@@ -3,6 +3,7 @@
 import type { Session } from "@supabase/supabase-js";
 import styles from "./Header.module.css";
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
@@ -27,14 +28,22 @@ export const Header = ({ lang, session }: HeaderProps) => {
   return (
     <Container className={styles.main}>
       <Link href={`/${lang}`} className={styles.logoLink}>
-        <div className={styles.tellMeAbout}>
+        <Image
+          src="/assets/transparent-logo-tmay-cropped.png"
+          alt="Logo"
+          width="40"
+          height="40"
+        />
+        <div className={styles.tellMeAboutYourself}>
           <p>
             <span className={styles.tell}>Tell </span>
             <span className={styles.me}>me</span>
           </p>
-          <p className={styles.about}>about</p>
+          <p>
+            <span className={styles.about}>about </span>
+            <span className={styles.yourself}>yourself</span>
+          </p>
         </div>
-        <p className={styles.yourself}>yourself</p>
       </Link>
       <div className={styles.navbar}>
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>
