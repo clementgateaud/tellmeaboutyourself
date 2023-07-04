@@ -29,10 +29,11 @@ export const Header = ({ lang, session }: HeaderProps) => {
     <Container className={styles.main}>
       <Link href={`/${lang}`} className={styles.logoLink}>
         <Image
-          src="/assets/transparent-logo-tmay-cropped.png"
+          src="/assets/transparent-logo-tmay-cropped-min.png"
           alt="Logo"
           width="40"
           height="40"
+          priority
         />
         <div className={styles.tellMeAboutYourself}>
           <p>
