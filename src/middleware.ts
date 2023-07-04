@@ -8,7 +8,7 @@ import type { Database } from "@/database.types";
 export const config = {
   // do not localize Next.js paths and auth routes
   matcher: [
-    "/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|auth).*)",
+    "/((?!api|_next/static|_next/image|assets|favicon.ico|icon.ico|apple-icon.png|sw.js|auth).*)",
   ],
 };
 
