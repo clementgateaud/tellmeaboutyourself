@@ -91,30 +91,33 @@ export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
             }}
           />
         </div>
-        {countdown > 0 && (
-          <>
-            {isPaused ? (
-              <MdPlayArrow
-                onClick={togglePause}
-                className={styles.playPauseIcon}
-              />
-            ) : (
-              <MdPause onClick={togglePause} className={styles.playPauseIcon} />
-            )}
-          </>
-        )}
-        <IoMdRefresh
-          className={styles.restartIcon}
-          onClick={() => {
-            setCountdown(question.duration * 1000);
-            setIsPaused(false);
-          }}
-        />
+        <div className={styles.timerActions}>
+          {countdown > 0 && (
+            <>
+              {isPaused ? (
+                <MdPlayArrow
+                  onClick={togglePause}
+                  className={styles.timerIcon}
+                />
+              ) : (
+                <MdPause onClick={togglePause} className={styles.timerIcon} />
+              )}
+            </>
+          )}
+          <IoMdRefresh
+            className={styles.timerIcon}
+            onClick={() => {
+              setCountdown(question.duration * 1000);
+              setIsPaused(false);
+            }}
+          />
+        </div>
       </div>
       <Button
         className={styles.nextQuestionButton}
         minor
         variant={countdown > 0 ? "ghost" : "primary"}
+        color="accent"
         onClick={handleQuestionChange}
         icon={<HiArrowRight />}
         iconPosition="right"
