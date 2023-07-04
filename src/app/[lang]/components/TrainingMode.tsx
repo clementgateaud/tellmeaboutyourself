@@ -1,19 +1,22 @@
 "use client";
 
-import type { LocalQuestionType } from "@/app/[lang]/types";
+import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
-import styles from "@/app/[lang]/components/QuestionRoulette.module.css";
 import { MdPlayArrow, MdPause } from "react-icons/md";
 import { IoMdRefresh } from "react-icons/io";
 import { HiArrowRight } from "react-icons/hi";
+import { Button } from "@/app/[lang]/ui-kit/Button";
+import { t } from "@/app/[lang]/utils/translation";
+import styles from "./TrainingMode.module.css";
 
-type QuestionPromptProps = {
+type TrainingModeProps = {
   questions: LocalQuestionType[];
+  lang: ValidLanguageType;
 };
 
-export const QuestionRoulette = ({ questions }: QuestionPromptProps) => {
+export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
   console.log(question.duration);
@@ -49,8 +52,14 @@ export const QuestionRoulette = ({ questions }: QuestionPromptProps) => {
   }, [question]);
 
   useEffect(() => {
+    if (countdown <= 0) {
+      setCountdown(0);
+    }
+  }, [countdown]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      if (!isPaused) {
+      if (!isPaused && countdown > 0) {
         setCountdown((prevCountdown) => prevCountdown - 50);
       }
     }, 50);
@@ -59,12 +68,6 @@ export const QuestionRoulette = ({ questions }: QuestionPromptProps) => {
       clearInterval(interval);
     };
   }, [isPaused]);
-
-  useEffect(() => {
-    if (countdown <= 0) {
-      handleQuestionChange();
-    }
-  }, [countdown]);
 
   if (!question) {
     return null;
@@ -88,30 +91,36 @@ export const QuestionRoulette = ({ questions }: QuestionPromptProps) => {
             }}
           />
         </div>
-        <div className={styles.timerActions}>
-          {isPaused ? (
-            <MdPlayArrow
-              onClick={togglePause}
-              className={styles.playPauseIcon}
-            />
-          ) : (
-            <MdPause onClick={togglePause} className={styles.playPauseIcon} />
-          )}
-          <IoMdRefresh
-            className={styles.restartIcon}
-            onClick={() => {
-              setCountdown(question.duration * 1000);
-              setIsPaused(false);
-            }}
-          />
-          <HiArrowRight
-            className={styles.nextIcon}
-            onClick={() => {
-              handleQuestionChange();
-            }}
-          />
-        </div>
+        {countdown > 0 && (
+          <>
+            {isPaused ? (
+              <MdPlayArrow
+                onClick={togglePause}
+                className={styles.playPauseIcon}
+              />
+            ) : (
+              <MdPause onClick={togglePause} className={styles.playPauseIcon} />
+            )}
+          </>
+        )}
+        <IoMdRefresh
+          className={styles.restartIcon}
+          onClick={() => {
+            setCountdown(question.duration * 1000);
+            setIsPaused(false);
+          }}
+        />
       </div>
+      <Button
+        className={styles.nextQuestionButton}
+        minor
+        variant={countdown > 0 ? "ghost" : "primary"}
+        onClick={handleQuestionChange}
+        icon={<HiArrowRight />}
+        iconPosition="right"
+      >
+        {t("next_question", lang)}
+      </Button>
     </Container>
   );
 };

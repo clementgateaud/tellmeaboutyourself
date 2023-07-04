@@ -12,10 +12,7 @@
   line-height: 2.5rem;
   text-align: center;
   text-wrap: balance;
-  background: linear-gradient(to right, rgb(75, 101, 255), rgb(151, 77, 255));
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .prompt--changing {
@@ -25,42 +22,43 @@
 
 .timerBar {
   width: 100%;
-  height: 8px;
+  height: 16px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
   max-width: 400px;
 }
 
 .timerBarFill {
-  background-color: var(--accent-color);
+  background: linear-gradient(to right, rgb(75, 101, 255), rgb(151, 77, 255));
   height: 100%;
 }
 
 .playPauseIcon,
-.restartIcon,
-.nextIcon {
-  height: 16px;
-  width: 16px;
+.restartIcon {
+  height: 24px;
+  width: 24px;
   color: var(--grey-color);
   cursor: pointer;
 }
 
+.playPauseIcon {
+  margin-left: 16px;
+}
+
 .restartIcon {
-  margin: 0 6px;
+  margin-left: 8px;
 }
 
 .timer {
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 400px;
 }
 
-.timerActions {
-  margin-top: 8px;
-  display: flex;
+.nextQuestionButton {
+  margin-top: 24px;
 }
 
 @keyframes promptAnimation {

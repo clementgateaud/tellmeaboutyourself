@@ -4,7 +4,7 @@ import { shuffleArray } from "@/app/[lang]/utils";
 import { getLocalQuestions } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { QuestionRoulette } from "@/app/[lang]/components/QuestionRoulette";
+import { TrainingMode } from "@/app/[lang]/components/TrainingMode";
 import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
@@ -52,7 +52,7 @@ const Page = async ({
         session={session}
       />
       <div className={styles.main}>
-        <QuestionRoulette questions={shuffleArray(localQuestions)} />
+        <TrainingMode questions={shuffleArray(localQuestions)} lang={lang} />
       </div>
     </>
   );
