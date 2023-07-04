@@ -37,25 +37,25 @@ export const Header = ({ lang, session }: HeaderProps) => {
         />
         <div className={styles.tellMeAboutYourself}>
           <p>
-            <span className={styles.tell}>Tell </span>
-            <span className={styles.me}>me</span>
+            <span className={styles.tellMeAboutYourselfWord}>Tell</span>{" "}
+            <span className={styles.tellMeAboutYourselfWord}>me</span>
           </p>
           <p>
-            <span className={styles.about}>about </span>
-            <span className={styles.yourself}>yourself</span>
+            <span className={styles.tellMeAboutYourselfWord}>about</span>{" "}
+            <span className={styles.tellMeAboutYourselfWord}>yourself</span>
           </p>
         </div>
       </Link>
       <div className={styles.navbar}>
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>
-          <FaList className={styles.navbarIcon} />
+          <FaList className={styles.listIcon} />
         </Link>
 
         <button
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}
         >
-          <AiOutlineUser className={styles.navBarIcon} />
+          <AiOutlineUser className={styles.accountIcon} />
         </button>
         <AuthModal
           lang={lang}

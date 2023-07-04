@@ -21,7 +21,7 @@
   line-height: 14px;
 }
 
-.tellMeAboutYourself {
+.tellMeAboutYourselfWord {
   color: var(--dark-color);
 }
 
@@ -51,7 +51,7 @@
   cursor: pointer;
 }
 
-.navBarIcon {
+.accountIcon {
   width: 1.25rem;
   height: 1.25rem;
 }
@@ -63,10 +63,12 @@
 }
 
 @media (hover: hover) {
-  .tell:hover,
-  .me:hover,
-  .about:hover,
-  .yourself:hover {
+  .tellMeAboutYourselfWord:hover {
+    color: var(--accent-color);
+  }
+
+  .accountIcon:hover,
+  .listIcon:hover {
     color: var(--accent-color);
   }
 }

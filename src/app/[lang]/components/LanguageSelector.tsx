@@ -60,7 +60,7 @@ export const LanguageSelector = () => {
           className={styles.menuButton}
           onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         >
-          <MdLanguage className={styles.navBarIcon} />
+          <MdLanguage className={styles.languageIcon} />
         </button>
 
         {isDropdownOpen && (
