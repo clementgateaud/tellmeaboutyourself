@@ -1,5 +1,5 @@
 import type { ValidLanguageType } from "@/app/[lang]/types";
-import type { Provider, Session } from "@supabase/supabase-js";
+import type { Session } from "@supabase/supabase-js";
 import type { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -23,23 +23,13 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleSignIn = async (authProviderName: Provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: authProviderName,
-      options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-    if (error) {
-      console.log(error);
-    }
+    setMagicLinkSent(false);
   };
 
   const handleSignOut = async () => {
@@ -47,8 +37,6 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     handleCloseModal();
     router.refresh();
   };
-
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
 
   const handleOnEmailSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -99,7 +87,9 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       )}
       {session && (
         <>
-          {t("logged_in_as", lang)} {session.user.email}
+          <p className={styles.loggedInAs}>
+            {t("logged_in_as", lang)} {session.user.email}
+          </p>
           <Button className={styles.signOutButton} onClick={handleSignOut}>
             {t("sign_out", lang)}
           </Button>

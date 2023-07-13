@@ -32,7 +32,8 @@
   margin-top: 20px;
 }
 
-.magicLinkSentDescription {
-  font-size: 14px;
-  line-height: 18px;
+.magicLinkSentDescription,
+.loggedInAs {
+  font-size: 16px;
+  line-height: 20px;
 }
