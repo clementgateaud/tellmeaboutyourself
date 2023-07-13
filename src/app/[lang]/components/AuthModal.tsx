@@ -23,13 +23,15 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [emailToVerify, setEmailToVerify] = useState("");
+  const [otpError, setOtpError] = useState(false);
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setMagicLinkSent(false);
+    setOtpSent(false);
   };
 
   const handleSignOut = async () => {
@@ -45,14 +47,29 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     const email = event.currentTarget.email.value;
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
     });
     if (error) {
       console.log(error);
     }
-    setMagicLinkSent(true);
+    setOtpSent(true);
+    setEmailToVerify(email);
+  };
+
+  const handleOnOtpSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const otp = event.currentTarget.otp.value;
+    const { error } = await supabase.auth.verifyOtp({
+      email: emailToVerify,
+      token: otp,
+      type: "email",
+    });
+    if (error) {
+      console.log(error);
+      setOtpError(true);
+    } else {
+      handleCloseModal();
+      router.refresh();
+    }
   };
 
   return (
@@ -61,10 +78,10 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       onClose={handleCloseModal}
       className={styles.modal}
     >
-      {!session && !magicLinkSent && (
+      {!session && !otpSent && (
         <>
           <p className={styles.logInTitle}>{t("auth_modal_title", lang)}</p>
-          <form className={styles.emailForm} onSubmit={handleOnEmailSubmit}>
+          <form onSubmit={handleOnEmailSubmit}>
             <label htmlFor="email" className={styles.emailLabel}>
               {t("email", lang)}
             </label>
@@ -75,22 +92,41 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
               placeholder={t("email_placeholder", lang)}
             />
             <Button minor type="submit" className={styles.emailSubmitButton}>
-              Receive a magic link
+              {t("email_submit", lang)}
             </Button>
           </form>
         </>
       )}
-      {!session && magicLinkSent && (
-        <p className={styles.magicLinkSentDescription}>
-          {t("auth_modal_magic_link_sent", lang)}
-        </p>
+      {!session && otpSent && (
+        <>
+          <form onSubmit={handleOnOtpSubmit}>
+            <label htmlFor="otp" className={styles.otpLabel}>
+              {t("otp_label", lang)}
+            </label>
+            <input
+              id="otp"
+              placeholder={t("otp_placeholder", lang)}
+              className={styles.otpInput}
+            />
+            {otpError && (
+              <p className={styles.otpError}>{t("otp_error", lang)}</p>
+            )}
+            <Button minor type="submit" className={styles.otpSubmitButton}>
+              {t("otp_submit", lang)}
+            </Button>
+          </form>
+        </>
       )}
       {session && (
         <>
           <p className={styles.loggedInAs}>
             {t("logged_in_as", lang)} {session.user.email}
           </p>
-          <Button className={styles.signOutButton} onClick={handleSignOut}>
+          <Button
+            minor
+            className={styles.signOutButton}
+            onClick={handleSignOut}
+          >
             {t("sign_out", lang)}
           </Button>
         </>

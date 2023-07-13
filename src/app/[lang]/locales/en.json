@@ -3,7 +3,6 @@
   "language_fr": "Français",
   "change_question_button": "Other question",
   "log_in": "Log in",
-  "log_in_with": "Log in with",
   "logged_in_as": "Logged in as",
   "sign_out": "Sign out",
   "questions": "Questions",
@@ -23,5 +22,9 @@
   "auth_modal_title": "Log in or Sign up",
   "email": "E-mail",
   "email_placeholder": "ineedajob@gmail.com",
-  "auth_modal_magic_link_sent": "A magic link has been sent to your email address"
+  "email_submit": "Send me a code",
+  "otp_label": "Code you received by e-mail",
+  "otp_placeholder": "123456",
+  "otp_error": "Invalid or expired code",
+  "otp_submit": "Validate"
 }

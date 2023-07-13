@@ -3,7 +3,6 @@
   "language_fr": "Français",
   "change_question_button": "Autre question",
   "log_in": "Se connecter",
-  "log_in_with": "Se connecter avec",
   "logged_in_as": "Connecté en tant que",
   "sign_out": "Se déconnecter",
   "questions": "Questions",
@@ -23,5 +22,9 @@
   "auth_modal_title": "Se connecter ou s'inscrire",
   "email": "E-mail",
   "email_placeholder": "jeveuxunjob@gmail.com",
-  "auth_modal_magic_link_sent": "Un lien magique a été envoyé à votre adresse e-mail"
+  "email_submit": "M'envoyer un code",
+  "otp_label": "Code reçu par e-mail",
+  "otp_placeholder": "123456",
+  "otp_error": "Code invalide ou expiré",
+  "otp_submit": "Valider"
 }
