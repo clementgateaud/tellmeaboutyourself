@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
 import { QuestionsListing } from "@/app/[lang]/components/QuestionsListing";
+import { notFound } from "next/navigation";
 
 const getQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -43,16 +43,14 @@ const Page = async ({
   const localQuestions = getLocalQuestions(rawQuestions, lang);
   const session = await getUserSession();
 
+  if (!isLanguageValid(lang)) {
+    return notFound();
+  }
+
   return (
     <>
-      <Header
-        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
-        session={session}
-      />
-      <QuestionsListing
-        questions={localQuestions}
-        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
-      />
+      <Header lang={lang} session={session} />
+      <QuestionsListing questions={localQuestions} lang={lang} />
     </>
   );
 };

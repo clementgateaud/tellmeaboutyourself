@@ -19,7 +19,6 @@ type TrainingModeProps = {
 export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
   const [question, setQuestion] = useState(questions[0]);
   const [questionChanging, setQuestionChanging] = useState(false);
-  console.log(question.duration);
   const [countdown, setCountdown] = useState(question.duration * 1000);
   const [isPaused, setIsPaused] = useState(false);
 

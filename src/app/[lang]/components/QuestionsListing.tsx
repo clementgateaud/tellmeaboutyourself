@@ -111,7 +111,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
           color="accent"
           icon={<BiSolidTimer />}
           iconPosition="right"
-          onClick={() => router.push("./questions/training")}
+          onClick={() => router.push("./training")}
         >
           {t("training_mode", lang)}
         </Button>

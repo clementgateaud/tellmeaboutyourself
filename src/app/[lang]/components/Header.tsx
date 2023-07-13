@@ -50,10 +50,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
         </div>
       </Link>
       <div className={styles.navbar}>
-        <Link
-          href={`/${lang}/questions/training`}
-          className={styles.navbarLink}
-        >
+        <Link href={`/${lang}/training`} className={styles.navbarLink}>
           <BiSolidTimer className={styles.trainingIcon} />
         </Link>
         <Link href={`/${lang}/questions`} className={styles.navbarLink}>

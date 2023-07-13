@@ -5,13 +5,6 @@ import { isLanguageValid } from "@/app/[lang]/utils";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/database.types";
 
-export const config = {
-  // do not localize Next.js paths and auth routes
-  matcher: [
-    "/((?!api|_next/static|_next/image|assets|favicon.ico|icon.ico|apple-icon.png|sw.js|auth).*)",
-  ],
-};
-
 export async function middleware(req: NextRequest) {
   // ensure the user's auth session remains active. Since the user's session is tracked in a cookie, we need to read this cookie and update it if necessary
   const res = NextResponse.next();
@@ -38,16 +31,21 @@ export async function middleware(req: NextRequest) {
   const urlLanguage = getURLLanguage();
   const languageCookieValue = getLanguageCookieValue();
   const acceptLanguageHeader = getAcceptLanguageHeader();
-  // if this is a next.js path, do not localize
-  if (!new RegExp(config.matcher[0]).test(req.nextUrl.pathname))
-    return NextResponse.next();
-  if (isLanguageValid(urlLanguage)) {
-    return NextResponse.next();
-  } else if (isLanguageValid(languageCookieValue)) {
-    return NextResponse.redirect(new URL(`/${languageCookieValue}`, req.url));
-  } else if (isLanguageValid(acceptLanguageHeader)) {
-    return NextResponse.redirect(new URL(`/${acceptLanguageHeader}`, req.url));
-  } else {
-    return NextResponse.redirect(new URL(`/${DEFAULT_LANGUAGE}`, req.url));
+
+  // redirect to the user's preferred language if they are at the root of the site
+  if (req.nextUrl.pathname === "/") {
+    if (isLanguageValid(urlLanguage)) {
+      return NextResponse.next();
+    } else if (isLanguageValid(languageCookieValue)) {
+      return NextResponse.redirect(new URL(`/${languageCookieValue}`, req.url));
+    } else if (isLanguageValid(acceptLanguageHeader)) {
+      return NextResponse.redirect(
+        new URL(`/${acceptLanguageHeader}`, req.url)
+      );
+    } else {
+      return NextResponse.redirect(new URL(`/${DEFAULT_LANGUAGE}`, req.url));
+    }
   }
+
+  return NextResponse.next();
 }

@@ -8,7 +8,7 @@ import { TrainingMode } from "@/app/[lang]/components/TrainingMode";
 import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
+import { notFound } from "next/navigation";
 
 const getQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -45,12 +45,13 @@ const Page = async ({
   const localQuestions = getLocalQuestions(rawQuestions, lang);
   const session = await getUserSession();
 
+  if (!isLanguageValid(lang)) {
+    return notFound();
+  }
+
   return (
     <>
-      <Header
-        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
-        session={session}
-      />
+      <Header lang={lang} session={session} />
       <div className={styles.main}>
         <TrainingMode questions={shuffleArray(localQuestions)} lang={lang} />
       </div>
