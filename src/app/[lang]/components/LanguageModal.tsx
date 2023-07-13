@@ -1,9 +1,8 @@
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import type { ValidLanguageType } from "@/app/[lang]/types";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LANGUAGES } from "@/app/[lang]/constants";
 import { t } from "@/app/[lang]/utils/translation";
-import { useRouter } from "next/navigation";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import styles from "./LanguageModal.module.css";
 import { Dropdown } from "@/app/[lang]/ui-kit/Dropdown";
@@ -23,13 +22,12 @@ export const LanguageModal: FunctionComponent<LanguageModalProps> = ({
     setIsModalOpen(false);
   };
 
-  const pathname = usePathname();
   const router = useRouter();
 
   const getLocalizedPath = (lang: ValidLanguageType) => {
     const languageRegExp = new RegExp(`^\\/(${LANGUAGES.join("|")})\\b`);
-    const pathWithoutLanguage = pathname.replace(languageRegExp, "");
-    return `/${lang}${pathWithoutLanguage}`;
+    const pathWithoutLanguage = location.pathname.replace(languageRegExp, "");
+    return `/${lang}${pathWithoutLanguage}${location.search}`;
   };
 
   const LANGUAGES_OPTIONS: {
