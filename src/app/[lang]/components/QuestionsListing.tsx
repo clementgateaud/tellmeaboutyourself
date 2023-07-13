@@ -76,7 +76,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
           onClick={() => {
             setActiveTag("all");
             setFilteredQuestions(questions);
-            router.push(`./questions`, { shallow: true });
+            router.push(`./questions`);
           }}
         />
         {TAGS.map((tag) => (
@@ -89,7 +89,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
               setFilteredQuestions(
                 questions.filter((question) => question.tag === tag.value)
               );
-              router.push(`./questions?tag=${tag.value}`, { shallow: true });
+              router.push(`./questions?tag=${tag.value}`);
             }}
             className={styles.tag}
           />

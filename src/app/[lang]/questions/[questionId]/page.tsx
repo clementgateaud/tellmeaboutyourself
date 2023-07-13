@@ -4,7 +4,7 @@ import { getLocalQuestion } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { QuestionShow } from "@/app/[lang]/components/QuestionShow";
 
@@ -42,18 +42,18 @@ const Page = async ({
     questionId: string;
   };
 }) => {
+  if (!isLanguageValid(lang)) {
+    return notFound();
+  }
+
   const rawQuestion = await getQuestion(questionId);
 
   if (!rawQuestion) {
-    redirect("./");
+    return notFound();
   }
 
   const localQuestion = getLocalQuestion(rawQuestion, lang);
   const session = await getUserSession();
-
-  if (!isLanguageValid(lang)) {
-    return notFound();
-  }
 
   return (
     <>
