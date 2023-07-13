@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { defaultLanguage } from "@/app/[lang]/constants";
+import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/database.types";
@@ -48,6 +48,6 @@ export async function middleware(req: NextRequest) {
   } else if (isLanguageValid(acceptLanguageHeader)) {
     return NextResponse.redirect(new URL(`/${acceptLanguageHeader}`, req.url));
   } else {
-    return NextResponse.redirect(new URL(`/${defaultLanguage}`, req.url));
+    return NextResponse.redirect(new URL(`/${DEFAULT_LANGUAGE}`, req.url));
   }
 }

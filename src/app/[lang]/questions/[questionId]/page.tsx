@@ -6,7 +6,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { redirect } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { defaultLanguage } from "@/app/[lang]/constants";
+import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
 import { QuestionShow } from "@/app/[lang]/components/QuestionShow";
 
 const getQuestion = async (id: string): Promise<RawQuestionType> => {
@@ -55,7 +55,7 @@ const Page = async ({
   return (
     <>
       <Header
-        lang={isLanguageValid(lang) ? lang : defaultLanguage}
+        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
         session={session}
       />
       <QuestionShow question={localQuestion} />

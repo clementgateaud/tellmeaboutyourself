@@ -8,7 +8,7 @@ import { TrainingMode } from "@/app/[lang]/components/TrainingMode";
 import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { defaultLanguage } from "@/app/[lang]/constants";
+import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
 
 const getQuestions = async (): Promise<RawQuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -48,7 +48,7 @@ const Page = async ({
   return (
     <>
       <Header
-        lang={isLanguageValid(lang) ? lang : defaultLanguage}
+        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
         session={session}
       />
       <div className={styles.main}>

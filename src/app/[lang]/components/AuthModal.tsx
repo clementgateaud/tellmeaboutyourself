@@ -1,6 +1,6 @@
 import type { ValidLanguageType } from "@/app/[lang]/types";
 import type { Provider, Session } from "@supabase/supabase-js";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { t } from "@/app/[lang]/utils/translation";
@@ -8,7 +8,7 @@ import { Database } from "@/database.types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
-import styles from "./AccountAuth.module.css";
+import styles from "./AuthModal.module.css";
 
 type AuthModalProps = {
   lang: ValidLanguageType;
@@ -17,12 +17,12 @@ type AuthModalProps = {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const AuthModal = ({
+export const AuthModal: FunctionComponent<AuthModalProps> = ({
   lang,
   session,
   isModalOpen,
   setIsModalOpen,
-}: AuthModalProps) => {
+}) => {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 

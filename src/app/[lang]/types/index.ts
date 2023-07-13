@@ -1,6 +1,6 @@
-import { languages } from "@/app/[lang]/constants";
+import { LANGUAGES } from "@/app/[lang]/constants";
 
-export type ValidLanguageType = (typeof languages)[number];
+export type ValidLanguageType = (typeof LANGUAGES)[number];
 
 export type QuestionTagType =
   | "motivation"

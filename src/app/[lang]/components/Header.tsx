@@ -7,11 +7,12 @@ import Image from "next/image";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/app/[lang]/types";
-import { LanguageSelector } from "@/app/[lang]/components/LanguageSelector";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { FaList } from "react-icons/fa";
 import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
+import { MdLanguage } from "react-icons/md";
+import { LanguageModal } from "@/app/[lang]/components/LanguageModal";
 
 type HeaderProps = {
   lang: ValidLanguageType;
@@ -25,6 +26,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
   }, [lang]);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
   return (
     <Container className={styles.main}>
@@ -69,7 +71,17 @@ export const Header = ({ lang, session }: HeaderProps) => {
           isModalOpen={isAuthModalOpen}
           setIsModalOpen={setIsAuthModalOpen}
         />
-        <LanguageSelector />
+        <button
+          className={styles.navBarButton}
+          onClick={() => setIsLanguageModalOpen(true)}
+        >
+          <MdLanguage className={styles.languageIcon} />
+        </button>
+        <LanguageModal
+          lang={lang}
+          isModalOpen={isLanguageModalOpen}
+          setIsModalOpen={setIsLanguageModalOpen}
+        />
       </div>
     </Container>
   );

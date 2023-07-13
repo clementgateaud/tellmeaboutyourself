@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { defaultLanguage } from "@/app/[lang]/constants";
+import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import styles from "./page.module.css";
 
@@ -31,7 +31,7 @@ const Page = async ({
   return (
     <>
       <Header
-        lang={isLanguageValid(lang) ? lang : defaultLanguage}
+        lang={isLanguageValid(lang) ? lang : DEFAULT_LANGUAGE}
         session={session}
       />
       <Container className={styles.main}>

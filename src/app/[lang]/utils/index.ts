@@ -1,4 +1,4 @@
-import { languages } from "@/app/[lang]/constants";
+import { LANGUAGES } from "@/app/[lang]/constants";
 import type {
   ValidLanguageType,
   RawQuestionType,
@@ -17,7 +17,7 @@ export const isLanguageValid = (
   language: string | null
 ): language is ValidLanguageType => {
   if (!language) return false;
-  return (languages as readonly string[]).includes(language);
+  return (LANGUAGES as readonly string[]).includes(language);
 };
 
 export const getLocalQuestions = (
