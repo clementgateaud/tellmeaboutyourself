@@ -65,24 +65,24 @@ export const Header = ({ lang, session }: HeaderProps) => {
         >
           <AiOutlineUser className={styles.accountIcon} />
         </button>
-        <AuthModal
-          lang={lang}
-          session={session}
-          isModalOpen={isAuthModalOpen}
-          setIsModalOpen={setIsAuthModalOpen}
-        />
         <button
           className={styles.navBarButton}
           onClick={() => setIsLanguageModalOpen(true)}
         >
           <MdLanguage className={styles.languageIcon} />
         </button>
-        <LanguageModal
-          lang={lang}
-          isModalOpen={isLanguageModalOpen}
-          setIsModalOpen={setIsLanguageModalOpen}
-        />
       </div>
+      <AuthModal
+        lang={lang}
+        session={session}
+        isModalOpen={isAuthModalOpen}
+        setIsModalOpen={setIsAuthModalOpen}
+      />
+      <LanguageModal
+        lang={lang}
+        isModalOpen={isLanguageModalOpen}
+        setIsModalOpen={setIsLanguageModalOpen}
+      />
     </Container>
   );
 };
