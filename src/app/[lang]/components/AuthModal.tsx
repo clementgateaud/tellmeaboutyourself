@@ -1,11 +1,11 @@
 import type { ValidLanguageType } from "@/app/[lang]/types";
 import type { Provider, Session } from "@supabase/supabase-js";
 import type { Dispatch, FunctionComponent, SetStateAction } from "react";
+import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { t } from "@/app/[lang]/utils/translation";
 import { Database } from "@/database.types";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import styles from "./AuthModal.module.css";
@@ -48,27 +48,24 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     router.refresh();
   };
 
-  const AUTH_PROVIDERS: {
-    id: Provider;
-    label: string;
-    iconSrc: string;
-  }[] = [
-    {
-      id: "google",
-      label: "Google",
-      iconSrc: "/assets/google.svg",
-    },
-    {
-      id: "linkedin",
-      label: "LinkedIn",
-      iconSrc: "/assets/linkedin.svg",
-    },
-    {
-      id: "github",
-      label: "GitHub",
-      iconSrc: "/assets/github.svg",
-    },
-  ];
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+
+  const handleOnEmailSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    const email = event.currentTarget.email.value;
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      console.log(error);
+    }
+    setMagicLinkSent(true);
+  };
 
   return (
     <Modal
@@ -76,27 +73,29 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       onClose={handleCloseModal}
       className={styles.modal}
     >
-      {!session && (
+      {!session && !magicLinkSent && (
         <>
-          <p className={styles.logInTitle}>{t("log_in_with", lang)}</p>
-          <div className={styles.authProviders}>
-            {AUTH_PROVIDERS.map((provider) => (
-              <button
-                className={styles.authProviderButton}
-                onClick={() => handleSignIn(provider.id)}
-                key={provider.id}
-              >
-                <Image
-                  src={provider.iconSrc}
-                  alt={provider.label}
-                  width="40"
-                  height="40"
-                  priority
-                />
-              </button>
-            ))}
-          </div>
+          <p className={styles.logInTitle}>{t("auth_modal_title", lang)}</p>
+          <form className={styles.emailForm} onSubmit={handleOnEmailSubmit}>
+            <label htmlFor="email" className={styles.emailLabel}>
+              {t("email", lang)}
+            </label>
+            <input
+              type="email"
+              id="email"
+              className={styles.emailInput}
+              placeholder={t("email_placeholder", lang)}
+            />
+            <Button minor type="submit" className={styles.emailSubmitButton}>
+              Receive a magic link
+            </Button>
+          </form>
         </>
+      )}
+      {!session && magicLinkSent && (
+        <p className={styles.magicLinkSentDescription}>
+          {t("auth_modal_magic_link_sent", lang)}
+        </p>
       )}
       {session && (
         <>

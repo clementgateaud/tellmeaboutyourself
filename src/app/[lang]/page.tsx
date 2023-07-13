@@ -2,6 +2,7 @@ import type { ValidLanguageType } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
+import { t } from "@/app/[lang]/utils/translation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { notFound } from "next/navigation";
@@ -36,7 +37,7 @@ const Page = async ({
     <>
       <Header lang={lang} session={session} />
       <Container className={styles.main}>
-        <h1>Home page 🏗️</h1>
+        <h1>{t("home_page_title", lang)} 🏗️</h1>
       </Container>
     </>
   );

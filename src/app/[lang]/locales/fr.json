@@ -18,5 +18,10 @@
   "listing_title": "Ce que l'on risque de vous demander",
   "training_mode": "Mode entraînement",
   "next_question": "Suivant",
-  "language_modal_title": "Choisissez votre langue"
+  "language_modal_title": "Choisissez votre langue",
+  "home_page_title": "Page d'accueil",
+  "auth_modal_title": "Se connecter ou s'inscrire",
+  "email": "E-mail",
+  "email_placeholder": "jeveuxunjob@gmail.com",
+  "auth_modal_magic_link_sent": "Un lien magique a été envoyé à votre adresse e-mail"
 }

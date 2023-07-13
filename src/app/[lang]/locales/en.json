@@ -18,5 +18,10 @@
   "listing_title": "What you might be asked",
   "training_mode": "Training mode",
   "next_question": "Next",
-  "language_modal_title": "Choose your language"
+  "language_modal_title": "Choose your language",
+  "home_page_title": "Home page",
+  "auth_modal_title": "Log in or Sign up",
+  "email": "E-mail",
+  "email_placeholder": "ineedajob@gmail.com",
+  "auth_modal_magic_link_sent": "A magic link has been sent to your email address"
 }
