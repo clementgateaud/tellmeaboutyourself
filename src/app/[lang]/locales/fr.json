@@ -21,7 +21,7 @@
   "home_page_title": "Page d'accueil",
   "auth_modal_title": "Se connecter ou s'inscrire",
   "email": "E-mail",
-  "email_placeholder": "jeveuxunjob@gmail.com",
+  "email_placeholder": "johndoe@gmail.com",
   "email_submit": "M'envoyer un code",
   "otp_label": "Code reçu par e-mail",
   "otp_placeholder": "123456",

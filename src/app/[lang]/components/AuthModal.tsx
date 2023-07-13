@@ -32,6 +32,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setOtpSent(false);
+    setOtpError(false);
   };
 
   const handleSignOut = async () => {
@@ -64,7 +65,6 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       type: "email",
     });
     if (error) {
-      console.log(error);
       setOtpError(true);
     } else {
       handleCloseModal();
@@ -78,44 +78,42 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       onClose={handleCloseModal}
       className={styles.modal}
     >
+      {!session && (
+        <p className={styles.logInTitle}>{t("auth_modal_title", lang)}</p>
+      )}
       {!session && !otpSent && (
-        <>
-          <p className={styles.logInTitle}>{t("auth_modal_title", lang)}</p>
-          <form onSubmit={handleOnEmailSubmit}>
-            <label htmlFor="email" className={styles.emailLabel}>
-              {t("email", lang)}
-            </label>
-            <input
-              type="email"
-              id="email"
-              className={styles.emailInput}
-              placeholder={t("email_placeholder", lang)}
-            />
-            <Button minor type="submit" className={styles.emailSubmitButton}>
-              {t("email_submit", lang)}
-            </Button>
-          </form>
-        </>
+        <form onSubmit={handleOnEmailSubmit}>
+          <label htmlFor="email" className={styles.emailLabel}>
+            {t("email", lang)}
+          </label>
+          <input
+            type="email"
+            id="email"
+            className={styles.emailInput}
+            placeholder={t("email_placeholder", lang)}
+          />
+          <Button minor type="submit" className={styles.emailSubmitButton}>
+            {t("email_submit", lang)}
+          </Button>
+        </form>
       )}
       {!session && otpSent && (
-        <>
-          <form onSubmit={handleOnOtpSubmit}>
-            <label htmlFor="otp" className={styles.otpLabel}>
-              {t("otp_label", lang)}
-            </label>
-            <input
-              id="otp"
-              placeholder={t("otp_placeholder", lang)}
-              className={styles.otpInput}
-            />
-            {otpError && (
-              <p className={styles.otpError}>{t("otp_error", lang)}</p>
-            )}
-            <Button minor type="submit" className={styles.otpSubmitButton}>
-              {t("otp_submit", lang)}
-            </Button>
-          </form>
-        </>
+        <form onSubmit={handleOnOtpSubmit}>
+          <label htmlFor="otp" className={styles.otpLabel}>
+            {t("otp_label", lang)}
+          </label>
+          <input
+            id="otp"
+            placeholder={t("otp_placeholder", lang)}
+            className={styles.otpInput}
+          />
+          {otpError && (
+            <p className={styles.otpError}>{t("otp_error", lang)}</p>
+          )}
+          <Button minor type="submit" className={styles.otpSubmitButton}>
+            {t("otp_submit", lang)}
+          </Button>
+        </form>
       )}
       {session && (
         <>

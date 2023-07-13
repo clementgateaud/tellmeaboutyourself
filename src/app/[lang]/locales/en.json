@@ -21,7 +21,7 @@
   "home_page_title": "Home page",
   "auth_modal_title": "Log in or Sign up",
   "email": "E-mail",
-  "email_placeholder": "ineedajob@gmail.com",
+  "email_placeholder": "johndoe@gmail.com",
   "email_submit": "Send me a code",
   "otp_label": "Code you received by e-mail",
   "otp_placeholder": "123456",
