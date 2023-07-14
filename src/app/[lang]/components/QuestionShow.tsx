@@ -7,13 +7,14 @@ import type {
   ValidLanguageType,
 } from "@/app/[lang]/types";
 import { Session } from "@supabase/supabase-js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { t } from "@/app/[lang]/utils/translation";
-import styles from "./QuestionShow.module.css";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
+import { AuthModal } from "@/app/[lang]/components/AuthModal";
+import styles from "./QuestionShow.module.css";
 
 type QuestionShowProps = {
   question: LocalQuestionType;
@@ -35,9 +36,35 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
   const [questionNotesEditionContent, setQuestionNotesEditionContent] =
     useState(questionNotes?.content || "");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const getNotes = async (questionId: number): Promise<NotesType> => {
+    const supabase = createClientComponentClient();
+    const { data: notes, error } = await supabase
+      .from("notes")
+      .select()
+      .eq("question_id", questionId)
+      .maybeSingle();
+    if (error) {
+      throw error;
+    }
+    return notes as NotesType;
+  };
+
+  useEffect(() => {
+    if (!session) {
+      setQuestionNotes(null);
+    } else {
+      getNotes(question.id).then((notes) => setQuestionNotes(notes));
+    }
+  }, [session]);
 
   const handleCreateButtonClick = () => {
-    setNotesCreationMode(true);
+    if (!session) {
+      setIsAuthModalOpen(true);
+    } else {
+      setNotesCreationMode(true);
+    }
   };
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -208,6 +235,12 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
           </Button>
         </div>
       </Modal>
+      <AuthModal
+        lang={lang}
+        session={session}
+        isModalOpen={isAuthModalOpen}
+        setIsModalOpen={setIsAuthModalOpen}
+      />
     </Container>
   );
 };
