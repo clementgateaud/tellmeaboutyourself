@@ -14,6 +14,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
+import { TiTick } from "react-icons/ti";
 import styles from "./QuestionShow.module.css";
 
 type QuestionShowProps = {
@@ -144,15 +145,19 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       <h2 className={styles.tipsTitle}>
         {t("question_show_tips_title", lang)} ✨
       </h2>
-      {!question[`tips_${lang}`] && (
-        <p className={styles.tipsContent}>{t("question_show_no_tips", lang)}</p>
-      )}
-      {question[`tips_${lang}`] &&
-        question[`tips_${lang}`]
-          .split("\n")
-          .map((line, index) =>
-            line !== "" ? <p key={index}>{line}</p> : <p key={index}>&nbsp;</p>
-          )}
+      <div className={styles.tipsContent}>
+        {!question[`tips_${lang}`] && <p>{t("question_show_no_tips", lang)}</p>}
+        {question[`tips_${lang}`] && (
+          <ul className={styles.tipsList}>
+            {question[`tips_${lang}`].map((line, index) => (
+              <li key={index} className={styles.tipsListItem}>
+                <TiTick className={styles.tipsIcon} />
+                {line}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <h2 className={styles.notesTitle}>
         {t("question_show_notes_title", lang)} ✍️
       </h2>

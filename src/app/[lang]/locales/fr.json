@@ -38,6 +38,6 @@
   "question_show_notes_delete_modal_title": "Êtes-vous sûr de vouloir supprimer cette note ?",
   "question_show_notes_delete_modal_delete_button": "Oui, supprimer",
   "question_show_notes_delete_modal_cancel_button": "Non, annuler",
-  "question_show_notes_create_button": "Ajouter une note",
-  "question_show_notes_empty_state": "Ajoutez une note à cette question pour garder une trace de vos idées et arguments sur ce sujet."
+  "question_show_notes_create_button": "Prendre des notes",
+  "question_show_notes_empty_state": "Prenez des notes sur cette question pour garder une trace de vos idées et arguments."
 }

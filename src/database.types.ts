@@ -52,36 +52,33 @@ export interface Database {
           duration: number | null
           id: number
           isPublished: boolean
-          prompt: Json | null
           prompt_en: string | null
           prompt_fr: string | null
           tag: string | null
-          tips_en: string | null
-          tips_fr: string | null
+          tips_en: string[] | null
+          tips_fr: string[] | null
         }
         Insert: {
           created_at?: string | null
           duration?: number | null
           id?: number
           isPublished?: boolean
-          prompt?: Json | null
           prompt_en?: string | null
           prompt_fr?: string | null
           tag?: string | null
-          tips_en?: string | null
-          tips_fr?: string | null
+          tips_en?: string[] | null
+          tips_fr?: string[] | null
         }
         Update: {
           created_at?: string | null
           duration?: number | null
           id?: number
           isPublished?: boolean
-          prompt?: Json | null
           prompt_en?: string | null
           prompt_fr?: string | null
           tag?: string | null
-          tips_en?: string | null
-          tips_fr?: string | null
+          tips_en?: string[] | null
+          tips_fr?: string[] | null
         }
         Relationships: []
       }

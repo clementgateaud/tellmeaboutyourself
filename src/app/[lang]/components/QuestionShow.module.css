@@ -4,7 +4,7 @@
 }
 
 .questionPrompt {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .tipsTitle,
@@ -12,8 +12,29 @@
   margin-bottom: 16px;
 }
 
+.tipsContent {
+  margin-bottom: 40px;
+}
+
+.tipsList {
+  list-style-type: none;
+}
+
+.tipsListItem:not(:last-child) {
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.tipsIcon {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  padding-top: 3px;
+  flex-shrink: 0;
+}
+
 .notesContent {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .notesContentTextArea {
@@ -29,7 +50,7 @@
   border-radius: 4px;
 }
 
-.notesTitle {
+.notesContent .notesTitle {
   margin-top: 40px;
 }
 
@@ -57,10 +78,16 @@
   border-radius: 8px;
   background-color: rgba(102, 75, 255, 0.075);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  padding: 20px;
+  padding: 24px;
 }
 
 .notesEmptyStateText {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .notesEmptyState {
+    padding: 30px;
+  }
 }

@@ -15,8 +15,8 @@ export type QuestionType = {
   isPublished: boolean;
   prompt_en: string;
   prompt_fr: string;
-  tips_en: string;
-  tips_fr: string;
+  tips_en: string[];
+  tips_fr: string[];
   duration: number;
   tag: string;
 };
