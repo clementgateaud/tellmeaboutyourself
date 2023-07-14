@@ -8,7 +8,10 @@
 }
 
 .tipsTitle,
-.notesTitle,
+.notesTitle {
+  margin-bottom: 16px;
+}
+
 .notesContent {
   margin-bottom: 12px;
 }
@@ -45,4 +48,19 @@
 
 .deleteModalButton:not(:last-child) {
   margin-right: 8px;
+}
+
+.notesEmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgba(102, 75, 255, 0.075);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+  padding: 20px;
+}
+
+.notesEmptyStateText {
+  margin-bottom: 12px;
+  text-align: center;
 }

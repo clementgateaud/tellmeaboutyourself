@@ -2,7 +2,7 @@
 
 import type { FunctionComponent, ChangeEvent } from "react";
 import type {
-  LocalQuestionType,
+  QuestionType,
   NotesType,
   ValidLanguageType,
 } from "@/app/[lang]/types";
@@ -17,8 +17,8 @@ import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import styles from "./QuestionShow.module.css";
 
 type QuestionShowProps = {
-  question: LocalQuestionType;
-  notes: NotesType;
+  question: QuestionType;
+  notes: NotesType | null;
   lang: ValidLanguageType;
   session: Session | null;
 };
@@ -129,27 +129,54 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       console.log(error);
     } else {
       setQuestionNotes(null);
+      setQuestionNotesEditionContent("");
     }
     setIsDeleteModalOpen(false);
   };
 
+  useEffect(() => {
+    console.log(JSON.stringify(questionNotesEditionContent));
+  }, [questionNotesEditionContent]);
+
   return (
     <Container className={styles.pageContainer}>
-      <h1 className={styles.questionPrompt}>{question.prompt}</h1>
+      <h1 className={styles.questionPrompt}>{question[`prompt_${lang}`]}</h1>
       <h2 className={styles.tipsTitle}>
         {t("question_show_tips_title", lang)} ✨
       </h2>
-      <p className={styles.tipsContent}>
-        {question.tips ? question.tips : t("question_show_no_tips", lang)}
-      </p>
+      {!question[`tips_${lang}`] && (
+        <p className={styles.tipsContent}>{t("question_show_no_tips", lang)}</p>
+      )}
+      {question[`tips_${lang}`] &&
+        question[`tips_${lang}`]
+          .split("\n")
+          .map((line, index) =>
+            line !== "" ? <p key={index}>{line}</p> : <p key={index}>&nbsp;</p>
+          )}
       <h2 className={styles.notesTitle}>
         {t("question_show_notes_title", lang)} ✍️
       </h2>
+      {!questionNotes && !notesEditMode && !notesCreationMode && (
+        <div className={styles.notesEmptyState}>
+          <p className={styles.notesEmptyStateText}>
+            {t("question_show_notes_empty_state", lang)}
+          </p>
+          <Button minor onClick={handleCreateButtonClick}>
+            {t("question_show_notes_create_button", lang)}
+          </Button>
+        </div>
+      )}
       {questionNotes && !notesEditMode && (
         <div className={styles.notesContent}>
-          {questionNotes.content.split("\n").map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
+          {questionNotes.content
+            .split("\n")
+            .map((line, index) =>
+              line !== "" ? (
+                <p key={index}>{line}</p>
+              ) : (
+                <p key={index}>&nbsp;</p>
+              )
+            )}
         </div>
       )}
       {(notesEditMode || notesCreationMode) && (
@@ -157,36 +184,19 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
           className={styles.notesContentTextArea}
           value={questionNotesEditionContent}
           onChange={handleTextAreaChange}
+          placeholder={t("question_show_notes_placeholder", lang)}
         />
       )}
       <div className={styles.notesButtons}>
         {questionNotes && !notesEditMode && (
           <>
-            <Button
-              minor
-              onClick={() => setNotesEditMode(true)}
-              className={styles.notesEditButton}
-            >
+            <Button minor onClick={() => setNotesEditMode(true)}>
               {t("question_show_notes_edit_button", lang)}
             </Button>
-            <Button
-              minor
-              variant="ghost"
-              onClick={handleShowDeleteModal}
-              className={styles.notesEditButton}
-            >
+            <Button minor variant="ghost" onClick={handleShowDeleteModal}>
               {t("question_show_notes_delete_button", lang)}
             </Button>
           </>
-        )}
-        {!questionNotes && !notesEditMode && !notesCreationMode && (
-          <Button
-            minor
-            onClick={handleCreateButtonClick}
-            className={styles.notesEditButton}
-          >
-            {t("question_show_notes_create_button", lang)}
-          </Button>
         )}
         {notesEditMode && (
           <>

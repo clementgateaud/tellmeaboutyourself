@@ -9,25 +9,16 @@ export type QuestionTagType =
   | "experience"
   | "project";
 
-export type RawQuestionType = {
+export type QuestionType = {
   id: number;
   created_at: string;
   isPublished: boolean;
-  prompt: {
-    en: string;
-    fr: string;
-  };
-  tips: {
-    en: string;
-    fr: string;
-  };
+  prompt_en: string;
+  prompt_fr: string;
+  tips_en: string;
+  tips_fr: string;
   duration: number;
   tag: string;
-};
-
-export type LocalQuestionType = Omit<RawQuestionType, "prompt" | "tips"> & {
-  prompt: string;
-  tips: string;
 };
 
 export type NotesType = {

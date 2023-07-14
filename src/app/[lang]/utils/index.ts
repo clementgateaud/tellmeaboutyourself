@@ -1,9 +1,5 @@
 import { LANGUAGES } from "@/app/[lang]/constants";
-import type {
-  ValidLanguageType,
-  RawQuestionType,
-  LocalQuestionType,
-} from "@/app/[lang]/types";
+import type { ValidLanguageType } from "@/app/[lang]/types";
 
 export const shuffleArray = <T>(array: T[]): T[] => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -18,27 +14,4 @@ export const isLanguageValid = (
 ): language is ValidLanguageType => {
   if (!language) return false;
   return (LANGUAGES as readonly string[]).includes(language);
-};
-
-export const getLocalQuestions = (
-  rawQuestions: RawQuestionType[],
-  lang: ValidLanguageType
-): LocalQuestionType[] => {
-  return rawQuestions.map(({ prompt, tips, ...rest }) => ({
-    ...rest,
-    prompt: prompt[lang],
-    tips: tips[lang],
-  }));
-};
-
-export const getLocalQuestion = (
-  rawQuestion: RawQuestionType,
-  lang: ValidLanguageType
-): LocalQuestionType => {
-  const { prompt, tips, ...rest } = rawQuestion;
-  return {
-    ...rest,
-    prompt: prompt[lang],
-    tips: tips[lang],
-  };
 };

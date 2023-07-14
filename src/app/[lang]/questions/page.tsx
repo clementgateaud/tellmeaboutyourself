@@ -1,6 +1,5 @@
 import type { Database } from "@/database.types";
-import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
-import { getLocalQuestions } from "@/app/[lang]/utils";
+import type { ValidLanguageType, QuestionType } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
@@ -8,16 +7,16 @@ import { isLanguageValid } from "@/app/[lang]/utils";
 import { QuestionsListing } from "@/app/[lang]/components/QuestionsListing";
 import { notFound } from "next/navigation";
 
-const getQuestions = async (): Promise<RawQuestionType[]> => {
+const getQuestions = async (): Promise<QuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestions, error } = await supabase
+  const { data: questions, error } = await supabase
     .from("questions")
     .select("*")
     .eq("isPublished", true);
   if (error) {
     throw error;
   }
-  return rawQuestions as RawQuestionType[];
+  return questions as QuestionType[];
 };
 
 const getUserSession = async () => {
@@ -39,8 +38,7 @@ const Page = async ({
     lang: ValidLanguageType;
   };
 }) => {
-  const rawQuestions = await getQuestions();
-  const localQuestions = getLocalQuestions(rawQuestions, lang);
+  const questions = await getQuestions();
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
@@ -50,7 +48,7 @@ const Page = async ({
   return (
     <>
       <Header lang={lang} session={session} />
-      <QuestionsListing questions={localQuestions} lang={lang} />
+      <QuestionsListing questions={questions} lang={lang} />
     </>
   );
 };

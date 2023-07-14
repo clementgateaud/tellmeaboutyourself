@@ -1,7 +1,6 @@
 import type { Database } from "@/database.types";
-import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
+import type { ValidLanguageType, QuestionType } from "@/app/[lang]/types";
 import { shuffleArray } from "@/app/[lang]/utils";
-import { getLocalQuestions } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { TrainingMode } from "@/app/[lang]/components/TrainingMode";
@@ -10,16 +9,16 @@ import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { notFound } from "next/navigation";
 
-const getQuestions = async (): Promise<RawQuestionType[]> => {
+const getQuestions = async (): Promise<QuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestions, error } = await supabase
+  const { data: questions, error } = await supabase
     .from("questions")
     .select("*")
     .eq("isPublished", true);
   if (error) {
     throw error;
   }
-  return rawQuestions as RawQuestionType[];
+  return questions as QuestionType[];
 };
 
 const getUserSession = async () => {
@@ -41,8 +40,7 @@ const Page = async ({
     lang: ValidLanguageType;
   };
 }) => {
-  const rawQuestions = await getQuestions();
-  const localQuestions = getLocalQuestions(rawQuestions, lang);
+  const questions = await getQuestions();
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
@@ -53,7 +51,7 @@ const Page = async ({
     <>
       <Header lang={lang} session={session} />
       <div className={styles.main}>
-        <TrainingMode questions={shuffleArray(localQuestions)} lang={lang} />
+        <TrainingMode questions={shuffleArray(questions)} lang={lang} />
       </div>
     </>
   );

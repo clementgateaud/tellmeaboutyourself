@@ -1,10 +1,9 @@
 import type { Database } from "@/database.types";
 import type {
   ValidLanguageType,
-  RawQuestionType,
+  QuestionType,
   NotesType,
 } from "@/app/[lang]/types";
-import { getLocalQuestion } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
@@ -12,9 +11,9 @@ import { notFound } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { QuestionShow } from "@/app/[lang]/components/QuestionShow";
 
-const getQuestion = async (id: string): Promise<RawQuestionType> => {
+const getQuestion = async (id: string): Promise<QuestionType> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: rawQuestion, error } = await supabase
+  const { data: question, error } = await supabase
     .from("questions")
     .select()
     .eq("id", id)
@@ -23,10 +22,10 @@ const getQuestion = async (id: string): Promise<RawQuestionType> => {
   if (error) {
     throw error;
   }
-  return rawQuestion as RawQuestionType;
+  return question as QuestionType;
 };
 
-const getNotes = async (questionId: string): Promise<NotesType> => {
+const getNotes = async (questionId: string): Promise<NotesType | null> => {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data: notes, error } = await supabase
     .from("notes")
@@ -36,7 +35,7 @@ const getNotes = async (questionId: string): Promise<NotesType> => {
   if (error) {
     throw error;
   }
-  return notes as NotesType;
+  return notes as NotesType | null;
 };
 
 const getUserSession = async () => {
@@ -63,21 +62,19 @@ const Page = async ({
     return notFound();
   }
 
-  const rawQuestion = await getQuestion(questionId);
+  const question = await getQuestion(questionId);
   const notes = await getNotes(questionId);
+  const session = await getUserSession();
 
-  if (!rawQuestion) {
+  if (!question) {
     return notFound();
   }
-
-  const localQuestion = getLocalQuestion(rawQuestion, lang);
-  const session = await getUserSession();
 
   return (
     <>
       <Header lang={lang} session={session} />
       <QuestionShow
-        question={localQuestion}
+        question={question}
         notes={notes}
         lang={lang}
         session={session}

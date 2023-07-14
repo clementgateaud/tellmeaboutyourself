@@ -1,6 +1,6 @@
 "use client";
 
-import type { LocalQuestionType, ValidLanguageType } from "@/app/[lang]/types";
+import type { QuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
@@ -12,7 +12,7 @@ import { t } from "@/app/[lang]/utils/translation";
 import styles from "./TrainingMode.module.css";
 
 type TrainingModeProps = {
-  questions: LocalQuestionType[];
+  questions: QuestionType[];
   lang: ValidLanguageType;
 };
 
@@ -78,7 +78,7 @@ export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
           [styles["prompt--changing"]]: questionChanging,
         })}
       >
-        {question.prompt}
+        {question[`prompt_${lang}`]}
       </h1>
       <div className={styles.timer}>
         <div className={styles.timerBar}>

@@ -2,7 +2,7 @@
 
 import type { FunctionComponent } from "react";
 import type {
-  LocalQuestionType,
+  QuestionType,
   QuestionTagType,
   ValidLanguageType,
 } from "@/app/[lang]/types";
@@ -18,7 +18,7 @@ import { BiSolidTimer } from "react-icons/bi";
 import styles from "./QuestionsListing.module.css";
 
 type QuestionsListingProps = {
-  questions: LocalQuestionType[];
+  questions: QuestionType[];
   lang: ValidLanguageType;
 };
 
@@ -102,7 +102,9 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
             className={styles.questionLink}
             key={question.id}
           >
-            <div className={styles.questionContainer}>{question.prompt}</div>
+            <div className={styles.questionContainer}>
+              {question[`prompt_${lang}`]}
+            </div>
           </Link>
         ))}
       </div>
