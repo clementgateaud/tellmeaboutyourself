@@ -25,6 +25,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
 }) => {
   const [otpSent, setOtpSent] = useState(false);
   const [emailToVerify, setEmailToVerify] = useState("");
+  const [isEmailSending, setIsEmailSending] = useState(false);
   const [otpError, setOtpError] = useState(false);
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
@@ -45,6 +46,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+    setIsEmailSending(true);
     const email = event.currentTarget.email.value;
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -54,6 +56,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     }
     setOtpSent(true);
     setEmailToVerify(email);
+    setIsEmailSending(false);
   };
 
   const handleOnOtpSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -92,7 +95,11 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
             className={styles.emailInput}
             placeholder={t("email_placeholder", lang)}
           />
-          <Button type="submit" className={styles.emailSubmitButton}>
+          <Button
+            isLoading={isEmailSending}
+            type="submit"
+            className={styles.emailSubmitButton}
+          >
             {t("email_submit", lang)}
           </Button>
         </form>

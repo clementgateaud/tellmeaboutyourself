@@ -1,4 +1,5 @@
 import type { ReactNode, ButtonHTMLAttributes } from "react";
+import { TailSpin } from "react-loading-icons";
 import classnames from "classnames";
 import styles from "./Button.module.css";
 
@@ -11,6 +12,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: ReactNode;
   iconPosition?: "left" | "right";
   className?: string;
+  isLoading?: boolean;
 };
 
 export const Button = ({
@@ -22,8 +24,18 @@ export const Button = ({
   icon,
   iconPosition = "left",
   className,
+  isLoading = false,
   ...restProps
 }: ButtonProps) => {
+  const getLoadingIconColor = () => {
+    if (variant === "primary") {
+      return "white";
+    } else if (color === "dark" && variant === "ghost") {
+      return "var(--dark-color)";
+    } else if (color === "accent" && variant === "ghost") {
+      return "var(--accent-color)";
+    }
+  };
   return (
     <button
       className={classnames(className, styles.main, {
@@ -32,6 +44,7 @@ export const Button = ({
         [styles["main--primary"]]: variant === "primary",
         [styles["main--ghost"]]: variant === "ghost",
         [styles["main--minor"]]: minor,
+        [styles["main--loading"]]: isLoading,
       })}
       onClick={onClick}
       {...restProps}
@@ -44,6 +57,12 @@ export const Button = ({
         <span className={classnames(styles.icon, styles.rightIcon)}>
           {icon}
         </span>
+      )}
+      {isLoading && (
+        <TailSpin
+          className={styles.loadingIcon}
+          stroke={getLoadingIconColor()}
+        />
       )}
     </button>
   );

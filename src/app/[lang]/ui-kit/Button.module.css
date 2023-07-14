@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease-in-out;
 }
 
 .main--dark {
@@ -22,6 +21,31 @@
 
 .main--ghost {
   color: var(--dark);
+}
+
+.main--loading {
+  position: relative;
+}
+
+.main--loading.main--dark.main--primary {
+  color: var(--dark-color);
+}
+
+.main--loading.main--accent.main--primary {
+  color: var(--accent-color);
+}
+
+.main--loading.main--ghost {
+  color: white;
+}
+
+.loadingIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
 }
 
 .main--primary.main--dark {
