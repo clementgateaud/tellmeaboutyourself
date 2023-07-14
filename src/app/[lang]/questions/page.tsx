@@ -1,5 +1,9 @@
 import type { Database } from "@/database.types";
-import type { ValidLanguageType, QuestionType } from "@/app/[lang]/types";
+import type {
+  ValidLanguageType,
+  QuestionType,
+  NoteType,
+} from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
@@ -17,6 +21,15 @@ const getQuestions = async (): Promise<QuestionType[]> => {
     throw error;
   }
   return questions as QuestionType[];
+};
+
+const getNotes = async (): Promise<NoteType[]> => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const { data: notes, error } = await supabase.from("notes").select();
+  if (error) {
+    throw error;
+  }
+  return notes as NoteType[];
 };
 
 const getUserSession = async () => {
@@ -39,6 +52,7 @@ const Page = async ({
   };
 }) => {
   const questions = await getQuestions();
+  const notes = await getNotes();
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
@@ -48,7 +62,7 @@ const Page = async ({
   return (
     <>
       <Header lang={lang} session={session} />
-      <QuestionsListing questions={questions} lang={lang} />
+      <QuestionsListing questions={questions} lang={lang} notes={notes} />
     </>
   );
 };

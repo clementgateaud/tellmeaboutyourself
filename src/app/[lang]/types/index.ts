@@ -21,7 +21,7 @@ export type QuestionType = {
   tag: string;
 };
 
-export type NotesType = {
+export type NoteType = {
   id: number;
   created_at: string;
   content: string;

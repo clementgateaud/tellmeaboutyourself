@@ -5,6 +5,7 @@ import type {
   QuestionType,
   QuestionTagType,
   ValidLanguageType,
+  NoteType,
 } from "@/app/[lang]/types";
 import { useState } from "react";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
@@ -12,22 +13,27 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Tag } from "@/app/[lang]/ui-kit/Tag";
+import { Tooltip } from "@/app/[lang]/ui-kit/Tooltip";
 import { t } from "@/app/[lang]/utils/translation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { BiSolidTimer } from "react-icons/bi";
+import { FaStickyNote } from "react-icons/fa";
 import styles from "./QuestionsListing.module.css";
 
 type QuestionsListingProps = {
   questions: QuestionType[];
+  notes: NoteType[];
   lang: ValidLanguageType;
 };
 
 export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
   questions,
+  notes,
   lang,
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  console.log(notes);
 
   const TAGS: { value: QuestionTagType; label: string }[] = [
     {
@@ -104,6 +110,15 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
           >
             <div className={styles.questionContainer}>
               {question[`prompt_${lang}`]}
+              {notes.find((note) => note.question_id === question.id) && (
+                <Tooltip
+                  text={t("questions_listing_note_tooltip", lang)}
+                  position="left"
+                  className={styles.questionNoteIconTooltip}
+                >
+                  <FaStickyNote className={styles.questionNoteIcon} />
+                </Tooltip>
+              )}
             </div>
           </Link>
         ))}

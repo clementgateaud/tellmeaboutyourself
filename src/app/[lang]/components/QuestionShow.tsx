@@ -3,7 +3,7 @@
 import type { FunctionComponent, ChangeEvent } from "react";
 import type {
   QuestionType,
-  NotesType,
+  NoteType,
   ValidLanguageType,
 } from "@/app/[lang]/types";
 import { Session } from "@supabase/supabase-js";
@@ -19,7 +19,7 @@ import styles from "./QuestionShow.module.css";
 
 type QuestionShowProps = {
   question: QuestionType;
-  notes: NotesType | null;
+  note: NoteType | null;
   lang: ValidLanguageType;
   session: Session | null;
 };
@@ -27,21 +27,22 @@ type QuestionShowProps = {
 export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
   question,
   lang,
-  notes,
+  note,
   session,
 }) => {
   const supabase = createClientComponentClient();
-  const [questionNotes, setQuestionNotes] = useState<NotesType | null>(notes);
-  const [notesEditMode, setNotesEditMode] = useState(false);
-  const [notesCreationMode, setNotesCreationMode] = useState(false);
-  const [questionNotesEditionContent, setQuestionNotesEditionContent] =
-    useState(questionNotes?.content || "");
+  const [questionNote, setQuestionNote] = useState<NoteType | null>(note);
+  const [noteEditMode, setNoteEditMode] = useState(false);
+  const [noteCreationMode, setNoteCreationMode] = useState(false);
+  const [questionNoteEditionContent, setQuestionNoteEditionContent] = useState(
+    questionNote?.content || ""
+  );
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-  const getNotes = async (questionId: number): Promise<NotesType> => {
+  const getNote = async (questionId: number): Promise<NoteType> => {
     const supabase = createClientComponentClient();
-    const { data: notes, error } = await supabase
+    const { data: note, error } = await supabase
       .from("notes")
       .select()
       .eq("question_id", questionId)
@@ -49,14 +50,14 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
     if (error) {
       throw error;
     }
-    return notes as NotesType;
+    return note as NoteType;
   };
 
   useEffect(() => {
     if (!session) {
-      setQuestionNotes(null);
+      setQuestionNote(null);
     } else {
-      getNotes(question.id).then((notes) => setQuestionNotes(notes));
+      getNote(question.id).then((note) => setQuestionNote(note));
     }
   }, [session]);
 
@@ -64,36 +65,36 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
     if (!session) {
       setIsAuthModalOpen(true);
     } else {
-      setNotesCreationMode(true);
+      setNoteCreationMode(true);
     }
   };
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setQuestionNotesEditionContent(event.target.value);
+    setQuestionNoteEditionContent(event.target.value);
   };
 
   const handleEditCancel = () => {
-    setQuestionNotesEditionContent((questionNotes as NotesType).content);
-    setNotesEditMode(false);
+    setQuestionNoteEditionContent((questionNote as NoteType).content);
+    setNoteEditMode(false);
   };
 
   const handleCreateCancel = () => {
-    setQuestionNotesEditionContent("");
-    setNotesCreationMode(false);
+    setQuestionNoteEditionContent("");
+    setNoteCreationMode(false);
   };
 
   const handleEditValidation = async () => {
     const { data, error } = await supabase
       .from("notes")
-      .update({ content: questionNotesEditionContent })
+      .update({ content: questionNoteEditionContent })
       .eq("question_id", question.id)
       .select();
     if (error) {
       console.log(error);
     } else {
-      setQuestionNotes(data[0]);
+      setQuestionNote(data[0]);
     }
-    setNotesEditMode(false);
+    setNoteEditMode(false);
   };
 
   const handleCreateValidation = async () => {
@@ -101,16 +102,16 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       .from("notes")
       .insert({
         question_id: question.id,
-        content: questionNotesEditionContent,
+        content: questionNoteEditionContent,
         user_id: (session as Session).user.id,
       })
       .select();
     if (error) {
       console.log(error);
     } else {
-      setQuestionNotes(data[0]);
+      setQuestionNote(data[0]);
     }
-    setNotesCreationMode(false);
+    setNoteCreationMode(false);
   };
 
   const handleShowDeleteModal = () => {
@@ -121,7 +122,7 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
     setIsDeleteModalOpen(false);
   };
 
-  const handleDeleteNotes = async () => {
+  const handleDeleteNote = async () => {
     const { error } = await supabase
       .from("notes")
       .delete()
@@ -129,15 +130,15 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
     if (error) {
       console.log(error);
     } else {
-      setQuestionNotes(null);
-      setQuestionNotesEditionContent("");
+      setQuestionNote(null);
+      setQuestionNoteEditionContent("");
     }
     setIsDeleteModalOpen(false);
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(questionNotesEditionContent));
-  }, [questionNotesEditionContent]);
+    console.log(JSON.stringify(questionNoteEditionContent));
+  }, [questionNoteEditionContent]);
 
   return (
     <Container className={styles.pageContainer}>
@@ -158,22 +159,22 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
           </ul>
         )}
       </div>
-      <h2 className={styles.notesTitle}>
-        {t("question_show_notes_title", lang)} ✍️
+      <h2 className={styles.noteTitle}>
+        {t("question_show_note_title", lang)} ✍️
       </h2>
-      {!questionNotes && !notesEditMode && !notesCreationMode && (
-        <div className={styles.notesEmptyState}>
-          <p className={styles.notesEmptyStateText}>
-            {t("question_show_notes_empty_state", lang)}
+      {!questionNote && !noteEditMode && !noteCreationMode && (
+        <div className={styles.noteEmptyState}>
+          <p className={styles.noteEmptyStateText}>
+            {t("question_show_note_empty_state", lang)}
           </p>
           <Button onClick={handleCreateButtonClick}>
-            {t("question_show_notes_create_button", lang)}
+            {t("question_show_note_create_button", lang)}
           </Button>
         </div>
       )}
-      {questionNotes && !notesEditMode && (
-        <div className={styles.notesContent}>
-          {questionNotes.content
+      {questionNote && !noteEditMode && (
+        <div className={styles.noteContent}>
+          {questionNote.content
             .split("\n")
             .map((line, index) =>
               line !== "" ? (
@@ -184,42 +185,42 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
             )}
         </div>
       )}
-      {(notesEditMode || notesCreationMode) && (
+      {(noteEditMode || noteCreationMode) && (
         <textarea
-          className={styles.notesContentTextArea}
-          value={questionNotesEditionContent}
+          className={styles.noteContentTextArea}
+          value={questionNoteEditionContent}
           onChange={handleTextAreaChange}
-          placeholder={t("question_show_notes_placeholder", lang)}
+          placeholder={t("question_show_note_placeholder", lang)}
         />
       )}
-      <div className={styles.notesButtons}>
-        {questionNotes && !notesEditMode && (
+      <div className={styles.noteButtons}>
+        {questionNote && !noteEditMode && (
           <>
-            <Button onClick={() => setNotesEditMode(true)}>
-              {t("question_show_notes_edit_button", lang)}
+            <Button onClick={() => setNoteEditMode(true)}>
+              {t("question_show_note_edit_button", lang)}
             </Button>
             <Button variant="ghost" onClick={handleShowDeleteModal}>
-              {t("question_show_notes_delete_button", lang)}
+              {t("question_show_note_delete_button", lang)}
             </Button>
           </>
         )}
-        {notesEditMode && (
+        {noteEditMode && (
           <>
             <Button onClick={handleEditValidation}>
-              {t("question_show_notes_save_button", lang)}
+              {t("question_show_note_save_button", lang)}
             </Button>
             <Button variant="ghost" onClick={handleEditCancel}>
-              {t("question_show_notes_cancel_button", lang)}
+              {t("question_show_note_cancel_button", lang)}
             </Button>
           </>
         )}
-        {notesCreationMode && (
+        {noteCreationMode && (
           <>
             <Button onClick={handleCreateValidation}>
-              {t("question_show_notes_save_button", lang)}
+              {t("question_show_note_save_button", lang)}
             </Button>
             <Button variant="ghost" onClick={handleCreateCancel}>
-              {t("question_show_notes_cancel_button", lang)}
+              {t("question_show_note_cancel_button", lang)}
             </Button>
           </>
         )}
@@ -230,21 +231,21 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
         className={styles.deleteModal}
       >
         <p className={styles.deleteModalTitle}>
-          {t("question_show_notes_delete_modal_title", lang)}
+          {t("question_show_note_delete_modal_title", lang)}
         </p>
         <div className={styles.deleteModalButtons}>
           <Button
-            onClick={handleDeleteNotes}
+            onClick={handleDeleteNote}
             className={styles.deleteModalButton}
           >
-            {t("question_show_notes_delete_modal_delete_button", lang)}
+            {t("question_show_note_delete_modal_delete_button", lang)}
           </Button>
           <Button
             variant="ghost"
             onClick={handleCloseDeleteModal}
             className={styles.deleteModalButton}
           >
-            {t("question_show_notes_delete_modal_cancel_button", lang)}
+            {t("question_show_note_delete_modal_cancel_button", lang)}
           </Button>
         </div>
       </Modal>

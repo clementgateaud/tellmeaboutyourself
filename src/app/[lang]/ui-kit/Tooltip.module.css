@@ -1,0 +1,93 @@
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: flex;
+}
+
+/* Tooltip text */
+.tooltip .tooltipText {
+  visibility: hidden;
+  width: 100px;
+  background-color: var(--dark-color);
+  color: white;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip--top .tooltipText {
+  bottom: 150%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.tooltip--bottom .tooltipText {
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.tooltip--left .tooltipText {
+  right: 150%;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.tooltip--right .tooltipText {
+  left: 150%;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+/* Tooltip arrow */
+.tooltip .tooltipText::after {
+  content: "";
+  position: absolute;
+
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip--top .tooltipText::after {
+  border-color: var(--dark-color) transparent transparent transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+}
+
+.tooltip--bottom .tooltipText::after {
+  border-color: transparent transparent var(--dark-color) transparent;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+}
+
+.tooltip--left .tooltipText::after {
+  border-color: transparent transparent transparent var(--dark-color);
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+}
+
+.tooltip--right .tooltipText::after {
+  border-color: transparent var(--dark-color) transparent transparent;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}

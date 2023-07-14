@@ -10,11 +10,21 @@
 .questionContainer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 16px 20px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
   border-radius: 6px;
   margin-bottom: 16px;
   color: var(--dark-color);
+}
+
+.questionNoteIcon {
+  color: var(--accent-color);
+}
+
+.questionNoteIconTooltip {
+  margin-left: 8px;
+  flex-shrink: 0;
 }
 
 .tags {

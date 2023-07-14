@@ -2,7 +2,7 @@ import type { Database } from "@/database.types";
 import type {
   ValidLanguageType,
   QuestionType,
-  NotesType,
+  NoteType,
 } from "@/app/[lang]/types";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -25,9 +25,9 @@ const getQuestion = async (id: string): Promise<QuestionType> => {
   return question as QuestionType;
 };
 
-const getNotes = async (questionId: string): Promise<NotesType | null> => {
+const getNote = async (questionId: string): Promise<NoteType | null> => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: notes, error } = await supabase
+  const { data: note, error } = await supabase
     .from("notes")
     .select()
     .eq("question_id", questionId)
@@ -35,7 +35,7 @@ const getNotes = async (questionId: string): Promise<NotesType | null> => {
   if (error) {
     throw error;
   }
-  return notes as NotesType | null;
+  return note as NoteType | null;
 };
 
 const getUserSession = async () => {
@@ -63,7 +63,7 @@ const Page = async ({
   }
 
   const question = await getQuestion(questionId);
-  const notes = await getNotes(questionId);
+  const note = await getNote(questionId);
   const session = await getUserSession();
 
   if (!question) {
@@ -75,7 +75,7 @@ const Page = async ({
       <Header lang={lang} session={session} />
       <QuestionShow
         question={question}
-        notes={notes}
+        note={note}
         lang={lang}
         session={session}
       />
