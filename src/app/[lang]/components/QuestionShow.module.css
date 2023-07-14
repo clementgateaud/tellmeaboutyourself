@@ -20,9 +20,12 @@
   list-style-type: none;
 }
 
+.tipsListItem {
+  display: flex;
+}
+
 .tipsListItem:not(:last-child) {
   margin-bottom: 8px;
-  display: flex;
 }
 
 .tipsIcon {
