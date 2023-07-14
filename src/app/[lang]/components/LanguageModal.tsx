@@ -50,7 +50,7 @@ export const LanguageModal: FunctionComponent<LanguageModalProps> = ({
       onClose={handleOnClose}
       className={styles.modal}
     >
-      <p className={styles.modalTitle}>{t("language_modal_title", lang)}</p>
+      <h2 className={styles.modalTitle}>{t("language_modal_title", lang)}</h2>
       <Dropdown
         value={lang}
         onChange={(event) => {

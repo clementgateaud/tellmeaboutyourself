@@ -166,7 +166,7 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
           <p className={styles.notesEmptyStateText}>
             {t("question_show_notes_empty_state", lang)}
           </p>
-          <Button minor onClick={handleCreateButtonClick}>
+          <Button onClick={handleCreateButtonClick}>
             {t("question_show_notes_create_button", lang)}
           </Button>
         </div>
@@ -195,30 +195,30 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       <div className={styles.notesButtons}>
         {questionNotes && !notesEditMode && (
           <>
-            <Button minor onClick={() => setNotesEditMode(true)}>
+            <Button onClick={() => setNotesEditMode(true)}>
               {t("question_show_notes_edit_button", lang)}
             </Button>
-            <Button minor variant="ghost" onClick={handleShowDeleteModal}>
+            <Button variant="ghost" onClick={handleShowDeleteModal}>
               {t("question_show_notes_delete_button", lang)}
             </Button>
           </>
         )}
         {notesEditMode && (
           <>
-            <Button minor onClick={handleEditValidation}>
+            <Button onClick={handleEditValidation}>
               {t("question_show_notes_save_button", lang)}
             </Button>
-            <Button minor variant="ghost" onClick={handleEditCancel}>
+            <Button variant="ghost" onClick={handleEditCancel}>
               {t("question_show_notes_cancel_button", lang)}
             </Button>
           </>
         )}
         {notesCreationMode && (
           <>
-            <Button minor onClick={handleCreateValidation}>
+            <Button onClick={handleCreateValidation}>
               {t("question_show_notes_save_button", lang)}
             </Button>
-            <Button minor variant="ghost" onClick={handleCreateCancel}>
+            <Button variant="ghost" onClick={handleCreateCancel}>
               {t("question_show_notes_cancel_button", lang)}
             </Button>
           </>
@@ -234,14 +234,12 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
         </p>
         <div className={styles.deleteModalButtons}>
           <Button
-            minor
             onClick={handleDeleteNotes}
             className={styles.deleteModalButton}
           >
             {t("question_show_notes_delete_modal_delete_button", lang)}
           </Button>
           <Button
-            minor
             variant="ghost"
             onClick={handleCloseDeleteModal}
             className={styles.deleteModalButton}

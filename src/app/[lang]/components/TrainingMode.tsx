@@ -113,7 +113,6 @@ export const TrainingMode = ({ questions, lang }: TrainingModeProps) => {
       </div>
       <Button
         className={styles.nextQuestionButton}
-        minor
         variant={countdown > 0 ? "ghost" : "primary"}
         color="accent"
         onClick={handleQuestionChange}

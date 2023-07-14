@@ -79,7 +79,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       className={styles.modal}
     >
       {!session && (
-        <p className={styles.logInTitle}>{t("auth_modal_title", lang)}</p>
+        <h2 className={styles.logInTitle}>{t("auth_modal_title", lang)}</h2>
       )}
       {!session && !otpSent && (
         <form onSubmit={handleOnEmailSubmit}>
@@ -92,7 +92,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
             className={styles.emailInput}
             placeholder={t("email_placeholder", lang)}
           />
-          <Button minor type="submit" className={styles.emailSubmitButton}>
+          <Button type="submit" className={styles.emailSubmitButton}>
             {t("email_submit", lang)}
           </Button>
         </form>
@@ -110,7 +110,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
           {otpError && (
             <p className={styles.otpError}>{t("otp_error", lang)}</p>
           )}
-          <Button minor type="submit" className={styles.otpSubmitButton}>
+          <Button type="submit" className={styles.otpSubmitButton}>
             {t("otp_submit", lang)}
           </Button>
         </form>
@@ -120,11 +120,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
           <p className={styles.loggedInAs}>
             {t("logged_in_as", lang)} {session.user.email}
           </p>
-          <Button
-            minor
-            className={styles.signOutButton}
-            onClick={handleSignOut}
-          >
+          <Button className={styles.signOutButton} onClick={handleSignOut}>
             {t("sign_out", lang)}
           </Button>
         </>

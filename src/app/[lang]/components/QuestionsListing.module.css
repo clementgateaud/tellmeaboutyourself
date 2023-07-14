@@ -10,13 +10,11 @@
 .questionContainer {
   display: flex;
   align-items: center;
-  padding: 16px 24px;
+  padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
   border-radius: 6px;
   margin-bottom: 16px;
   color: var(--dark-color);
-  font-size: 14px;
-  line-height: 18px;
 }
 
 .tags {

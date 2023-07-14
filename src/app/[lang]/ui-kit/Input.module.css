@@ -7,17 +7,10 @@
 .main input {
   padding: 0.5rem;
   border-radius: 4px;
-  font-size: 14px;
-  line-height: 20px;
   outline-color: var(--dark-color);
   border: solid 1px var(--dark-color);
 }
 
 .main input:focus {
   outline-color: var(--accent-color);
-}
-
-.main label {
-  font-size: 14px;
-  line-height: 20px;
 }
