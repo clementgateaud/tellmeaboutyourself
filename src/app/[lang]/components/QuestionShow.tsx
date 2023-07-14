@@ -12,6 +12,7 @@ import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { t } from "@/app/[lang]/utils/translation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "@/app/[lang]/ui-kit/Button";
+import { useRouter } from "next/navigation";
 import { Modal } from "@/app/[lang]/ui-kit/Modal";
 import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { TiTick } from "react-icons/ti";
@@ -31,6 +32,7 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
   session,
 }) => {
   const supabase = createClientComponentClient();
+  const router = useRouter();
   const [questionNote, setQuestionNote] = useState<NoteType | null>(note);
   const [noteEditMode, setNoteEditMode] = useState(false);
   const [noteCreationMode, setNoteCreationMode] = useState(false);
@@ -93,8 +95,9 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       console.log(error);
     } else {
       setQuestionNote(data[0]);
+      setNoteEditMode(false);
+      router.refresh();
     }
-    setNoteEditMode(false);
   };
 
   const handleCreateValidation = async () => {
@@ -110,8 +113,9 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
       console.log(error);
     } else {
       setQuestionNote(data[0]);
+      setNoteCreationMode(false);
+      router.refresh();
     }
-    setNoteCreationMode(false);
   };
 
   const handleShowDeleteModal = () => {
@@ -132,13 +136,10 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
     } else {
       setQuestionNote(null);
       setQuestionNoteEditionContent("");
+      setIsDeleteModalOpen(false);
+      router.refresh();
     }
-    setIsDeleteModalOpen(false);
   };
-
-  useEffect(() => {
-    console.log(JSON.stringify(questionNoteEditionContent));
-  }, [questionNoteEditionContent]);
 
   return (
     <Container className={styles.pageContainer}>

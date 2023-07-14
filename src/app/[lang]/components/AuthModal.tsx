@@ -15,6 +15,7 @@ type AuthModalProps = {
   session: Session | null;
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  redirectAfterAuthHref?: string;
 };
 
 export const AuthModal: FunctionComponent<AuthModalProps> = ({
@@ -22,6 +23,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
   session,
   isModalOpen,
   setIsModalOpen,
+  redirectAfterAuthHref,
 }) => {
   const [otpSent, setOtpSent] = useState(false);
   const [emailToVerify, setEmailToVerify] = useState("");
@@ -71,7 +73,11 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
       setOtpError(true);
     } else {
       handleCloseModal();
-      router.refresh();
+      if (redirectAfterAuthHref) {
+        router.push(redirectAfterAuthHref);
+      } else {
+        router.refresh();
+      }
     }
   };
 
