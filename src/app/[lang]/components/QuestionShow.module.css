@@ -79,17 +79,16 @@
   border-radius: 8px;
   background-color: rgba(102, 75, 255, 0.075);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  padding: 20px;
+  padding: 20px 24px;
 }
 
 .notesEmptyStateText {
   margin-bottom: 20px;
   text-align: center;
-  text-wrap: balance;
 }
 
 @media screen and (min-width: 600px) {
   .notesEmptyState {
-    padding: 30px;
+    padding: 24px 30px;
   }
 }

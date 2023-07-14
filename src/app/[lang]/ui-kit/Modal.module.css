@@ -20,7 +20,7 @@
 .panel {
   z-index: 100;
   background-color: white;
-  padding: 2.5rem;
+  padding: 2rem 2.5rem;
   border-radius: 6px;
   margin: 1rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
