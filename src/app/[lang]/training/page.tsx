@@ -7,7 +7,7 @@ import { TrainingMode } from "@/app/[lang]/components/TrainingMode";
 import styles from "./page.module.css";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const getQuestions = async (): Promise<QuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -44,7 +44,7 @@ const Page = async ({
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
-    return notFound();
+    return redirect("/");
   }
 
   return (

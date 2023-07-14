@@ -9,7 +9,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { QuestionsListing } from "@/app/[lang]/components/QuestionsListing";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const getQuestions = async (): Promise<QuestionType[]> => {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -56,7 +56,7 @@ const Page = async ({
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
-    return notFound();
+    return redirect("/");
   }
 
   return (

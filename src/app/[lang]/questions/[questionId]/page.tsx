@@ -7,7 +7,7 @@ import type {
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "@/app/[lang]/components/Header";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { QuestionShow } from "@/app/[lang]/components/QuestionShow";
 
@@ -59,7 +59,7 @@ const Page = async ({
   };
 }) => {
   if (!isLanguageValid(lang)) {
-    return notFound();
+    return redirect("/");
   }
 
   const question = await getQuestion(questionId);
@@ -67,7 +67,7 @@ const Page = async ({
   const session = await getUserSession();
 
   if (!question) {
-    return notFound();
+    return redirect(`/${lang}/questions`);
   }
 
   return (

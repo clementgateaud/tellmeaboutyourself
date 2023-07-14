@@ -5,7 +5,7 @@ import { Header } from "@/app/[lang]/components/Header";
 import { t } from "@/app/[lang]/utils/translation";
 import { isLanguageValid } from "@/app/[lang]/utils";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import styles from "./page.module.css";
 
 const getUserSession = async () => {
@@ -30,7 +30,7 @@ const Page = async ({
   const session = await getUserSession();
 
   if (!isLanguageValid(lang)) {
-    return notFound();
+    return redirect("/");
   }
 
   return (

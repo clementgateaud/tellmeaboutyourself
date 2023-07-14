@@ -33,7 +33,6 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log(notes);
 
   const TAGS: { value: QuestionTagType; label: string }[] = [
     {
