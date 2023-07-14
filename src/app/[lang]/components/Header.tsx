@@ -74,7 +74,6 @@ export const Header = ({ lang, session }: HeaderProps) => {
         session={session}
         isModalOpen={isAuthModalOpen}
         setIsModalOpen={setIsAuthModalOpen}
-        redirectAfterAuthHref="/questions"
       />
       <LanguageModal
         lang={lang}
