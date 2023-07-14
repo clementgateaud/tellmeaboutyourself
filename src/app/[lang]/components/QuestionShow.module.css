@@ -2,3 +2,47 @@
   padding-top: 24px;
   padding-bottom: 24px;
 }
+
+.questionPrompt {
+  margin-bottom: 50px;
+}
+
+.tipsTitle,
+.notesTitle,
+.notesContent {
+  margin-bottom: 12px;
+}
+
+.notesContentTextArea {
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  height: 200px;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.notesTitle {
+  margin-top: 40px;
+}
+
+.notesButtons {
+  display: flex;
+}
+
+.notesButtons > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.deleteModalButtons {
+  display: flex;
+  margin-top: 20px;
+}
+
+.deleteModalButton:not(:last-child) {
+  margin-right: 8px;
+}

@@ -29,3 +29,11 @@ export type LocalQuestionType = Omit<RawQuestionType, "prompt" | "tips"> & {
   prompt: string;
   tips: string;
 };
+
+export type NotesType = {
+  id: number;
+  created_at: string;
+  content: string;
+  question_id: number;
+  user_id: string;
+};

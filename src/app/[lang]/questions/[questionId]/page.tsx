@@ -1,5 +1,9 @@
 import type { Database } from "@/database.types";
-import type { ValidLanguageType, RawQuestionType } from "@/app/[lang]/types";
+import type {
+  ValidLanguageType,
+  RawQuestionType,
+  NotesType,
+} from "@/app/[lang]/types";
 import { getLocalQuestion } from "@/app/[lang]/utils";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -20,6 +24,19 @@ const getQuestion = async (id: string): Promise<RawQuestionType> => {
     throw error;
   }
   return rawQuestion as RawQuestionType;
+};
+
+const getNotes = async (questionId: string): Promise<NotesType> => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const { data: notes, error } = await supabase
+    .from("notes")
+    .select()
+    .eq("question_id", questionId)
+    .maybeSingle();
+  if (error) {
+    throw error;
+  }
+  return notes as NotesType;
 };
 
 const getUserSession = async () => {
@@ -47,6 +64,7 @@ const Page = async ({
   }
 
   const rawQuestion = await getQuestion(questionId);
+  const notes = await getNotes(questionId);
 
   if (!rawQuestion) {
     return notFound();
@@ -58,7 +76,12 @@ const Page = async ({
   return (
     <>
       <Header lang={lang} session={session} />
-      <QuestionShow question={localQuestion} />
+      <QuestionShow
+        question={localQuestion}
+        notes={notes}
+        lang={lang}
+        session={session}
+      />
     </>
   );
 };
