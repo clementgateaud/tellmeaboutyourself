@@ -55,10 +55,11 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     });
     if (error) {
       console.log(error);
+    } else {
+      setOtpSent(true);
+      setEmailToVerify(email);
+      setIsEmailSending(false);
     }
-    setOtpSent(true);
-    setEmailToVerify(email);
-    setIsEmailSending(false);
   };
 
   const handleOnOtpSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
