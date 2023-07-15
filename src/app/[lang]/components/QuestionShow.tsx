@@ -1,6 +1,6 @@
 "use client";
 
-import type { FunctionComponent, ChangeEvent } from "react";
+import type { FunctionComponent } from "react";
 import type {
   QuestionType,
   NoteType,
@@ -8,14 +8,8 @@ import type {
 } from "@/app/[lang]/types";
 import { Note } from "@/app/[lang]/components/Note";
 import { Session } from "@supabase/supabase-js";
-import { useState, useEffect } from "react";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { t } from "@/app/[lang]/utils/translation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@/app/[lang]/ui-kit/Button";
-import { useRouter } from "next/navigation";
-import { Modal } from "@/app/[lang]/ui-kit/Modal";
-import { AuthModal } from "@/app/[lang]/components/AuthModal";
 import { TiTick } from "react-icons/ti";
 import styles from "./QuestionShow.module.css";
 
