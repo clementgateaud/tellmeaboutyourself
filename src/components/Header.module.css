@@ -21,10 +21,6 @@
   line-height: 14px;
 }
 
-.tellMeAboutYourselfWord {
-  color: var(--dark-color);
-}
-
 .navbar {
   display: flex;
   align-items: center;
@@ -60,17 +56,6 @@
 .trainingIcon {
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.tellMeAboutYourselfWord:hover {
-  color: var(--accent-color);
-}
-
-.accountIcon:hover,
-.listIcon:hover,
-.trainingIcon:hover,
-.languageIcon:hover {
-  color: var(--accent-color);
 }
 
 @media screen and (min-width: 600px) {

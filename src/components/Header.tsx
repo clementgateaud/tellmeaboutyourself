@@ -39,14 +39,8 @@ export const Header = ({ lang, session }: HeaderProps) => {
           priority
         />
         <div className={styles.tellMeAboutYourself}>
-          <p>
-            <span className={styles.tellMeAboutYourselfWord}>Tell</span>{" "}
-            <span className={styles.tellMeAboutYourselfWord}>me</span>
-          </p>
-          <p>
-            <span className={styles.tellMeAboutYourselfWord}>about</span>{" "}
-            <span className={styles.tellMeAboutYourselfWord}>yourself</span>
-          </p>
+          <p>Tell me</p>
+          <p>about yourself</p>
         </div>
       </Link>
       <div className={styles.navbar}>
