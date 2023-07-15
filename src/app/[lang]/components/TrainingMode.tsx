@@ -140,22 +140,13 @@ export const TrainingMode = ({
           {t("next_question", lang)}
         </Button>
       </div>
-      <div className={styles.noteToggleContainer}>
-        <p>{t("training_mode_note_toggle", lang)}</p>
-        <Toggle
-          checked={isNoteToggled}
-          onChange={() => setIsNoteToggled((prev) => !prev)}
-          className={styles.noteToggle}
-        />
-      </div>
-      {isNoteToggled && (
-        <Note
-          session={session}
-          question={question}
-          lang={lang}
-          className={styles.questionNote}
-        />
-      )}
+      <h2>{t("training_mode_note_title", lang)} ✍️</h2>
+      <Note
+        session={session}
+        question={question}
+        lang={lang}
+        className={styles.questionNote}
+      />
     </Container>
   );
 };

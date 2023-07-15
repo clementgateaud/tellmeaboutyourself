@@ -32,7 +32,6 @@ export const Note: FunctionComponent<NoteProps> = ({
   const supabase = createClientComponentClient();
 
   const getNote = async (questionId: number): Promise<NoteType> => {
-    console.log("getNote");
     setIsNoteLoading(true);
     const supabase = createClientComponentClient();
     const { data: note, error } = await supabase

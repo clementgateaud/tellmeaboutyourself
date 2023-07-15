@@ -10,7 +10,8 @@
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
   border-radius: 8px;
-  padding: 30px 30px;
+  padding: 50px 30px;
+  margin-bottom: 40px;
 }
 
 .prompt {
@@ -68,16 +69,6 @@
 
 .nextQuestionButton {
   margin-top: 24px;
-}
-
-.noteToggleContainer {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.noteToggle {
-  margin-left: 8px;
 }
 
 .questionNote {
