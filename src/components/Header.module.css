@@ -10,15 +10,18 @@
 
 .logoLink {
   text-decoration: none;
-  font-weight: 600;
   display: flex;
   align-items: center;
 }
 
-.tellMeAboutYourself p {
-  margin-left: 8px;
+.logoLink p {
+  font-weight: 600;
   font-size: 16px;
   line-height: 16px;
+}
+
+.logoLink > *:not(:last-child) {
+  margin-right: 8px;
 }
 
 .navbar {

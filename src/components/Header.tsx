@@ -38,7 +38,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           height="40"
           priority
         />
-        <div className={styles.tellMeAboutYourself}>
+        <div>
           <p>Tell me</p>
           <p>about yourself</p>
         </div>
