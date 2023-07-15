@@ -40,5 +40,7 @@
   "question_show_note_delete_modal_cancel_button": "No, cancel",
   "question_show_note_create_button": "Take notes",
   "question_show_note_empty_state": "Take notes on this question to keep track of your ideas and arguments",
-  "questions_listing_note_tooltip": "You have notes on this question"
+  "questions_listing_note_tooltip": "You have notes on this question",
+  "training_mode_note_toggle": "Notes",
+  "question_show_note_too_short_error": "Note can not be empty!"
 }

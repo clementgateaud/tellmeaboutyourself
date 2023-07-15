@@ -50,9 +50,11 @@ const Page = async ({
   return (
     <>
       <Header lang={lang} session={session} />
-      <div className={styles.main}>
-        <TrainingMode questions={shuffleArray(questions)} lang={lang} />
-      </div>
+      <TrainingMode
+        questions={shuffleArray(questions)}
+        lang={lang}
+        session={session}
+      />
     </>
   );
 };

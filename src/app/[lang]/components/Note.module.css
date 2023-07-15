@@ -1,0 +1,65 @@
+.main {
+  width: 100%;
+}
+
+.noteContent {
+  margin-bottom: 16px;
+}
+
+.noteContentTextArea {
+  box-sizing: border-box;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  height: 200px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.tooShortError {
+  color: red;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.noteContentTextAreaContainer {
+  margin-bottom: 8px;
+}
+
+.noteButtons {
+  display: flex;
+}
+
+.noteButtons > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.deleteModalButtons {
+  display: flex;
+  margin-top: 20px;
+}
+
+.deleteModalButton:not(:last-child) {
+  margin-right: 8px;
+}
+
+.noteEmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgba(102, 75, 255, 0.075);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+  padding: 20px 24px;
+}
+
+.noteEmptyStateText {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .noteEmptyState {
+    padding: 24px 30px;
+  }
+}

@@ -17,7 +17,7 @@ import { Tooltip } from "@/app/[lang]/ui-kit/Tooltip";
 import { t } from "@/app/[lang]/utils/translation";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { BiSolidTimer } from "react-icons/bi";
-import { FaStickyNote } from "react-icons/fa";
+import { PiNoteDuotone } from "react-icons/pi";
 import styles from "./QuestionsListing.module.css";
 
 type QuestionsListingProps = {
@@ -115,7 +115,7 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
                   position="left"
                   className={styles.questionNoteIconTooltip}
                 >
-                  <FaStickyNote className={styles.questionNoteIcon} />
+                  <PiNoteDuotone className={styles.questionNoteIcon} />
                 </Tooltip>
               )}
             </div>
