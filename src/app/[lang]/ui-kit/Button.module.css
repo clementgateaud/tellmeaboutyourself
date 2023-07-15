@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .main--dark {
@@ -21,10 +22,6 @@
 
 .main--ghost {
   color: var(--dark);
-}
-
-.main--loading {
-  position: relative;
 }
 
 .main--loading.main--dark.main--primary {

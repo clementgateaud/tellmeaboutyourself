@@ -3,6 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* make headers modals appear on top of relative elements in page content */
+  position: relative;
+  z-index: 10;
 }
 
 .logoLink {
