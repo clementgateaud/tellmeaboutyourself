@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { DEFAULT_LANGUAGE } from "@/app/[lang]/constants";
-import { isLanguageValid } from "@/app/[lang]/utils";
+import { DEFAULT_LANGUAGE } from "@/constants";
+import { isLanguageValid } from "@/utils";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/database.types";
 

@@ -1,0 +1,80 @@
+.main {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* make headers modals appear on top of relative elements in page content */
+  position: relative;
+  z-index: 10;
+}
+
+.logoLink {
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.tellMeAboutYourself {
+  margin-left: 8px;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.tellMeAboutYourselfWord {
+  color: var(--dark-color);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.navbarLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-color);
+}
+
+.navBarButton {
+  text-decoration: none;
+  display: flex;
+  color: var(--dark-color);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.accountIcon,
+.languageIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.trainingIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.tellMeAboutYourselfWord:hover {
+  color: var(--accent-color);
+}
+
+.accountIcon:hover,
+.listIcon:hover,
+.trainingIcon:hover,
+.languageIcon:hover {
+  color: var(--accent-color);
+}
+
+@media screen and (min-width: 600px) {
+  .navbar > *:not(:last-child) {
+    margin-right: 2rem;
+  }
+}

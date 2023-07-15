@@ -1,0 +1,9 @@
+.main,
+.main:active,
+.main:focus {
+  color: var(--dark-color);
+}
+
+.main:hover {
+  color: var(--accent-color);
+}
