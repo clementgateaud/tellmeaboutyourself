@@ -12,7 +12,6 @@ import { HiArrowRight } from "react-icons/hi";
 import { Button } from "@/app/[lang]/ui-kit/Button";
 import { t } from "@/app/[lang]/utils/translation";
 import styles from "./TrainingMode.module.css";
-import { Toggle } from "@/app/[lang]/ui-kit/Toggle";
 import { Note } from "@/app/[lang]/components/Note";
 
 type TrainingModeProps = {
@@ -30,7 +29,6 @@ export const TrainingMode = ({
   const [questionChanging, setQuestionChanging] = useState(false);
   const [countdown, setCountdown] = useState(question.duration * 1000);
   const [isPaused, setIsPaused] = useState(false);
-  const [isNoteToggled, setIsNoteToggled] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
