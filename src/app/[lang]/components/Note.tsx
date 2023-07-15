@@ -71,6 +71,8 @@ export const Note: FunctionComponent<NoteProps> = ({
         );
       }
     }
+    setNoteEditMode(false);
+    setNoteCreationMode(false);
   }, [session, serverFetchedNote, question.id]);
 
   useEffect(() => {
