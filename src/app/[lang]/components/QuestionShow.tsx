@@ -6,6 +6,8 @@ import type {
   NoteType,
   ValidLanguageType,
 } from "@/app/[lang]/types";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Note } from "@/app/[lang]/components/Note";
 import { Session } from "@supabase/supabase-js";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
@@ -26,6 +28,12 @@ export const QuestionShow: FunctionComponent<QuestionShowProps> = ({
   note,
   session,
 }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   return (
     <Container className={styles.pageContainer}>
       <h1 className={styles.questionPrompt}>{question[`prompt_${lang}`]}</h1>

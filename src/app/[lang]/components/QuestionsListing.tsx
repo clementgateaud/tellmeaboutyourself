@@ -7,7 +7,7 @@ import type {
   ValidLanguageType,
   NoteType,
 } from "@/app/[lang]/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -33,6 +33,10 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
 
   const TAGS: { value: QuestionTagType; label: string }[] = [
     {

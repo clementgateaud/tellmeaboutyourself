@@ -3,6 +3,7 @@
 import type { QuestionType, ValidLanguageType } from "@/app/[lang]/types";
 import type { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import classnames from "classnames";
 import { Container } from "@/app/[lang]/ui-kit/WidthContainer";
 import { MdPlayArrow, MdPause } from "react-icons/md";
@@ -30,6 +31,11 @@ export const TrainingMode = ({
   const [countdown, setCountdown] = useState(question.duration * 1000);
   const [isPaused, setIsPaused] = useState(false);
   const [isNoteToggled, setIsNoteToggled] = useState(false);
+
+  const router = useRouter();
+  useEffect(() => {
+    router.refresh();
+  }, []);
 
   // Go to next question (or start over if at the end)
   const handleQuestionChange = () => {
