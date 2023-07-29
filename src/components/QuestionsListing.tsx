@@ -72,34 +72,34 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
     <Container className={styles.main}>
       <h1 className={styles.listingTitle}>{t("listing_title", lang)}</h1>
       <div className={styles.tags}>
-        <NextLink href={`/${lang}/questions`}>
-          <Tag
-            label={t("tag_all", lang)}
-            className={styles.tagAll}
-            active={activeTag === "all"}
-            onClick={() => {
-              setActiveTag("all");
-              setFilteredQuestions(questions);
-            }}
-          />
-        </NextLink>
+        <Tag
+          label={t("tag_all", lang)}
+          className={styles.tagAll}
+          active={activeTag === "all"}
+          onClick={() => {
+            setActiveTag("all");
+            setFilteredQuestions(questions);
+            router.push(`/${lang}/questions`, undefined, {
+              shallow: true,
+            });
+          }}
+        />
         {TAGS.map((tag) => (
-          <NextLink
-            href={`/${lang}/questions?tag=${tag.value}`}
+          <Tag
             key={tag.value}
             className={styles.tag}
-          >
-            <Tag
-              label={tag.label}
-              active={activeTag === tag.value}
-              onClick={() => {
-                setActiveTag(tag.value);
-                setFilteredQuestions(
-                  questions.filter((question) => question.tag === tag.value)
-                );
-              }}
-            />
-          </NextLink>
+            label={tag.label}
+            active={activeTag === tag.value}
+            onClick={() => {
+              setActiveTag(tag.value);
+              setFilteredQuestions(
+                questions.filter((question) => question.tag === tag.value)
+              );
+              router.push(`/${lang}/questions?tag=${tag.value}`, undefined, {
+                shallow: true,
+              });
+            }}
+          />
         ))}
       </div>
       <div className={styles.questions}>
