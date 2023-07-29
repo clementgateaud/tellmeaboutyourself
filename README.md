@@ -1,4 +1,5 @@
 Front-end: NextJS / Typescript / CSS Modules
+
 Back-end & Auth: Supabase
 
 ## Try it out
