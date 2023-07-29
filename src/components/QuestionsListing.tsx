@@ -15,9 +15,10 @@ import { Tag } from "@/ui-kit/Tag";
 import { Tooltip } from "@/ui-kit/Tooltip";
 import { t } from "@/utils/translation";
 import { Button } from "@/ui-kit/Button";
-import { BiSolidTimer } from "react-icons/bi";
+import { BiTimer } from "react-icons/bi";
 import { PiNoteDuotone } from "react-icons/pi";
 import styles from "./QuestionsListing.module.css";
+import { Banner } from "@/ui-kit/Banner";
 
 type QuestionsListingProps = {
   questions: QuestionType[];
@@ -119,16 +120,15 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
           </Link>
         ))}
       </div>
-      <div className={styles.trainingModeContainer}>
+      <Banner bannerText={t("questions_listing_banner_training_mode", lang)}>
         <Button
-          color="accent"
-          icon={<BiSolidTimer />}
+          icon={<BiTimer className={styles.bannerButtonIcon} />}
           iconPosition="right"
           onClick={() => router.push(`/${lang}/training`)}
         >
           {t("training_mode", lang)}
         </Button>
-      </div>
+      </Banner>
     </Container>
   );
 };

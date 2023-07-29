@@ -75,7 +75,7 @@ export const AuthModal: FunctionComponent<AuthModalProps> = ({
     } else {
       handleCloseModal();
       if (redirectAfterAuthHref) {
-        router.push(redirectAfterAuthHref);
+        window.location.href = redirectAfterAuthHref;
       } else {
         router.reload();
       }

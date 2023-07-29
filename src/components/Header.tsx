@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { ValidLanguageType } from "@/types";
 import { AuthModal } from "@/components/AuthModal";
 import { FaList } from "react-icons/fa";
-import { BiSolidTimer } from "react-icons/bi";
+import { BiTimer } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdLanguage } from "react-icons/md";
 import { LanguageModal } from "@/components/LanguageModal";
@@ -48,7 +48,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
           <FaList className={styles.listIcon} />
         </Link>
         <Link href={`/${lang}/training`} className={styles.navbarLink}>
-          <BiSolidTimer className={styles.trainingIcon} />
+          <BiTimer className={styles.trainingIcon} />
         </Link>
         <button
           className={styles.navBarButton}

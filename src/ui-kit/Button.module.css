@@ -20,8 +20,20 @@
   color: white;
 }
 
+.main--primary .icon {
+  color: white;
+}
+
 .main--ghost {
-  color: var(--dark);
+  color: var(--dark-color);
+}
+
+.main--ghost.main--dark .icon {
+  color: var(--dark-color);
+}
+
+.main--ghost.main--accent .icon {
+  color: var(--accent-color);
 }
 
 .main--loading.main--dark.main--primary {

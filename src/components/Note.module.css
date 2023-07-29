@@ -43,21 +43,6 @@
   margin-right: 8px;
 }
 
-.noteEmptyState {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 8px;
-  background-color: rgba(102, 75, 255, 0.075);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  padding: 20px 24px;
-}
-
-.noteEmptyStateText {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 @media screen and (min-width: 600px) {
   .noteEmptyState {
     padding: 24px 30px;

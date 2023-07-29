@@ -1,13 +1,14 @@
 import type { FunctionComponent } from "react";
 import type { NoteType, QuestionType, ValidLanguageType } from "@/types";
 import type { Session } from "@supabase/supabase-js";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import { useEffect, useState, ChangeEvent } from "react";
 import { Button } from "@/ui-kit/Button";
 import { Modal } from "@/ui-kit/Modal";
 import { AuthModal } from "@/components/AuthModal";
 import { t } from "@/utils/translation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Banner } from "@/ui-kit/Banner";
 import styles from "./Note.module.css";
 
 type NoteProps = {
@@ -167,16 +168,13 @@ export const Note: FunctionComponent<NoteProps> = ({
   }
 
   return (
-    <div className={classNamesMaker(className, styles.main)}>
+    <div className={classNames(className, styles.main)}>
       {!questionNote && !noteEditMode && !noteCreationMode && (
-        <div className={styles.noteEmptyState}>
-          <p className={styles.noteEmptyStateText}>
-            {t("question_show_note_empty_state", lang)}
-          </p>
+        <Banner bannerText={t("question_show_note_empty_state", lang)}>
           <Button onClick={handleCreateButtonClick}>
             {t("question_show_note_create_button", lang)}
           </Button>
-        </div>
+        </Banner>
       )}
       {questionNote && !noteEditMode && (
         <div className={styles.noteContent}>

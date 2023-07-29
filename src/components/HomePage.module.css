@@ -1,0 +1,114 @@
+.main {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.heroBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0 60px 0;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.heroTitleWord {
+  font-size: 36px;
+  line-height: 48px;
+  transition: color 1s;
+}
+
+.heroTitleWordColored {
+  color: var(--accent-color);
+}
+
+.heroSubTitle {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 26px;
+  text-wrap: balance;
+  max-width: 700px;
+}
+
+.callToActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.callToActions > *:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cardTitleIcon {
+  flex-shrink: 0;
+  margin-right: 8px;
+  color: var(--dark-color);
+}
+
+.cardTitleIconList {
+  height: 1rem;
+  width: 1rem;
+}
+
+.cardTitleIconTips,
+.cardTitleIconNote,
+.cardTitleIconTimer {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@media screen and (min-width: 600px) {
+  .callToActions {
+    flex-direction: row;
+  }
+
+  .callToActions > *:not(:last-child) {
+    margin-right: 12px;
+    margin-bottom: 0;
+  }
+
+  .heroBanner {
+    padding: 40px 0 80px 0;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .heroTitle {
+    flex-direction: row;
+  }
+
+  .heroTitleWord:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}

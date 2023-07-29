@@ -1,4 +1,4 @@
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import type { InputHTMLAttributes } from "react";
 import styles from "./Input.module.css";
 
@@ -17,7 +17,7 @@ export const Input = ({
   ...props
 }: InputProps) => {
   return (
-    <div className={classNamesMaker(styles.main, className)}>
+    <div className={classNames(styles.main, className)}>
       {label && <label htmlFor={id}>{label}</label>}
       <input onChange={onChange} className={className} id={id} {...props} />
     </div>

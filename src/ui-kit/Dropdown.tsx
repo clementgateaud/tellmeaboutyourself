@@ -1,5 +1,5 @@
 import type { FunctionComponent, ChangeEvent } from "react";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import styles from "./Dropdown.module.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
@@ -23,7 +23,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     <div className={styles.dropdownContainer}>
       <select
         value={value}
-        className={classNamesMaker(className, styles.dropdown)}
+        className={classNames(className, styles.dropdown)}
         onChange={onChange}
       >
         {options.map((option) => (

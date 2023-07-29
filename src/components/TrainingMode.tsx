@@ -124,7 +124,6 @@ export const TrainingMode = ({
         <Button
           className={styles.nextQuestionButton}
           variant={countdown > 0 ? "ghost" : "primary"}
-          color="accent"
           onClick={handleQuestionChange}
           icon={<HiArrowRight />}
           iconPosition="right"

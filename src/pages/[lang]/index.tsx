@@ -2,11 +2,9 @@ import type { NextPage, GetServerSideProps } from "next";
 import type { Session } from "@supabase/supabase-js";
 import type { ValidLanguageType } from "@/types";
 import { Header } from "@/components/Header";
-import { t } from "@/utils/translation";
 import { isLanguageValid } from "@/utils";
-import { Container } from "@/ui-kit/Container";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
-import styles from "./index.module.css";
+import { HomePage as HomePageComponent } from "@/components/HomePage";
 
 type HomePageServerSideProps = {
   session: Session | null;
@@ -18,9 +16,7 @@ const HomePage: NextPage<HomePageServerSideProps> = ({ session, lang }) => {
   return (
     <>
       <Header lang={lang} session={session} />
-      <Container className={styles.main}>
-        <h1>{t("home_page_title", lang)} 🏗️</h1>
-      </Container>
+      <HomePageComponent lang={lang} />
     </>
   );
 };

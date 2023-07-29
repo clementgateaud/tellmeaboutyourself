@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { MdClose } from "react-icons/md";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import styles from "./Modal.module.css";
 
 type ModalProps = {
@@ -16,7 +16,7 @@ export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
   return (
     <div className={styles.main}>
       <div className={styles.backdrop} onClick={onClose}></div>
-      <div className={classNamesMaker(styles.panel, className)}>
+      <div className={classNames(styles.panel, className)}>
         <MdClose onClick={onClose} className={styles.xMarkIcon} />
         {children}
       </div>

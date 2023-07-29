@@ -1,5 +1,5 @@
 import type { FunctionComponent, ReactNode } from "react";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import styles from "./Tooltip.module.css";
 
 type TooltipProps = {
@@ -17,7 +17,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 }) => {
   return (
     <div
-      className={classNamesMaker(className, styles.tooltip, {
+      className={classNames(className, styles.tooltip, {
         [styles["tooltip--top"]]: position === "top",
         [styles["tooltip--bottom"]]: position === "bottom",
         [styles["tooltip--left"]]: position === "left",

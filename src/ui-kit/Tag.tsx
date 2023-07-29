@@ -1,5 +1,5 @@
 import type { FunctionComponent } from "react";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import styles from "./Tag.module.css";
 
 type TagProps = {
@@ -21,7 +21,7 @@ export const Tag: FunctionComponent<TagProps> = ({
   return (
     <div
       onClick={onClick}
-      className={classNamesMaker(className, styles.main, {
+      className={classNames(className, styles.main, {
         [styles["main--active"]]: active,
         [styles["main--dark"]]: color === "dark",
         [styles["main--accent"]]: color === "accent",

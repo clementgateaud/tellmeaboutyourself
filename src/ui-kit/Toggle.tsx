@@ -1,5 +1,5 @@
 import type { FunctionComponent } from "react";
-import classNamesMaker from "classnames";
+import classNames from "classnames";
 import styles from "./Toggle.module.css";
 
 type ToggleProps = {
@@ -14,7 +14,7 @@ export const Toggle: FunctionComponent<ToggleProps> = ({
   className,
 }) => {
   return (
-    <label className={classNamesMaker(className, styles.switch)}>
+    <label className={classNames(className, styles.switch)}>
       <input type="checkbox" checked={checked} onChange={onChange} />
       <span className={styles.slider}></span>
     </label>

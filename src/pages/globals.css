@@ -16,6 +16,12 @@
 }
 
 p,
+span,
+input,
+select,
+textarea,
+label,
+button,
 h1,
 h2,
 h3,
@@ -33,17 +39,23 @@ textarea,
 label,
 button {
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
 }
 
 h1 {
   font-size: 24px;
-  line-height: 30px;
+  line-height: 32px;
   font-weight: 700;
 }
 
 h2 {
   font-size: 20px;
-  line-height: 24px;
+  line-height: 26px;
   font-weight: 700;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
 }
