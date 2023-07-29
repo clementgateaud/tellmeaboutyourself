@@ -10,7 +10,6 @@ import type {
 import { useState } from "react";
 import { Container } from "@/ui-kit/Container";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { Tag } from "@/ui-kit/Tag";
 import { Tooltip } from "@/ui-kit/Tooltip";
 import { t } from "@/utils/translation";
@@ -19,6 +18,7 @@ import { BiTimer } from "react-icons/bi";
 import { PiNoteDuotone } from "react-icons/pi";
 import styles from "./QuestionsListing.module.css";
 import { Banner } from "@/ui-kit/Banner";
+import { NextLink } from "@/ui-kit/NextLink";
 
 type QuestionsListingProps = {
   questions: QuestionType[];
@@ -72,37 +72,40 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
     <Container className={styles.main}>
       <h1 className={styles.listingTitle}>{t("listing_title", lang)}</h1>
       <div className={styles.tags}>
-        <Tag
-          label={t("tag_all", lang)}
-          className={styles.tagAll}
-          active={activeTag === "all"}
-          onClick={() => {
-            setActiveTag("all");
-            setFilteredQuestions(questions);
-            router.push(`/${lang}/questions`, undefined, { shallow: true });
-          }}
-        />
-        {TAGS.map((tag) => (
+        <NextLink href={`/${lang}/questions`}>
           <Tag
-            key={tag.value}
-            label={tag.label}
-            active={activeTag === tag.value}
+            label={t("tag_all", lang)}
+            className={styles.tagAll}
+            active={activeTag === "all"}
             onClick={() => {
-              setActiveTag(tag.value);
-              setFilteredQuestions(
-                questions.filter((question) => question.tag === tag.value)
-              );
-              router.push(`/${lang}/questions?tag=${tag.value}`);
+              setActiveTag("all");
+              setFilteredQuestions(questions);
             }}
-            className={styles.tag}
           />
+        </NextLink>
+        {TAGS.map((tag) => (
+          <NextLink
+            href={`/${lang}/questions?tag=${tag.value}`}
+            key={tag.value}
+            className={styles.tag}
+          >
+            <Tag
+              label={tag.label}
+              active={activeTag === tag.value}
+              onClick={() => {
+                setActiveTag(tag.value);
+                setFilteredQuestions(
+                  questions.filter((question) => question.tag === tag.value)
+                );
+              }}
+            />
+          </NextLink>
         ))}
       </div>
       <div className={styles.questions}>
         {filteredQuestions.map((question) => (
-          <Link
+          <NextLink
             href={`/${lang}/questions/${question.id}`}
-            className={styles.questionLink}
             key={question.id}
           >
             <div className={styles.questionContainer}>
@@ -117,17 +120,18 @@ export const QuestionsListing: FunctionComponent<QuestionsListingProps> = ({
                 </Tooltip>
               )}
             </div>
-          </Link>
+          </NextLink>
         ))}
       </div>
       <Banner bannerText={t("questions_listing_banner_training_mode", lang)}>
-        <Button
-          icon={<BiTimer className={styles.bannerButtonIcon} />}
-          iconPosition="right"
-          onClick={() => router.push(`/${lang}/training`)}
-        >
-          {t("training_mode", lang)}
-        </Button>
+        <NextLink href={`/${lang}/training`}>
+          <Button
+            icon={<BiTimer className={styles.bannerButtonIcon} />}
+            iconPosition="right"
+          >
+            {t("training_mode", lang)}
+          </Button>
+        </NextLink>
       </Banner>
     </Container>
   );

@@ -3,10 +3,6 @@
   padding-bottom: 40px;
 }
 
-.questionLink {
-  text-decoration: none;
-}
-
 .questionContainer {
   display: flex;
   align-items: center;
@@ -38,7 +34,6 @@
 
 .tagAll,
 .tag {
-  cursor: pointer;
   margin-bottom: 8px;
 }
 

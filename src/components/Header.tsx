@@ -2,7 +2,7 @@
 
 import type { Session } from "@supabase/supabase-js";
 import styles from "./Header.module.css";
-import Link from "next/link";
+import { NextLink } from "@/ui-kit/NextLink";
 import Image from "next/image";
 import { Container } from "@/ui-kit/Container";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export const Header = ({ lang, session }: HeaderProps) => {
 
   return (
     <Container className={styles.main}>
-      <Link href={`/${lang}`} className={styles.logoLink}>
+      <NextLink href={`/${lang}`} className={styles.logoLink}>
         <Image
           src="/assets/transparent-logo-tmay-cropped-min.png"
           alt="Logo"
@@ -42,14 +42,14 @@ export const Header = ({ lang, session }: HeaderProps) => {
           <p>Tell me</p>
           <p>about yourself</p>
         </div>
-      </Link>
+      </NextLink>
       <div className={styles.navbar}>
-        <Link href={`/${lang}/questions`} className={styles.navbarLink}>
+        <NextLink href={`/${lang}/questions`} className={styles.navbarLink}>
           <FaList className={styles.listIcon} />
-        </Link>
-        <Link href={`/${lang}/training`} className={styles.navbarLink}>
+        </NextLink>
+        <NextLink href={`/${lang}/training`} className={styles.navbarLink}>
           <BiTimer className={styles.trainingIcon} />
-        </Link>
+        </NextLink>
         <button
           className={styles.navBarButton}
           onClick={() => setIsAuthModalOpen(true)}

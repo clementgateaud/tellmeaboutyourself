@@ -11,6 +11,7 @@ import { PiNoteDuotone } from "react-icons/pi";
 import { useRouter } from "next/router";
 import styles from "./HomePage.module.css";
 import { Button } from "@/ui-kit/Button";
+import { NextLink } from "@/ui-kit/NextLink";
 
 type HomePageProps = {
   lang: ValidLanguageType;
@@ -61,15 +62,12 @@ export const HomePage: FunctionComponent<HomePageProps> = ({ lang }) => {
         </h1>
         <p className={styles.heroSubTitle}>{t("home_page_sub_title", lang)}</p>
         <div className={styles.callToActions}>
-          <Button onClick={() => router.push(`/${lang}/questions`)}>
-            {t("home_page_cta_1", lang)}
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => router.push(`/${lang}/training`)}
-          >
-            {t("home_page_cta_2", lang)}
-          </Button>
+          <NextLink href={`/${lang}/questions`}>
+            <Button>{t("home_page_cta_1", lang)}</Button>
+          </NextLink>
+          <NextLink href={`/${lang}/training`}>
+            <Button variant="ghost">{t("home_page_cta_2", lang)}</Button>
+          </NextLink>
         </div>
       </div>
       <div className={styles.cards}>
