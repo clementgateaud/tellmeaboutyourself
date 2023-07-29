@@ -8,7 +8,6 @@ import { FaList } from "react-icons/fa";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { BiTimer } from "react-icons/bi";
 import { PiNoteDuotone } from "react-icons/pi";
-import { useRouter } from "next/router";
 import styles from "./HomePage.module.css";
 import { Button } from "@/ui-kit/Button";
 import { NextLink } from "@/ui-kit/NextLink";
@@ -20,7 +19,6 @@ type HomePageProps = {
 export const HomePage: FunctionComponent<HomePageProps> = ({ lang }) => {
   type TitleWordColored = 1 | 2 | 3;
   const [titleWordColored, setTitleWordColored] = useState<TitleWordColored>(1);
-  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
