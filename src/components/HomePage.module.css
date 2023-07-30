@@ -20,7 +20,7 @@
 .heroTitleWord {
   font-size: 36px;
   line-height: 48px;
-  transition: color 1s;
+  transition: color 0.5s;
 }
 
 .heroTitleWordColored {
