@@ -20,8 +20,6 @@ export default function MyApp({
       initialSession={pageProps.initialSession}
     >
       <Head>
-        <title>Tell me about yourself</title>
-        <meta name="description" content="Get ready for your next interview" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"

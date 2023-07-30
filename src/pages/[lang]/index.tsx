@@ -2,6 +2,8 @@ import type { NextPage, GetServerSideProps } from "next";
 import type { Session } from "@supabase/supabase-js";
 import type { ValidLanguageType } from "@/types";
 import { Header } from "@/components/Header";
+import Head from "next/head";
+import { t } from "@/utils/translation";
 import { isLanguageValid } from "@/utils";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { HomePage as HomePageComponent } from "@/components/HomePage";
@@ -15,6 +17,10 @@ type HomePageServerSideProps = {
 const HomePage: NextPage<HomePageServerSideProps> = ({ session, lang }) => {
   return (
     <>
+      <Head>
+        <title>{t("meta_title", lang)}</title>
+        <meta name="description" content={t("meta_description", lang)} />
+      </Head>
       <Header lang={lang} session={session} />
       <HomePageComponent lang={lang} />
     </>

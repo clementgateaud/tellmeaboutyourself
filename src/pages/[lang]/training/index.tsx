@@ -1,6 +1,8 @@
 import type { NextPage, GetServerSideProps } from "next";
 import type { Session } from "@supabase/supabase-js";
 import type { ValidLanguageType, QuestionType } from "@/types";
+import Head from "next/head";
+import { t } from "@/utils/translation";
 import { Header } from "@/components/Header";
 import { TrainingMode } from "@/components/TrainingMode";
 import { isLanguageValid, shuffleArray } from "@/utils";
@@ -22,6 +24,10 @@ const TrainingPage: NextPage<TrainingPageServerSideProps> = ({
 }) => {
   return (
     <>
+      <Head>
+        <title>{t("meta_title", lang)}</title>
+        <meta name="description" content={t("meta_description", lang)} />
+      </Head>
       <Header lang={lang} session={session} />
       <TrainingMode questions={questions} lang={lang} session={session} />
     </>

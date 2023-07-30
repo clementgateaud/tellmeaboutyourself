@@ -1,6 +1,8 @@
 import type { NextPage, GetServerSideProps } from "next";
 import type { Session } from "@supabase/supabase-js";
 import type { ValidLanguageType, QuestionType, NoteType } from "@/types";
+import Head from "next/head";
+import { t } from "@/utils/translation";
 import { Header } from "@/components/Header";
 import { QuestionsListing } from "@/components/QuestionsListing";
 import { isLanguageValid } from "@/utils";
@@ -25,6 +27,10 @@ const QuestionsPage: NextPage<QuestionsPageServerSideProps> = ({
 }) => {
   return (
     <>
+      <Head>
+        <title>{t("meta_title", lang)}</title>
+        <meta name="description" content={t("meta_description", lang)} />
+      </Head>
       <Header lang={lang} session={session} />
       <QuestionsListing questions={questions} lang={lang} notes={notes} />
     </>
